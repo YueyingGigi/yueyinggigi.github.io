@@ -30,3 +30,6 @@ data/
 node_modules/
 *.log
 LEEME-Gigi.md
+
+# herramienta local de vista móvil
+movil.html

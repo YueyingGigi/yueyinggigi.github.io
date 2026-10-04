@@ -45,6 +45,20 @@
   #estado div{font-size:14px;padding:3px 0}
   .ok::before{content:"✓ ";color:#2f7d4f;font-weight:700}
   .no::before{content:"✗ ";color:var(--rojo-sello-texto);font-weight:700}
+
+  /* ───── móvil: 390 px ───── */
+  @media (max-width:600px){
+    body{padding:28px 16px 60px;font-size:16px}
+    h1{font-size:27px}
+    .big{font-size:23px}
+    .mid{font-size:18px}
+    .muestra.fraunces[style]{font-size:36px !important}
+    .chip{width:calc(50% - 5px);height:54px}
+    .btn{font-size:18px;padding:11px 20px}
+  }
+  /* nada se sale de la pantalla */
+  html,body{overflow-x:hidden}
+  .muestra{overflow-wrap:anywhere}
 </style>
 </head>
 <body>
