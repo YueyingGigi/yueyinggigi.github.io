@@ -161,31 +161,19 @@
   width: 19%; height:auto;
 }
 
-/* ── 5. Nombre de la serie ── */
-.caja__serie{
-  position:absolute;
-  font-family: var(--fuente-texto);
-  font-size: clamp(6px, .64vw, 8.6px);
-  font-weight: 600;
-  letter-spacing: .17em;
-  text-transform: uppercase;
-  color: var(--tinta);
-  opacity: .72;
-  white-space: nowrap;
-}
-
 /* ═══════════════════════════════════════════════════════════
    COLOCACIÓN DE LA TAPA — Gigi eligió la A (2026-10-04)
    ═══════════════════════════════════════════════════════════ */
 
 /* Elegida: la que propone DESIGN.md.
    precinto cruzando el centro · etiqueta encima y a la izquierda
-   sello arriba a la derecha · serie abajo · icono abajo a la derecha */
+   sello arriba a la derecha · icono abajo a la derecha.
+   La línea "SERIE GIGI · EDICIÓN ESPAÑA" se quitó el 2026-10-04:
+   no aportaba información y recargaba la tapa. */
 [data-tapa="a"] .caja__precinto{ top: 46%; }
 [data-tapa="a"] .caja__etiqueta{ left: 8%;  bottom: 58%; text-align:left; }
 [data-tapa="a"] .caja__sello   { right: 7%; top: 7%; transform: rotate(-4deg); }
-[data-tapa="a"] .caja__serie   { left: 8%;  bottom: 5%; }
-[data-tapa="a"] .caja__icono   { right: 9%; bottom: 13%; }
+[data-tapa="a"] .caja__icono   { left:50%; bottom: 11%; width: 30%; transform: translateX(-50%); }
 
 /* ═══════════ Móvil (DESIGN § 9) ═══════════ */
 
@@ -208,7 +196,6 @@
   /* en pantalla pequeña la caja es más grande en proporción,
      así que los textos de la tapa pueden crecer */
   .caja__etiqueta{ font-size: 12px; }
-  .caja__serie{ font-size: 6.5px; }
 
   /* nada de giros raros ni saltos en el móvil: se lee mejor recto */
   .cajas > li .caja{ --giro: 0deg; margin-top: 0; }
