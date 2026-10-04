@@ -1,0 +1,232 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Gigi · Yueying Guan — Comunicación de marca y creación de contenido</title>
+<meta name="description" content="Portfolio de Yueying Guan (Gigi): comunicación transmedia, creación de contenido y marketing entre China y España.">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/desk.css">
+</head>
+<body>
+
+<a class="saltar" href="#mesa" data-t="saltar">Saltar al contenido</a>
+
+<!-- ════════ Dibujos reutilizables: el sello y los cinco iconos ════════
+     Las letras y los iconos los dibuja el código, nunca una IA:
+     así no aparecen faltas de ortografía ni letras raras. -->
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <!-- textura de tinta: desplaza un poco los bordes, como un sello de verdad -->
+    <filter id="f-tinta" x="-12%" y="-12%" width="124%" height="124%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="4" seed="11" result="ruido"/>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="1.7"
+                         xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    <symbol id="s-sello" viewBox="0 0 100 100">
+      <g filter="url(#f-tinta)">
+        <rect x="3" y="3" width="94" height="94" rx="5" fill="#D9412B"/>
+        <text x="50" y="45"  font-family="Fraunces, Georgia, serif" font-weight="900"
+              font-size="34" fill="#fff" text-anchor="middle"
+              textLength="72" lengthAdjust="spacing">YUE</text>
+        <text x="50" y="86" font-family="Fraunces, Georgia, serif" font-weight="900"
+              font-size="34" fill="#fff" text-anchor="middle"
+              textLength="72" lengthAdjust="spacing">YING</text>
+      </g>
+    </symbol>
+
+    <!-- Sobre mí · un marco de fotos -->
+    <symbol id="i-marco" viewBox="0 0 24 24">
+      <rect x="3.5" y="2.5" width="17" height="19" rx="1.2"/>
+      <rect x="6.6" y="5.6" width="10.8" height="12.8" rx=".6"/>
+    </symbol>
+    <!-- Experiencia · un sello chino -->
+    <symbol id="i-sello" viewBox="0 0 24 24">
+      <path d="M10.2 2.6h3.6v5.2h-3.6z"/>
+      <rect x="6.4" y="7.8" width="11.2" height="3.4" rx=".9"/>
+      <rect x="3.6" y="13.6" width="16.8" height="7.8" rx="1.2"/>
+      <path d="M7.2 16.4h9.6M7.2 18.8h6.4"/>
+    </symbol>
+    <!-- Mis trabajos · un móvil grabando -->
+    <symbol id="i-movil" viewBox="0 0 24 24">
+      <rect x="6.8" y="1.8" width="10.4" height="20.4" rx="2.4"/>
+      <path d="M10.4 4.6h3.2"/>
+      <circle cx="12" cy="12.4" r="2.6"/>
+    </symbol>
+    <!-- Mi vida en España · el traje de fallera -->
+    <symbol id="i-fallera" viewBox="0 0 24 24">
+      <path d="M9.6 3.2h4.8l-.7 4.4H10.3z"/>
+      <path d="M9.3 7.6h5.4c2.6 3.4 4.2 8.2 4.8 13.2H4.5c.6-5 2.2-9.8 4.8-13.2z"/>
+      <path d="M8.2 16.4h7.6"/>
+    </symbol>
+    <!-- Colabora conmigo · una caja de regalo -->
+    <symbol id="i-regalo" viewBox="0 0 24 24">
+      <rect x="3.2" y="8.6" width="17.6" height="12.6" rx="1.2"/>
+      <path d="M3.2 13h17.6M12 8.6v12.6"/>
+      <path d="M12 8.6C11.1 5.6 8.9 4.4 7.6 5.6c-1.2 1.2.3 3 4.4 3zM12 8.6c.9-3 3.1-4.2 4.4-3 1.2 1.2-.3 3-4.4 3z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ════════════════════ Barra superior ════════════════════ -->
+<header class="barra">
+  <a class="barra__marca" href="#mesa">
+    <svg class="sello" viewBox="0 0 100 100" role="img" data-t-attr="aria-label:marca.sello.alt">
+      <use href="#s-sello"></use>
+    </svg>
+    <span class="barra__nombre" data-t="marca.nombre">Yueying Guan</span>
+  </a>
+
+  <nav aria-label="Apartados">
+    <ul class="barra__menu">
+      <li><a href="#sobre-mi"    data-t="nav.sobre-mi">Sobre mí</a></li>
+      <li><a href="#experiencia" data-t="nav.experiencia">Experiencia</a></li>
+      <li><a href="#trabajos"    data-t="nav.trabajos">Mis trabajos</a></li>
+      <li><a href="#vida"        data-t="nav.vida">Mi vida en España</a></li>
+      <li><a href="#colabora"    data-t="nav.colabora">Colabora conmigo</a></li>
+    </ul>
+  </nav>
+
+  <div class="barra__derecha">
+    <div class="idiomas" role="group" data-t-attr="aria-label:nav.idioma">
+      <button type="button" data-idioma="es" data-t="nav.idioma.es" aria-pressed="true">ES</button>
+      <span class="sep" aria-hidden="true">|</span>
+      <button type="button" data-idioma="en" data-t="nav.idioma.en" aria-pressed="false">EN</button>
+      <span class="sep" aria-hidden="true">|</span>
+      <button type="button" data-idioma="zh" data-t="nav.idioma.zh" aria-pressed="false">中文</button>
+    </div>
+
+    <a class="boton" data-cv href="assets/cv/CV-Gigi-ES.pdf" download data-t="cv.descargar">Descargar CV</a>
+
+    <button class="barra__hamburguesa" type="button" aria-expanded="false"
+            aria-controls="panel-movil" data-t-attr="aria-label:nav.menu.abrir">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <path d="M3 7h18M3 12h18M3 17h18"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- Panel que se abre en el móvil -->
+<div class="panel" id="panel-movil" data-abierto="false">
+  <ul>
+    <li><a href="#sobre-mi"    data-t="nav.sobre-mi">Sobre mí</a></li>
+    <li><a href="#experiencia" data-t="nav.experiencia">Experiencia</a></li>
+    <li><a href="#trabajos"    data-t="nav.trabajos">Mis trabajos</a></li>
+    <li><a href="#vida"        data-t="nav.vida">Mi vida en España</a></li>
+    <li><a href="#colabora"    data-t="nav.colabora">Colabora conmigo</a></li>
+  </ul>
+  <a class="boton" data-cv href="assets/cv/CV-Gigi-ES.pdf" download data-t="cv.descargar">Descargar CV</a>
+</div>
+
+<!-- ════════════════════ La mesa ════════════════════ -->
+<main class="mesa" id="mesa" data-tapa="a">
+
+  <div class="entrada">
+    <h1 class="entrada__saludo" data-t="entrada.saludo">Hola, soy Gigi.</h1>
+    <p class="entrada__linea" data-t="entrada.linea">Creadora de contenido y comunicación de marca, entre China y España.</p>
+    <p class="entrada__pista">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M5 12h12M13 7l5 5-5 5"/>
+      </svg>
+      <span data-t="entrada.pista">Elige una caja y ábrela.</span>
+    </p>
+  </div>
+
+  <ul class="cajas">
+
+    <li>
+      <button class="caja" type="button" id="sobre-mi" data-seccion="sobre-mi"
+              style="--color:var(--lavanda); --color-hondo:var(--lavanda-hondo)"
+              data-t-attr="aria-label:caja.abrir">
+        <span class="caja__sombra" aria-hidden="true"></span>
+        <img class="caja__foto" src="assets/boxes/caja-cerrada.webp" width="777" height="800" alt="" loading="eager">
+        <span class="caja__tapa" aria-hidden="true">
+          <span class="caja__precinto"></span>
+          <span class="caja__etiqueta" data-t="nav.sobre-mi">Sobre mí</span>
+          <svg class="caja__icono" viewBox="0 0 24 24"><use href="#i-marco"></use></svg>
+          <svg class="sello caja__sello" viewBox="0 0 100 100"><use href="#s-sello"></use></svg>
+          <span class="caja__serie" data-t="caja.serie">SERIE GIGI · EDICIÓN ESPAÑA</span>
+        </span>
+      </button>
+    </li>
+
+    <li>
+      <button class="caja" type="button" id="experiencia" data-seccion="experiencia"
+              style="--color:var(--rojo-caja); --color-hondo:var(--rojo-caja-hondo)"
+              data-t-attr="aria-label:caja.abrir">
+        <span class="caja__sombra" aria-hidden="true"></span>
+        <img class="caja__foto" src="assets/boxes/caja-cerrada.webp" width="777" height="800" alt="" loading="eager">
+        <span class="caja__tapa" aria-hidden="true">
+          <span class="caja__precinto"></span>
+          <span class="caja__etiqueta" data-t="nav.experiencia">Experiencia</span>
+          <svg class="caja__icono" viewBox="0 0 24 24"><use href="#i-sello"></use></svg>
+          <svg class="sello caja__sello" viewBox="0 0 100 100"><use href="#s-sello"></use></svg>
+          <span class="caja__serie" data-t="caja.serie">SERIE GIGI · EDICIÓN ESPAÑA</span>
+        </span>
+      </button>
+    </li>
+
+    <li>
+      <button class="caja" type="button" id="trabajos" data-seccion="trabajos"
+              style="--color:var(--amarillo); --color-hondo:var(--amarillo-hondo)"
+              data-t-attr="aria-label:caja.abrir">
+        <span class="caja__sombra" aria-hidden="true"></span>
+        <img class="caja__foto" src="assets/boxes/caja-cerrada.webp" width="777" height="800" alt="" loading="eager">
+        <span class="caja__tapa" aria-hidden="true">
+          <span class="caja__precinto"></span>
+          <span class="caja__etiqueta" data-t="nav.trabajos">Mis trabajos</span>
+          <svg class="caja__icono" viewBox="0 0 24 24"><use href="#i-movil"></use></svg>
+          <svg class="sello caja__sello" viewBox="0 0 100 100"><use href="#s-sello"></use></svg>
+          <span class="caja__serie" data-t="caja.serie">SERIE GIGI · EDICIÓN ESPAÑA</span>
+        </span>
+      </button>
+    </li>
+
+    <li>
+      <button class="caja" type="button" id="vida" data-seccion="vida"
+              style="--color:var(--azul-mar); --color-hondo:var(--azul-mar-hondo)"
+              data-t-attr="aria-label:caja.abrir">
+        <span class="caja__sombra" aria-hidden="true"></span>
+        <img class="caja__foto" src="assets/boxes/caja-cerrada.webp" width="777" height="800" alt="" loading="eager">
+        <span class="caja__tapa" aria-hidden="true">
+          <span class="caja__precinto"></span>
+          <span class="caja__etiqueta" data-t="nav.vida">Mi vida en España</span>
+          <svg class="caja__icono" viewBox="0 0 24 24"><use href="#i-fallera"></use></svg>
+          <svg class="sello caja__sello" viewBox="0 0 100 100"><use href="#s-sello"></use></svg>
+          <span class="caja__serie" data-t="caja.serie">SERIE GIGI · EDICIÓN ESPAÑA</span>
+        </span>
+      </button>
+    </li>
+
+    <li>
+      <button class="caja" type="button" id="colabora" data-seccion="colabora"
+              style="--color:var(--rosa); --color-hondo:var(--rosa-hondo)"
+              data-t-attr="aria-label:caja.abrir">
+        <span class="caja__sombra" aria-hidden="true"></span>
+        <img class="caja__foto" src="assets/boxes/caja-cerrada.webp" width="777" height="800" alt="" loading="eager">
+        <span class="caja__tapa" aria-hidden="true">
+          <span class="caja__precinto"></span>
+          <span class="caja__etiqueta" data-t="nav.colabora">Colabora conmigo</span>
+          <svg class="caja__icono" viewBox="0 0 24 24"><use href="#i-regalo"></use></svg>
+          <svg class="sello caja__sello" viewBox="0 0 100 100"><use href="#s-sello"></use></svg>
+          <span class="caja__serie" data-t="caja.serie">SERIE GIGI · EDICIÓN ESPAÑA</span>
+        </span>
+      </button>
+    </li>
+
+  </ul>
+</main>
+
+<script type="module" src="js/main.js"></script>
+</body>
+</html>

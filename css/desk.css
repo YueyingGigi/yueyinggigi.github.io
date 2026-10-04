@@ -1,0 +1,245 @@
+/* ─────────────────────────────────────────────────────────────
+   desk.css — la mesa vista desde arriba y las cinco cajas.
+   Todo lo que va encima de la tapa (precinto, etiqueta, icono,
+   sello y nombre de la serie) lo dibuja el código, no la imagen:
+   así la etiqueta cambia con el idioma y las letras nunca salen mal.
+   ───────────────────────────────────────────────────────────── */
+
+.mesa{
+  position: relative; z-index:1;
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: var(--e7) var(--e6) var(--e7);
+  min-height: calc(100vh - var(--alto-barra));
+  display: flex; flex-direction: column; justify-content: center;
+}
+
+/* ═══════════ Texto de entrada ═══════════ */
+
+.entrada{ max-width: 44ch; margin-bottom: var(--e7); }
+
+.entrada__saludo{
+  font-family: var(--fuente-titulo);
+  font-weight: 900;
+  font-size: clamp(30px, 4.4vw, 46px);
+  line-height: 1.08;
+  letter-spacing: -.01em;
+  margin-bottom: var(--e3);
+}
+.entrada__linea{
+  font-size: clamp(17px, 1.5vw, 20px);
+  line-height: 1.5;
+  color: var(--tinta-suave);
+  max-width: 38ch;
+}
+:lang(zh) .entrada__saludo{ letter-spacing:0; }
+
+.entrada__pista{
+  font-family: var(--fuente-mano);
+  font-size: 23px;
+  color: var(--tinta-tenue);
+  margin-top: var(--e6);
+  display: flex; align-items: center; gap: var(--e2);
+}
+:lang(zh) .entrada__pista{ font-family:"LXGW WenKai", var(--fuente-mano); font-size:19px; }
+.entrada__pista svg{ flex:0 0 auto; opacity:.7; }
+
+/* ═══════════ La fila de cajas ═══════════ */
+
+.cajas{
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: clamp(14px, 2.2vw, 30px);
+  align-items: start;
+  list-style: none; margin:0; padding:0;
+}
+.cajas > li{ display:flex; }
+
+/* Pequeñas diferencias de giro y altura: que parezca una foto
+   de objetos puestos a mano, no una cuadrícula. */
+.cajas > li:nth-child(1) .caja{ --giro:-1.2deg; margin-top: 10px; }
+.cajas > li:nth-child(2) .caja{ --giro:  .8deg; margin-top: 0; }
+.cajas > li:nth-child(3) .caja{ --giro:-0.4deg; margin-top: 16px; }
+.cajas > li:nth-child(4) .caja{ --giro: 1.4deg; margin-top: 4px; }
+.cajas > li:nth-child(5) .caja{ --giro:-0.9deg; margin-top: 12px; }
+
+/* ═══════════ Una caja ═══════════ */
+
+.caja{
+  position: relative;
+  width: 100%;
+  aspect-ratio: 777 / 800;     /* la proporción real de la foto */
+  padding: 0; border: 0; background: none;
+  cursor: pointer;
+  transform: rotate(var(--giro, 0deg));
+  transition: transform var(--normal) var(--curva);
+  -webkit-tap-highlight-color: transparent;
+}
+.caja:hover,
+.caja:focus-visible{ transform: rotate(var(--giro,0deg)) translateY(-6px); }
+.caja:active{ transform: rotate(var(--giro,0deg)) translateY(-2px); }
+
+/* La sombra va en su propia capa para poder crecer sola al pasar por encima */
+.caja__sombra{
+  position:absolute; inset: 16% 6% -1% 10%;
+  border-radius: 50%;
+  background: radial-gradient(ellipse at 50% 50%,
+              rgba(30,30,30,.30) 0%, rgba(30,30,30,.16) 48%, rgba(30,30,30,0) 72%);
+  filter: blur(14px);
+  opacity: .55;
+  transition: opacity var(--normal) var(--curva), transform var(--normal) var(--curva);
+  z-index: 0;
+}
+.caja:hover .caja__sombra,
+.caja:focus-visible .caja__sombra{ opacity:.75; transform: translate(3px, 8px) scale(1.03); }
+
+.caja__foto{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit: contain; z-index:1;
+}
+
+/* La tapa: la zona donde se colocan los cinco elementos.
+   Se mete un poco hacia dentro porque en la foto se ve un filo
+   de lateral arriba y abajo. */
+.caja__tapa{
+  position:absolute; z-index:2;
+  left: 2.5%; right: 2.5%; top: 6%; bottom: 10%;
+  display:block;
+}
+
+/* ── 1. Precinto: la cinta que hay que romper ── */
+.caja__precinto{
+  position:absolute; left:-2.6%; right:-2.6%;
+  height: 8.4%;
+  background: var(--color);
+  opacity: .78;
+  box-shadow: 0 1px 2px rgba(30,30,30,.10);
+}
+/* textura de cinta de papel: rayitas muy flojas */
+.caja__precinto::after{
+  content:""; position:absolute; inset:0;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.14) 0 1px, transparent 1px 7px),
+    linear-gradient(180deg, rgba(255,255,255,.30), rgba(30,30,30,.06));
+}
+
+/* ── 2. Etiqueta: la pegatina con el nombre del apartado ── */
+.caja__etiqueta{
+  position:absolute;
+  background: var(--color);
+  color: var(--tinta);
+  font-family: var(--fuente-texto);
+  font-weight: 700;
+  font-size: clamp(9px, .92vw, 13px);
+  line-height: 1.25;
+  letter-spacing: .005em;
+  padding: .5em .72em;
+  border-radius: 4px;
+  box-shadow: 1px 2px 4px rgba(30,30,30,.13);
+  max-width: 78%;
+  text-align: center;
+  text-wrap: balance;
+}
+:lang(zh) .caja__etiqueta{ font-family:"Noto Sans SC", var(--fuente-texto); }
+
+/* ── 3. Icono: muy flojo, como una marca de agua ── */
+.caja__icono{
+  position:absolute;
+  width: 26%; height:auto;
+  color: var(--color-hondo, var(--color));
+  opacity: .26;
+  stroke-width: 1.5;
+  fill: none;
+  stroke: currentColor;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+/* ── 4. Sello del nombre ── */
+.caja__sello{
+  position:absolute;
+  width: 19%; height:auto;
+}
+
+/* ── 5. Nombre de la serie ── */
+.caja__serie{
+  position:absolute;
+  font-family: var(--fuente-texto);
+  font-size: clamp(5px, .56vw, 7.5px);
+  font-weight: 500;
+  letter-spacing: .2em;
+  text-transform: uppercase;
+  color: var(--tinta);
+  opacity: .5;
+  white-space: nowrap;
+}
+
+/* ═══════════════════════════════════════════════════════════
+   TRES COLOCACIONES DE LA TAPA — Gigi elige una (DESIGN § 3.1)
+   Se cambia con ?tapa=a | b | c
+   ═══════════════════════════════════════════════════════════ */
+
+/* ── A · la que propone DESIGN.md ──
+   precinto cruzando el centro · etiqueta encima y a la izquierda
+   sello arriba a la derecha · serie abajo · icono abajo a la derecha */
+[data-tapa="a"] .caja__precinto{ top: 46%; }
+[data-tapa="a"] .caja__etiqueta{ left: 8%;  bottom: 58%; text-align:left; }
+[data-tapa="a"] .caja__sello   { right: 7%; top: 7%; transform: rotate(-4deg); }
+[data-tapa="a"] .caja__serie   { left: 8%;  bottom: 5%; }
+[data-tapa="a"] .caja__icono   { right: 9%; bottom: 13%; }
+
+/* ── B · simétrica ──
+   etiqueta centrada sobre el precinto · sello abajo a la izquierda
+   icono arriba a la derecha · serie abajo centrada */
+[data-tapa="b"] .caja__precinto{ top: 52%; }
+[data-tapa="b"] .caja__etiqueta{ left:50%; top:50%; transform: translate(-50%,-50%); }
+[data-tapa="b"] .caja__sello   { left: 8%;  bottom: 15%; transform: rotate(-4deg); }
+[data-tapa="b"] .caja__serie   { left:50%;  bottom: 3%; transform: translateX(-50%); }
+[data-tapa="b"] .caja__icono   { right: 9%; top: 9%; }
+
+/* ── C · sobria ──
+   icono grande y casi invisible en el centro, como marca de agua
+   precinto más abajo · etiqueta justo encima · sello abajo a la derecha
+   serie arriba */
+[data-tapa="c"] .caja__precinto{ top: 74%; }
+[data-tapa="c"] .caja__etiqueta{ left:50%; top: 50%; transform: translate(-50%,-50%); }
+[data-tapa="c"] .caja__sello   { right: 7%; top: 6%; transform: rotate(-4deg); }
+[data-tapa="c"] .caja__serie   { left:50%;  bottom: 2%; transform: translateX(-50%); }
+[data-tapa="c"] .caja__icono   { left:10%;  top: 9%;  width: 20%; opacity:.24; }
+
+/* ═══════════ Móvil (DESIGN § 9) ═══════════ */
+
+@media (max-width: 767px){
+  .mesa{ padding: var(--e6) var(--margen-movil) var(--e8); }
+  .entrada{ margin-bottom: var(--e6); }
+  .entrada__pista{ margin-top: var(--e5); font-size:21px; }
+
+  .cajas{
+    grid-template-columns: repeat(2, 1fr);
+    gap: 18px 16px;
+  }
+  /* la quinta caja, centrada debajo */
+  .cajas > li:nth-child(5){
+    grid-column: 1 / -1;
+    justify-content: center;
+  }
+  .cajas > li:nth-child(5) .caja{ width: calc(50% - 8px); }
+
+  /* en pantalla pequeña la caja es más grande en proporción,
+     así que los textos de la tapa pueden crecer */
+  .caja__etiqueta{ font-size: 12px; }
+  .caja__serie{ font-size: 6.5px; }
+
+  /* nada de giros raros ni saltos en el móvil: se lee mejor recto */
+  .cajas > li .caja{ --giro: 0deg; margin-top: 0; }
+}
+
+@media (max-width: 400px){
+  .caja__etiqueta{ font-size: 11px; }
+}
+
+/* Menos movimiento: las cajas no se levantan, solo se marca el borde */
+@media (prefers-reduced-motion: reduce){
+  .caja:hover, .caja:focus-visible{ transform: rotate(var(--giro,0deg)); }
+  .caja:hover .caja__sombra{ transform:none; }
+}

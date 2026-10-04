@@ -1,0 +1,82 @@
+/* ─────────────────────────────────────────────────────────────
+   tokens.css — las variables de todo el sitio.
+   Si hay que cambiar un color, un tamaño o una duración,
+   se cambia AQUÍ y afecta a todas las páginas.
+   Valores según docs/DESIGN.md § 10.
+   ───────────────────────────────────────────────────────────── */
+
+:root{
+  /* ── Colores base ── */
+  --papel:        #F7F5F2;   /* blanco papel: el fondo / la mesa */
+  --papel-hondo:  #F1EEE9;   /* un punto más oscuro, para separar zonas */
+  --tinta:        #1E1E1E;   /* negro tinta: todo el texto */
+  --tinta-suave:  #5B5650;   /* texto secundario */
+  --tinta-tenue:  #8C857C;   /* etiquetas, pies de foto */
+  --gris-calido:  #E9E6E1;   /* ventanas, tarjetas, separadores */
+
+  /* ── Color de marca ── */
+  --rojo-sello:       #D9412B;  /* botones, el sello del nombre */
+  --rojo-sello-texto: #B8321F;  /* texto pequeño en rojo (5,5:1 sobre papel) */
+
+  /* ── Un color por caja ── */
+  --lavanda:   #C9B8E3;   /* Sobre mí */
+  --rojo-caja: #D9412B;   /* Experiencia */
+  --amarillo:  #F8E08E;   /* Mis trabajos */
+  --azul-mar:  #4A9DB8;   /* Mi vida en España */
+  --rosa:      #F6C1CC;   /* Colabora conmigo */
+
+  /* Versión oscura de cada color, solo para el iconito de la tapa:
+     en amarillo o lavanda claros no se vería nada sobre el papel. */
+  --lavanda-hondo:   #6F56A0;
+  --rojo-caja-hondo: #9E2E1C;
+  --amarillo-hondo:  #A8801A;
+  --azul-mar-hondo:  #2C6376;
+  --rosa-hondo:      #BC6C80;
+
+  /* Versión clara de cada color, para fondos con texto negro encima.
+     Mezclado con el papel hasta ~15 %: así el rojo también cumple contraste. */
+  --lavanda-claro:   color-mix(in srgb, var(--lavanda)   30%, var(--papel));
+  --rojo-caja-claro: color-mix(in srgb, var(--rojo-caja) 15%, var(--papel));
+  --amarillo-claro:  color-mix(in srgb, var(--amarillo)  40%, var(--papel));
+  --azul-mar-claro:  color-mix(in srgb, var(--azul-mar)  22%, var(--papel));
+  --rosa-claro:      color-mix(in srgb, var(--rosa)      35%, var(--papel));
+
+  /* ── Tipografía ── */
+  --fuente-titulo: Fraunces, "Noto Serif SC", Georgia, serif;
+  --fuente-texto:  "DM Sans", "Noto Sans SC", system-ui, -apple-system, sans-serif;
+  --fuente-mano:   Caveat, "LXGW WenKai", cursive;
+
+  --texto-base: 17px;
+  --interlinea: 1.6;
+
+  /* ── Espacio ── */
+  --e1: 4px;   --e2: 8px;   --e3: 12px;  --e4: 16px;
+  --e5: 24px;  --e6: 32px;  --e7: 48px;  --e8: 64px;  --e9: 96px;
+  --margen-movil: 16px;     /* el aire a los lados en el móvil */
+
+  /* ── Esquinas (DESIGN § 10: ventana 14, tarjeta 10, botón pastilla) ── */
+  --radio-ventana: 14px;
+  --radio-tarjeta: 10px;
+  --radio-boton:   999px;
+
+  /* ── Sombras: la luz viene de arriba a la izquierda ── */
+  --sombra-suave:  0 2px 6px rgba(30,30,30,.05), 0 8px 20px rgba(30,30,30,.05);
+  --sombra-caja:   6px 10px 18px rgba(30,30,30,.10), 2px 3px 6px rgba(30,30,30,.06);
+  --sombra-alta:  10px 18px 30px rgba(30,30,30,.13), 3px 5px 10px rgba(30,30,30,.07);
+
+  /* ── Movimiento (DESIGN § 10) ── */
+  --rapido:   150ms;
+  --normal:   250ms;
+  --abrecaja: 1000ms;        /* tope del desembalaje entero */
+  --curva:    cubic-bezier(.22,.61,.36,1);   /* ease-out */
+  --rebote:   cubic-bezier(.34,1.56,.64,1);  /* con un pequeño rebote */
+
+  /* ── Medidas de la página ── */
+  --ancho-max:  1240px;
+  --alto-barra: 64px;
+}
+
+/* Si la persona pide menos movimiento, las animaciones duran casi nada. */
+@media (prefers-reduced-motion: reduce){
+  :root{ --rapido:1ms; --normal:1ms; --abrecaja:1ms; }
+}

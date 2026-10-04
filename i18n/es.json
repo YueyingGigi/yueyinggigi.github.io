@@ -1,0 +1,34 @@
+{
+  "_nota": "Textos de interfaz en español. El contenido de cada apartado va en content/*.json (etapa 3).",
+
+  "html.lang": "es",
+  "doc.titulo": "Gigi · Yueying Guan — Comunicación de marca y creación de contenido",
+  "doc.descripcion": "Portfolio de Yueying Guan (Gigi): comunicación transmedia, creación de contenido y marketing entre China y España.",
+
+  "saltar": "Saltar al contenido",
+  "marca.nombre": "Yueying Guan",
+  "marca.sello.alt": "Sello con el nombre Yueying",
+
+  "nav.sobre-mi": "Sobre mí",
+  "nav.experiencia": "Experiencia",
+  "nav.trabajos": "Mis trabajos",
+  "nav.vida": "Mi vida en España",
+  "nav.colabora": "Colabora conmigo",
+
+  "nav.menu.abrir": "Abrir el menú",
+  "nav.menu.cerrar": "Cerrar el menú",
+  "nav.idioma": "Idioma",
+  "nav.idioma.es": "ES",
+  "nav.idioma.en": "EN",
+  "nav.idioma.zh": "中文",
+
+  "cv.descargar": "Descargar CV",
+  "cv.archivo": "assets/cv/CV-Gigi-ES.pdf",
+
+  "entrada.saludo": "Hola, soy Gigi.",
+  "entrada.linea": "Creadora de contenido y comunicación de marca, entre China y España.",
+  "entrada.pista": "Elige una caja y ábrela.",
+
+  "caja.abrir": "Abrir: {seccion}",
+  "caja.serie": "SERIE GIGI · EDICIÓN ESPAÑA"
+}
