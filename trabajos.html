@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Mis trabajos · Gigi — Yueying Guan</title>
+<meta name="description" content="">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+
+<link rel="stylesheet" href="css/tokens.css">
+<link rel="stylesheet" href="css/base.css">
+<link rel="stylesheet" href="css/page.css">
+</head>
+<body data-pagina="trabajos">
+
+<a class="saltar" href="#contenido" data-t="saltar">Saltar al contenido</a>
+
+<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+  <defs>
+    <!-- textura de tinta: desplaza un poco los bordes, como un sello de verdad -->
+    <filter id="f-tinta" x="-12%" y="-12%" width="124%" height="124%">
+      <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="4" seed="11" result="ruido"/>
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="1.0"
+                         xChannelSelector="R" yChannelSelector="G"/>
+    </filter>
+
+    <!-- Las dos líneas acaban igual de anchas, pero cada una con su
+         tamaño: YING tiene cuatro letras, así que va más pequeña y no
+         se le aprietan. Sin esto, "ING" se junta y no se lee. -->
+    <symbol id="s-sello" viewBox="0 0 100 100">
+      <g filter="url(#f-tinta)">
+        <rect x="3" y="3" width="94" height="94" rx="5" fill="#D9412B"/>
+        <text x="50" y="45" font-family="Fraunces, Georgia, serif" font-weight="900"
+              font-size="33" fill="#fff" text-anchor="middle"
+              textLength="70" lengthAdjust="spacing">YUE</text>
+        <text x="50" y="84" font-family="Fraunces, Georgia, serif" font-weight="900"
+              font-size="27" fill="#fff" text-anchor="middle"
+              textLength="70" lengthAdjust="spacing">YING</text>
+      </g>
+    </symbol>
+
+    <!-- Sobre mí · un marco de fotos -->
+    <symbol id="i-marco" viewBox="0 0 24 24">
+      <rect x="3.5" y="2.5" width="17" height="19" rx="1.2"/>
+      <rect x="6.6" y="5.6" width="10.8" height="12.8" rx=".6"/>
+    </symbol>
+    <!-- Experiencia · un sello chino -->
+    <symbol id="i-sello" viewBox="0 0 24 24">
+      <path d="M10.2 2.6h3.6v5.2h-3.6z"/>
+      <rect x="6.4" y="7.8" width="11.2" height="3.4" rx=".9"/>
+      <rect x="3.6" y="13.6" width="16.8" height="7.8" rx="1.2"/>
+      <path d="M7.2 16.4h9.6M7.2 18.8h6.4"/>
+    </symbol>
+    <!-- Mis trabajos · un móvil grabando -->
+    <symbol id="i-movil" viewBox="0 0 24 24">
+      <rect x="6.8" y="1.8" width="10.4" height="20.4" rx="2.4"/>
+      <path d="M10.4 4.6h3.2"/>
+      <circle cx="12" cy="12.4" r="2.6"/>
+    </symbol>
+    <!-- Mi vida en España · el traje de fallera -->
+    <symbol id="i-fallera" viewBox="0 0 24 24">
+      <path d="M9.6 3.2h4.8l-.7 4.4H10.3z"/>
+      <path d="M9.3 7.6h5.4c2.6 3.4 4.2 8.2 4.8 13.2H4.5c.6-5 2.2-9.8 4.8-13.2z"/>
+      <path d="M8.2 16.4h7.6"/>
+    </symbol>
+    <!-- Colabora conmigo · una caja de regalo -->
+    <symbol id="i-regalo" viewBox="0 0 24 24">
+      <rect x="3.2" y="8.6" width="17.6" height="12.6" rx="1.2"/>
+      <path d="M3.2 13h17.6M12 8.6v12.6"/>
+      <path d="M12 8.6C11.1 5.6 8.9 4.4 7.6 5.6c-1.2 1.2.3 3 4.4 3zM12 8.6c.9-3 3.1-4.2 4.4-3 1.2 1.2-.3 3-4.4 3z"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- ════════════════════ Barra superior ════════════════════ -->
+<header class="barra">
+  <a class="barra__marca" href="#mesa">
+    <svg class="sello" viewBox="0 0 100 100" role="img" data-t-attr="aria-label:marca.sello.alt">
+      <use href="#s-sello"></use>
+    </svg>
+    <span class="barra__nombre" data-t="marca.nombre">Yueying Guan</span>
+  </a>
+
+  <nav aria-label="Apartados">
+    <ul class="barra__menu">
+      <li><a href="sobre-mi.html"    data-t="nav.sobre-mi">Sobre mí</a></li>
+      <li><a href="experiencia.html" data-t="nav.experiencia">Experiencia</a></li>
+      <li><a href="trabajos.html" aria-current="page"    data-t="nav.trabajos">Mis trabajos</a></li>
+      <li><a href="vida.html"        data-t="nav.vida">Mi vida en España</a></li>
+      <li><a href="colabora.html"    data-t="nav.colabora">Colabora conmigo</a></li>
+    </ul>
+  </nav>
+
+  <div class="barra__derecha">
+    <div class="idiomas" role="group" data-t-attr="aria-label:nav.idioma">
+      <button type="button" data-idioma="es" data-t="nav.idioma.es" aria-pressed="true">ES</button>
+      <span class="sep" aria-hidden="true">|</span>
+      <button type="button" data-idioma="en" data-t="nav.idioma.en" aria-pressed="false">EN</button>
+      <span class="sep" aria-hidden="true">|</span>
+      <button type="button" data-idioma="zh" data-t="nav.idioma.zh" aria-pressed="false">中文</button>
+    </div>
+
+    <button class="sonido" type="button" aria-pressed="true" data-t-attr="aria-label:nav.sonido">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 9v6h3.5L12 19V5L7.5 9z"/>
+        <path class="sonido__ondas" d="M15.5 9.5a3.5 3.5 0 0 1 0 5M18 7a7 7 0 0 1 0 10"/>
+        <path class="sonido__cruz" d="M16 10l4 4M20 10l-4 4"/>
+      </svg>
+    </button>
+
+    <a class="boton" data-cv href="assets/cv/CV-Gigi-ES.pdf" download data-t="cv.descargar">Descargar CV</a>
+
+    <button class="barra__hamburguesa" type="button" aria-expanded="false"
+            aria-controls="panel-movil" data-t-attr="aria-label:nav.menu.abrir">
+      <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+        <path d="M3 7h18M3 12h18M3 17h18"/>
+      </svg>
+    </button>
+  </div>
+</header>
+
+<!-- Panel que se abre en el móvil -->
+<div class="panel" id="panel-movil" data-abierto="false">
+  <ul>
+    <li><a href="sobre-mi.html"    data-t="nav.sobre-mi">Sobre mí</a></li>
+    <li><a href="experiencia.html" data-t="nav.experiencia">Experiencia</a></li>
+    <li><a href="trabajos.html" aria-current="page"    data-t="nav.trabajos">Mis trabajos</a></li>
+    <li><a href="vida.html"        data-t="nav.vida">Mi vida en España</a></li>
+    <li><a href="colabora.html"    data-t="nav.colabora">Colabora conmigo</a></li>
+  </ul>
+  <a class="boton" data-cv href="assets/cv/CV-Gigi-ES.pdf" download data-t="cv.descargar">Descargar CV</a>
+</div>
+
+
+<main class="pagina" id="contenido" data-lado="derecha">
+
+  <a class="volver-mesa" href="index.html">
+    <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+         stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M15 6l-6 6 6 6"/>
+    </svg>
+    <span data-t="volver.mesa">Volver a la mesa</span>
+  </a>
+
+  <h1 class="titulo-apartado" data-t="nav.trabajos">Mis trabajos</h1>
+  <p class="entradilla" data-t="entradilla.trabajos"></p>
+
+  <nav class="indice" data-t-attr="aria-label:ventana.apartados" hidden></nav>
+
+  <div class="bloques"></div>
+</main>
+
+<!-- La muñeca de este apartado: grande, cambia de postura al bajar -->
+<img class="figura" src="" alt="" hidden>
+
+<script type="module" src="js/page.js"></script>
+</body>
+</html>

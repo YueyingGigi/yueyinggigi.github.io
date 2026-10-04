@@ -38,5 +38,18 @@
   "ficha.contexto": "Contexto",
   "ficha.rol": "Mi rol",
   "ficha.proceso": "Proceso",
-  "ficha.resultado": "Resultado"
+  "ficha.resultado": "Resultado",
+
+  "figura.sobre-mi": "Muñeca de Gigi saliendo de un marco de fotos y saludando",
+  "figura.experiencia": "Muñeca de Gigi con un sello rojo grande y unos documentos",
+  "figura.trabajos": "Muñeca de Gigi grabando con un móvil y un estabilizador",
+  "figura.vida": "Muñeca de Gigi vestida de fallera, de pie sobre un monopatín",
+  "figura.colabora": "Muñeca de Gigi con una caja de regalo en las manos",
+  "nav.sonido": "Sonido",
+  "volver.mesa": "Volver a la mesa",
+  "entradilla.sobre-mi": "",
+  "entradilla.experiencia": "",
+  "entradilla.trabajos": "",
+  "entradilla.vida": "",
+  "entradilla.colabora": ""
 }

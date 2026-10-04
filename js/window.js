@@ -10,6 +10,9 @@
 
 import { leerRuta, escribirRuta } from './router.js';
 import { idiomaActual } from './i18n.js';
+import { Figura } from './figure.js';
+import { abrirCaja, asentarCaja } from './unbox.js';
+import { sonarCerrar } from './sound.js';
 
 const COLORES = {
   'sobre-mi':   { color: 'var(--lavanda)',   claro: 'var(--lavanda-claro)' },
@@ -19,12 +22,21 @@ const COLORES = {
   'colabora':   { color: 'var(--rosa)',      claro: 'var(--rosa-claro)' }
 };
 
+/* Qué forma toma cada apartado (decidido con Gigi, 2026-10-04):
+   solo "Mis trabajos" es ventana de Mac, porque es el único con
+   carpetas de verdad. Los demás son la hoja que viene en la caja. */
+const FORMAS = {
+  'sobre-mi': 'ficha', 'experiencia': 'ficha', 'trabajos': 'ventana',
+  'vida': 'ficha', 'colabora': 'ficha'
+};
+
 const ENFOCABLES = 'a[href], button:not([disabled]), input, select, textarea, [tabindex]:not([tabindex="-1"])';
 
 const contenidos = {};        // lo ya descargado de content/*.json
 let textos = {};              // los textos de interfaz del idioma actual
 let abierta = null;           // { seccion, ficha } o null
 let quienAbrio = null;        // a dónde devolver el foco al cerrar
+let figura = null;            // la muñeca que acompaña al contenido
 
 const velo    = () => document.querySelector('.velo');
 const ventana = () => document.querySelector('.ventana');
@@ -70,6 +82,7 @@ function pintarLado(datos, activo){
       if (destino) destino.scrollIntoView({ block: 'start' });
       lado.querySelectorAll('button').forEach(x => x.setAttribute('aria-current', 'false'));
       b.setAttribute('aria-current', 'true');
+      if (figura) figura.irA(i);          // la muñeca cambia de ángulo y de sitio
     });
     li.appendChild(b);
     lado.appendChild(li);
@@ -206,9 +219,10 @@ export async function abrir(seccion, ficha = null, { desde = null, cambiarRuta =
   if (desde) quienAbrio = desde;
   if (!quienAbrio) quienAbrio = document.querySelector(`.caja[data-seccion="${seccion}"]`);
 
-  // color del apartado
+  // color y forma del apartado
   v.style.setProperty('--color', COLORES[seccion].color);
   v.style.setProperty('--color-claro', COLORES[seccion].claro);
+  v.dataset.forma = FORMAS[seccion] || 'ficha';
 
   // título
   v.querySelector('.ventana__titulo').textContent = t('nav.' + seccion, seccion);
@@ -221,6 +235,10 @@ export async function abrir(seccion, ficha = null, { desde = null, cambiarRuta =
     pintarApartados(datos);
   }
   v.querySelector('.ventana__contenido').scrollTop = 0;
+
+  // La muñeca acompaña a la visita. Si ya está puesta (acaba de salir de
+  // la caja) no se toca, para no cortar la animación.
+  if (figura && !figura.estaVisible()) figura.mostrar(seccion, t('figura.' + seccion, ''));
 
   abierta = { seccion, ficha };
   if (cambiarRuta) escribirRuta({ seccion, ficha }, eraPrimera);
@@ -240,6 +258,7 @@ export function cerrar({ cambiarRuta = true } = {}){
   const v = ventana(), f = velo();
   if (!v || !abierta) return;
 
+  sonarCerrar();
   v.dataset.abierto = 'false';
   f.dataset.abierto = 'false';
   document.removeEventListener('keydown', alPulsarTecla);
@@ -249,6 +268,8 @@ export function cerrar({ cambiarRuta = true } = {}){
   setTimeout(() => { v.hidden = true; f.hidden = true; }, tiempo);
 
   abierta = null;
+  if (figura) figura.ocultar();
+  asentarCaja(quienAbrio && quienAbrio.classList.contains('caja') ? quienAbrio : null);
   if (cambiarRuta) escribirRuta({ seccion: null }, false);
 
   if (quienAbrio && document.contains(quienAbrio)) quienAbrio.focus();
@@ -267,14 +288,21 @@ export function refrescarIdioma(nuevosTextos){
 export function iniciarVentanas(textosIniciales){
   textos = textosIniciales;
   const v = ventana(), f = velo();
+  figura = new Figura(document.querySelector('img.figura'));
 
   v.querySelector('.punto--rojo').addEventListener('click', () => cerrar());
   v.querySelector('.cerrar-movil').addEventListener('click', () => cerrar());
   f.addEventListener('click', () => cerrar());
 
-  // Las cajas de la mesa
+  // Las cajas de la mesa: primero se abre la caja, después la ventana
   document.querySelectorAll('.caja').forEach(caja => {
-    caja.addEventListener('click', () => abrir(caja.dataset.seccion, null, { desde: caja }));
+    caja.addEventListener('click', async () => {
+      if (caja.dataset.abriendo === 'true') return;      // ya está en marcha
+      const s = caja.dataset.seccion;
+      quienAbrio = caja;
+      await abrirCaja(caja, s, figura, t('figura.' + s, ''));
+      abrir(s, null, { desde: caja });
+    });
   });
 
   // Los enlaces de la barra y del menú del móvil

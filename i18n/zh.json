@@ -38,5 +38,18 @@
   "ficha.contexto": "背景",
   "ficha.rol": "我负责的部分",
   "ficha.proceso": "过程",
-  "ficha.resultado": "结果"
+  "ficha.resultado": "结果",
+
+  "figura.sobre-mi": "Gigi 公仔从相框里走出来挥手",
+  "figura.experiencia": "Gigi 公仔拿着大红印章和文件",
+  "figura.trabajos": "Gigi 公仔举着手机和稳定器拍摄",
+  "figura.vida": "Gigi 公仔穿 fallera 服装站在滑板上",
+  "figura.colabora": "Gigi 公仔捧着礼盒",
+  "nav.sonido": "声音",
+  "volver.mesa": "回到工作台",
+  "entradilla.sobre-mi": "",
+  "entradilla.experiencia": "",
+  "entradilla.trabajos": "",
+  "entradilla.vida": "",
+  "entradilla.colabora": ""
 }

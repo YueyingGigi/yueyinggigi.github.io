@@ -38,5 +38,18 @@
   "ficha.contexto": "Context",
   "ficha.rol": "My role",
   "ficha.proceso": "Process",
-  "ficha.resultado": "Result"
+  "ficha.resultado": "Result",
+
+  "figura.sobre-mi": "Gigi figure stepping out of a picture frame and waving",
+  "figura.experiencia": "Gigi figure holding a big red seal and some documents",
+  "figura.trabajos": "Gigi figure filming with a phone and a gimbal",
+  "figura.vida": "Gigi figure in a fallera dress, standing on a skateboard",
+  "figura.colabora": "Gigi figure holding a gift box",
+  "nav.sonido": "Sound",
+  "volver.mesa": "Back to the desk",
+  "entradilla.sobre-mi": "",
+  "entradilla.experiencia": "",
+  "entradilla.trabajos": "",
+  "entradilla.vida": "",
+  "entradilla.colabora": ""
 }

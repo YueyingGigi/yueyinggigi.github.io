@@ -1,64 +1,47 @@
 /* ─────────────────────────────────────────────────────────────
-   main.js — arranque de la página.
-   Etapa 1: idioma, barra y menú del móvil.
-   Etapa 2: ventanas y enlaces directos.
-   El desembalaje y la mano llegan en la etapa 5.
+   main.js — la mesa (index.html).
+
+   Aquí solo pasan tres cosas: elegir idioma, abrir una caja y entrar
+   en la página de ese apartado. El contenido de cada apartado vive en
+   su propia página.
    ───────────────────────────────────────────────────────────── */
 
 import { iniciarIdioma } from './i18n.js';
-import { alCambiarRuta } from './router.js';
-import { iniciarVentanas, sincronizarConRuta, refrescarIdioma, estaAbierta } from './window.js';
+import { Figura } from './figure.js';
+import { abrirCaja } from './unbox.js';
+import { estaAbierta } from './coleccion.js';
+import { sonidoEncendido, cambiarSonido } from './sound.js';
+import { iniciarBarra } from './chrome.js';
 
-/* ── La barra se marca con una línea al bajar ── */
-function barraAlBajar(){
-  const barra = document.querySelector('.barra');
-  if (!barra) return;
-  const mirar = () => barra.classList.toggle('pegada', window.scrollY > 4);
-  mirar();
-  window.addEventListener('scroll', mirar, { passive: true });
-}
-
-/* ── Menú desplegable del móvil ── */
-function menuMovil(){
-  const boton = document.querySelector('.barra__hamburguesa');
-  const panel = document.getElementById('panel-movil');
-  if (!boton || !panel) return;
-
-  const cerrar = () => {
-    panel.dataset.abierto = 'false';
-    boton.setAttribute('aria-expanded', 'false');
-  };
-  const abrir = () => {
-    panel.dataset.abierto = 'true';
-    boton.setAttribute('aria-expanded', 'true');
-  };
-
-  boton.addEventListener('click', () => {
-    panel.dataset.abierto === 'true' ? cerrar() : abrir();
+/* Las cajas que ya se abrieron se quedan abiertas: ese es todo el
+   "progreso" que hay. Sin contadores (ver js/coleccion.js). */
+function marcarCajasAbiertas(){
+  document.querySelectorAll('.caja').forEach(caja => {
+    if (estaAbierta(caja.dataset.seccion)) caja.dataset.abierta = 'true';
   });
-  panel.addEventListener('click', e => { if (e.target.closest('a')) cerrar(); });
-  // Esc cierra el menú solo si no hay una ventana abierta (esa tiene prioridad)
-  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !estaAbierta()) cerrar(); });
-  matchMedia('(min-width: 901px)').addEventListener('change', cerrar);
 }
 
 async function iniciar(){
-  barraAlBajar();
-  menuMovil();
+  iniciarBarra();
 
   let textos = {};
-  try {
-    textos = await iniciarIdioma();
-  } catch (e) {
-    console.error('No se han podido cargar los textos:', e);
-  }
+  try { textos = await iniciarIdioma(); }
+  catch (e) { console.error('No se han podido cargar los textos:', e); }
 
-  iniciarVentanas(textos);
-  alCambiarRuta(sincronizarConRuta);
+  marcarCajasAbiertas();
 
-  // Si se cambia de idioma con una ventana abierta, se vuelve a pintar
-  document.addEventListener('idioma:cambiado', e => refrescarIdioma(e.detail.textos));
+  const figura = new Figura(document.querySelector('img.figura'));
 
+  document.querySelectorAll('.caja').forEach(caja => {
+    caja.addEventListener('click', () => {
+      if (caja.dataset.abriendo === 'true') return;
+      const s = caja.dataset.seccion;
+      abrirCaja(caja, s, figura, textos, `${s}.html`);
+    });
+  });
+
+  // si cambia el idioma con la página puesta, los textos ya se repintan
+  // solos; aquí no hay nada más que hacer.
   document.body.dataset.listo = 'true';
 }
 

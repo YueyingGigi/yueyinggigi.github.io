@@ -230,3 +230,147 @@
   }
   .ficha:hover{ transform: none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   DOS FORMAS, UN MISMO ARMAZÓN   (decidido con Gigi, 2026-10-04)
+
+   · data-forma="ventana" → solo "Mis trabajos": ventana estilo Mac,
+     porque ahí sí hay carpetas y fichas de verdad.
+   · data-forma="ficha"   → los otros cuatro: la hoja de papel que
+     viene dentro de una caja ciega. Mismo abrir, cerrar y foco;
+     otro aspecto.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* La hoja: estrecha y alta, como la cartulina que viene dentro de la
+   caja. Nada de barra de Mac, nada de columna lateral: los apartados
+   van en fila debajo del título. Así no se confunde con la ventana. */
+.ventana[data-forma="ficha"]{
+  width: min(92vw, 760px);
+  height: min(84vh, 800px);
+  background: var(--papel);
+  border-radius: 10px;
+  box-shadow: 0 30px 70px rgba(30,30,30,.22), 0 3px 10px rgba(30,30,30,.08);
+}
+/* los apartados, en fila bajo el título */
+.ventana[data-forma="ficha"] .ventana__cuerpo{ flex-direction: column; }
+.ventana[data-forma="ficha"] .ventana__lado{
+  flex: 0 0 auto;
+  background: transparent;
+  border-right: 0; border-bottom: 1px solid var(--gris-calido);
+  padding: 0 var(--e5) var(--e3);
+  overflow-x: auto; overflow-y: hidden;
+}
+.ventana[data-forma="ficha"] .ventana__lado ul{ display: flex; gap: 4px; }
+.ventana[data-forma="ficha"] .ventana__lado li{ flex: 0 0 auto; }
+.ventana[data-forma="ficha"] .ventana__lado button{
+  white-space: nowrap; padding: 7px 12px; font-size: 14px;
+}
+.ventana[data-forma="ficha"] .ventana__contenido{ padding: var(--e5) var(--e5) var(--e8); }
+
+/* La cabecera deja de ser barra de Mac y pasa a ser la cinta de la caja */
+.ventana[data-forma="ficha"] .ventana__puntos{ display: none; }
+.ventana[data-forma="ficha"] .ventana__barra{
+  height: 56px;
+  padding: 0 var(--e5);
+  background: var(--papel);
+  border-bottom: 0;
+}
+/* la cinta de color, igual que el precinto de la tapa */
+.ventana[data-forma="ficha"] .ventana__barra::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:9px;
+  background: var(--color); opacity:.9;
+}
+.ventana[data-forma="ficha"] .ventana__titulo{
+  position: static; transform: none;
+  font-size: 19px; font-weight: 600; max-width: none;
+  margin-top: 4px;
+}
+/* en la hoja el aspa de cerrar se ve siempre, también en el escritorio */
+.ventana[data-forma="ficha"] .cerrar-movil{
+  display: flex; position: absolute; right: 10px; top: 50%;
+  transform: translateY(-50%); margin-top: 3px;
+}
+
+.ventana[data-forma="ficha"] .ventana__lado{
+  background: transparent;
+  border-right: 1px solid var(--gris-calido);
+}
+.ventana[data-forma="ficha"] .ventana__contenido{ padding-top: var(--e5); }
+
+/* ═══════════════════════════════════════════════════════════════
+   LA MUÑECA EN LA PÁGINA   (rehecho con Gigi, 2026-10-04)
+
+   Grande, en la página, nunca cortada por el borde. Al cambiar de
+   apartado da una vuelta rápida pasando por sus cuatro ángulos.
+   ═══════════════════════════════════════════════════════════════ */
+
+.figura{
+  position: fixed;
+  bottom: 0;                      /* apoyada, nunca cortada por abajo */
+  z-index: 52;
+  height: clamp(380px, 68vh, 720px);
+  width: auto;
+  pointer-events: none;
+  transform-origin: 50% 90%;
+  filter: drop-shadow(10px 16px 24px rgba(30,30,30,.22));
+  transition: opacity 160ms var(--curva),
+              left 460ms var(--curva), right 460ms var(--curva),
+              bottom 460ms var(--curva), transform 460ms var(--curva);
+}
+.figura[hidden]{ display: none; }
+
+/* Dónde se pone. Siempre entera dentro de la pantalla. */
+.figura[data-sitio="derecha"]      { right: 0;    left: auto; bottom: 0; }
+.figura[data-sitio="izquierda"]    { left: 0;     right: auto; bottom: 0; }
+.figura[data-sitio="derecha-alta"] { right: 2vw;  left: auto; bottom: 8vh; }
+
+/* La vuelta: se encoge un poco y gira mientras pasan los ángulos */
+.figura[data-girando="true"]{
+  transition: transform 150ms linear;
+  transform: rotateY(18deg) scale(.97);
+}
+
+/* Mientras sale de la caja manda el JavaScript */
+.figura[data-saltando="true"]{ transition: transform 400ms var(--rebote), opacity 180ms ease-out; }
+
+@media (max-width: 1250px){
+  .figura{ height: clamp(300px, 52vh, 520px); }
+}
+@media (max-width: 767px){
+  .figura{ height: 165px; }
+  .figura[data-sitio="derecha-alta"]{ right: 0; bottom: 0; }
+  .ventana__contenido{ padding-bottom: 170px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .figura{ transition: opacity 1ms; }
+  .figura[data-girando="true"]{ transform: none; }
+}
+
+/* ── El destello del momento de abrir la caja ── */
+.destello{
+  position: fixed; inset: 0; z-index: 44;
+  pointer-events: none; opacity: 0;
+  background: radial-gradient(circle at var(--x,50%) var(--y,50%),
+              rgba(255,255,255,.95) 0%, rgba(255,255,255,.55) 16%, rgba(255,255,255,0) 46%);
+}
+.destello[data-brilla="true"]{ animation: brillar 620ms var(--curva); }
+@keyframes brillar{
+  0%   { opacity: 0;   transform: scale(.4); }
+  22%  { opacity: 1;   transform: scale(1);  }
+  100% { opacity: 0;   transform: scale(1.5); }
+}
+
+/* La mesa se apaga mientras sale la muñeca, para que destaque */
+.penumbra{
+  position: fixed; inset: 0; z-index: 43;
+  background: rgba(30,30,30,.40);
+  opacity: 0; pointer-events: none;
+  transition: opacity 260ms var(--curva);
+}
+.penumbra[data-encendida="true"]{ opacity: 1; }
+
+@media (prefers-reduced-motion: reduce){
+  .destello{ display: none; }
+  .penumbra{ transition: none; }
+}

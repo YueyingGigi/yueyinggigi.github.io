@@ -14,7 +14,7 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/desk.css">
-<link rel="stylesheet" href="css/window.css">
+<link rel="stylesheet" href="css/reveal.css">
 </head>
 <body>
 
@@ -91,11 +91,11 @@
 
   <nav aria-label="Apartados">
     <ul class="barra__menu">
-      <li><a href="#sobre-mi"    data-t="nav.sobre-mi">Sobre mí</a></li>
-      <li><a href="#experiencia" data-t="nav.experiencia">Experiencia</a></li>
-      <li><a href="#trabajos"    data-t="nav.trabajos">Mis trabajos</a></li>
-      <li><a href="#vida"        data-t="nav.vida">Mi vida en España</a></li>
-      <li><a href="#colabora"    data-t="nav.colabora">Colabora conmigo</a></li>
+      <li><a href="sobre-mi.html"    data-t="nav.sobre-mi">Sobre mí</a></li>
+      <li><a href="experiencia.html" data-t="nav.experiencia">Experiencia</a></li>
+      <li><a href="trabajos.html"    data-t="nav.trabajos">Mis trabajos</a></li>
+      <li><a href="vida.html"        data-t="nav.vida">Mi vida en España</a></li>
+      <li><a href="colabora.html"    data-t="nav.colabora">Colabora conmigo</a></li>
     </ul>
   </nav>
 
@@ -107,6 +107,15 @@
       <span class="sep" aria-hidden="true">|</span>
       <button type="button" data-idioma="zh" data-t="nav.idioma.zh" aria-pressed="false">中文</button>
     </div>
+
+    <button class="sonido" type="button" aria-pressed="true" data-t-attr="aria-label:nav.sonido">
+      <svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path d="M4 9v6h3.5L12 19V5L7.5 9z"/>
+        <path class="sonido__ondas" d="M15.5 9.5a3.5 3.5 0 0 1 0 5M18 7a7 7 0 0 1 0 10"/>
+        <path class="sonido__cruz" d="M16 10l4 4M20 10l-4 4"/>
+      </svg>
+    </button>
 
     <a class="boton" data-cv href="assets/cv/CV-Gigi-ES.pdf" download data-t="cv.descargar">Descargar CV</a>
 
@@ -122,11 +131,11 @@
 <!-- Panel que se abre en el móvil -->
 <div class="panel" id="panel-movil" data-abierto="false">
   <ul>
-    <li><a href="#sobre-mi"    data-t="nav.sobre-mi">Sobre mí</a></li>
-    <li><a href="#experiencia" data-t="nav.experiencia">Experiencia</a></li>
-    <li><a href="#trabajos"    data-t="nav.trabajos">Mis trabajos</a></li>
-    <li><a href="#vida"        data-t="nav.vida">Mi vida en España</a></li>
-    <li><a href="#colabora"    data-t="nav.colabora">Colabora conmigo</a></li>
+    <li><a href="sobre-mi.html"    data-t="nav.sobre-mi">Sobre mí</a></li>
+    <li><a href="experiencia.html" data-t="nav.experiencia">Experiencia</a></li>
+    <li><a href="trabajos.html"    data-t="nav.trabajos">Mis trabajos</a></li>
+    <li><a href="vida.html"        data-t="nav.vida">Mi vida en España</a></li>
+    <li><a href="colabora.html"    data-t="nav.colabora">Colabora conmigo</a></li>
   </ul>
   <a class="boton" data-cv href="assets/cv/CV-Gigi-ES.pdf" download data-t="cv.descargar">Descargar CV</a>
 </div>
@@ -153,6 +162,7 @@
               style="--color:var(--lavanda); --color-hondo:var(--lavanda-hondo)"
               data-t-attr="aria-label:caja.abrir">
         <span class="caja__sombra" aria-hidden="true"></span>
+        <img class="caja__dentro" src="assets/boxes/caja-abierta.webp" width="682" height="800" alt="" loading="lazy">
         <img class="caja__foto" src="assets/boxes/caja-cerrada.webp" width="777" height="800" alt="" loading="eager">
         <span class="caja__tapa" aria-hidden="true">
           <span class="caja__precinto"></span>
@@ -168,6 +178,7 @@
               style="--color:var(--rojo-caja); --color-hondo:var(--rojo-caja-hondo); --color-etiqueta:var(--rojo-sobre-blanco); --tinta-etiqueta:#fff"
               data-t-attr="aria-label:caja.abrir">
         <span class="caja__sombra" aria-hidden="true"></span>
+        <img class="caja__dentro" src="assets/boxes/caja-abierta.webp" width="682" height="800" alt="" loading="lazy">
         <img class="caja__foto" src="assets/boxes/caja-cerrada.webp" width="777" height="800" alt="" loading="eager">
         <span class="caja__tapa" aria-hidden="true">
           <span class="caja__precinto"></span>
@@ -183,6 +194,7 @@
               style="--color:var(--amarillo); --color-hondo:var(--amarillo-hondo)"
               data-t-attr="aria-label:caja.abrir">
         <span class="caja__sombra" aria-hidden="true"></span>
+        <img class="caja__dentro" src="assets/boxes/caja-abierta.webp" width="682" height="800" alt="" loading="lazy">
         <img class="caja__foto" src="assets/boxes/caja-cerrada.webp" width="777" height="800" alt="" loading="eager">
         <span class="caja__tapa" aria-hidden="true">
           <span class="caja__precinto"></span>
@@ -198,6 +210,7 @@
               style="--color:var(--azul-mar); --color-hondo:var(--azul-mar-hondo)"
               data-t-attr="aria-label:caja.abrir">
         <span class="caja__sombra" aria-hidden="true"></span>
+        <img class="caja__dentro" src="assets/boxes/caja-abierta.webp" width="682" height="800" alt="" loading="lazy">
         <img class="caja__foto" src="assets/boxes/caja-cerrada.webp" width="777" height="800" alt="" loading="eager">
         <span class="caja__tapa" aria-hidden="true">
           <span class="caja__precinto"></span>
@@ -213,6 +226,7 @@
               style="--color:var(--rosa); --color-hondo:var(--rosa-hondo)"
               data-t-attr="aria-label:caja.abrir">
         <span class="caja__sombra" aria-hidden="true"></span>
+        <img class="caja__dentro" src="assets/boxes/caja-abierta.webp" width="682" height="800" alt="" loading="lazy">
         <img class="caja__foto" src="assets/boxes/caja-cerrada.webp" width="777" height="800" alt="" loading="eager">
         <span class="caja__tapa" aria-hidden="true">
           <span class="caja__precinto"></span>
@@ -226,30 +240,14 @@
   </ul>
 </main>
 
-<!-- ════════════════════ La ventana ════════════════════ -->
-<div class="velo" hidden></div>
-
-<div class="ventana" role="dialog" aria-modal="true" aria-labelledby="ventana-titulo" hidden>
-  <div class="ventana__barra">
-    <span class="ventana__puntos">
-      <button class="punto punto--rojo" type="button" data-t-attr="aria-label:ventana.cerrar"></button>
-      <span class="punto punto--amarillo" aria-hidden="true"></span>
-      <span class="punto punto--verde" aria-hidden="true"></span>
-    </span>
-    <h2 class="ventana__titulo" id="ventana-titulo"></h2>
-    <button class="cerrar-movil" type="button" data-t-attr="aria-label:ventana.cerrar">
-      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
-           stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
-        <path d="M6 6l12 12M18 6L6 18"/>
-      </svg>
-    </button>
-  </div>
-
-  <div class="ventana__cuerpo">
-    <nav class="ventana__lado" data-t-attr="aria-label:ventana.apartados"><ul></ul></nav>
-    <div class="ventana__contenido" tabindex="-1"></div>
-  </div>
+<!-- ════════ El momento de abrir la caja ════════ -->
+<div class="revelado" hidden aria-hidden="true">
+  <div class="revelado__destello"></div>
+  <p class="revelado__nombre"></p>
 </div>
+
+<!-- La muñeca: una sola imagen grande, la misma que sale de la caja -->
+<img class="figura" src="" alt="" hidden>
 
 <script type="module" src="js/main.js"></script>
 </body>

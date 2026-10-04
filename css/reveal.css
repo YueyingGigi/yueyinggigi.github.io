@@ -1,0 +1,57 @@
+/* ─────────────────────────────────────────────────────────────
+   reveal.css — el momento de abrir la caja.
+
+   La mesa se apaga, destella y la muñeca sale a lo grande en medio de
+   la pantalla con el nombre del apartado debajo. Después se entra en
+   la página de ese apartado.
+
+   SIN contador ni barra de progreso (Gigi, 2026-10-04): esto lo ven
+   sobre todo las empresas, y un "2 / 5" convierte el portfolio en un
+   juego por terminar en vez de en un trabajo que mirar. El progreso se
+   ve solo, porque las cajas abiertas se quedan abiertas en la mesa.
+   ───────────────────────────────────────────────────────────── */
+
+.revelado{
+  position: fixed; inset: 0; z-index: 60;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: flex-end;
+  padding-bottom: clamp(40px, 9vh, 90px);
+  background: rgba(30,30,30,.55);
+  backdrop-filter: blur(3px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 300ms var(--curva);
+}
+.revelado[data-visible="true"]{ opacity: 1; }
+.revelado[hidden]{ display: none; }
+
+/* el destello, centrado en la caja que se acaba de abrir */
+.revelado__destello{
+  position: absolute; inset: 0; pointer-events: none; opacity: 0;
+  background: radial-gradient(circle at var(--x,50%) var(--y,50%),
+              rgba(255,255,255,.95) 0%, rgba(255,255,255,.5) 14%, rgba(255,255,255,0) 44%);
+}
+.revelado__destello[data-brilla="true"]{ animation: brillar 700ms var(--curva); }
+@keyframes brillar{
+  0%   { opacity: 0; transform: scale(.35); }
+  20%  { opacity: 1; transform: scale(1); }
+  100% { opacity: 0; transform: scale(1.6); }
+}
+
+.revelado__nombre{
+  font-family: var(--fuente-titulo); font-weight: 600;
+  font-size: clamp(22px, 2.8vw, 32px); color: #fff;
+  text-shadow: 0 2px 16px rgba(0,0,0,.4);
+  opacity: 0; transform: translateY(12px);
+  transition: opacity 340ms var(--curva) 140ms, transform 340ms var(--curva) 140ms;
+}
+.revelado[data-visible="true"] .revelado__nombre{ opacity: 1; transform: none; }
+:lang(zh) .revelado__nombre{ font-family:"Noto Sans SC", var(--fuente-titulo); font-weight:700; }
+
+/* Al salir hacia la página del apartado, todo se funde */
+body[data-saliendo="true"]{ opacity: 0; transition: opacity 260ms var(--curva); }
+
+@media (prefers-reduced-motion: reduce){
+  .revelado, .revelado__nombre{ transition: none; }
+  .revelado__destello{ display: none; }
+  body[data-saliendo="true"]{ opacity: 1; transition: none; }
+}

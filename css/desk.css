@@ -210,3 +210,89 @@
   .caja:hover, .caja:focus-visible{ transform: rotate(var(--giro,0deg)); }
   .caja:hover .caja__sombra{ transform:none; }
 }
+
+/* ═══════════════════════════════════════════════════════════════
+   ABRIR LA CAJA  (DESIGN § 5 · lo hace js/unbox.js)
+   Menos de un segundo: precinto → tapa → muñeca.
+   ═══════════════════════════════════════════════════════════════ */
+
+/* La foto de la caja abierta, debajo de la cerrada. Se descarga solo
+   cuando hace falta, no en la primera pantalla. */
+.caja__dentro{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit: contain; z-index:1;
+  opacity: 0;
+  transition: opacity 180ms var(--curva);
+}
+.caja[data-abriendo="true"] .caja__dentro,
+.caja[data-abierta="true"]  .caja__dentro{ opacity: 1; }
+
+/* La tapa (= la foto de la caja cerrada) se levanta girando sobre
+   su borde de arriba, como una tapa de cartón de verdad. */
+.caja__foto{
+  transform-origin: 50% 2%;
+  transition: transform 300ms var(--curva), opacity 180ms var(--curva);
+  backface-visibility: hidden;
+}
+.caja{ perspective: 760px; }
+.caja[data-tapa="levantada"] .caja__foto,
+.caja[data-abierta="true"]   .caja__foto{
+  transform: rotateX(-96deg) translateY(-6%);
+  opacity: 0;
+}
+/* lo que va pegado a la tapa se levanta con ella */
+.caja__tapa{
+  transform-origin: 50% 2%;
+  transition: transform 300ms var(--curva), opacity 180ms var(--curva);
+}
+.caja[data-tapa="levantada"] .caja__tapa,
+.caja[data-abierta="true"]   .caja__tapa{
+  transform: rotateX(-96deg) translateY(-6%);
+  opacity: 0;
+}
+
+/* El precinto se despega por un lado y sale volando */
+.caja__precinto{
+  transform-origin: 8% 50%;
+  transition: transform 200ms cubic-bezier(.5,-.2,.8,.4), opacity 200ms ease-in;
+}
+.caja__precinto[data-roto="true"]{
+  transform: rotate(-16deg) translate(42%, -120%) scaleX(.72);
+  opacity: 0;
+}
+
+/* La caja tiembla un poco al romperse el precinto */
+.caja[data-abriendo="true"]{ animation: temblor 200ms var(--curva); }
+@keyframes temblor{
+  0%,100%{ transform: rotate(var(--giro,0deg)) translateX(0); }
+  30%    { transform: rotate(var(--giro,0deg)) translateX(-2.5px); }
+  65%    { transform: rotate(var(--giro,0deg)) translateX(1.8px); }
+}
+
+/* Una caja ya abierta se queda abierta y sin precinto (DESIGN § 5) */
+.caja[data-abierta="true"] .caja__precinto{ display: none; }
+
+/* Menos movimiento: ni temblor, ni tapa girando, ni salto */
+@media (prefers-reduced-motion: reduce){
+  .caja[data-abriendo="true"]{ animation: none; }
+  .caja__foto, .caja__tapa, .caja__precinto, .caja__dentro{ transition: none; }
+  .saltarina{ display: none !important; }
+}
+
+
+/* ═══════════ La muñeca durante el revelado ═══════════
+   En la mesa la muñeca solo aparece al abrir una caja: sale pequeña,
+   crece hasta el centro de la pantalla y se queda ahí hasta que se
+   entra en la página del apartado. La coloca js/unbox.js. */
+.figura{
+  position: fixed;
+  left: 50%; top: 46%;            /* centrada con CSS: así no hay que
+                                     calcular lo ancha que es la imagen,
+                                     que es justo lo que salía mal */
+  z-index: 61;                    /* por delante del velo del revelado */
+  height: clamp(360px, 70vh, 760px);
+  width: auto; pointer-events: none;
+  transform: translate(-50%, -50%);
+  filter: drop-shadow(10px 18px 26px rgba(30,30,30,.32));
+}
+.figura[hidden]{ display: none; }

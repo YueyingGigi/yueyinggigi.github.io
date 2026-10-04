@@ -1,0 +1,180 @@
+/* ─────────────────────────────────────────────────────────────
+   page.css — lo común a las cinco páginas de apartado.
+
+   Cada apartado tiene su propia página para que pueda tener la pinta
+   que le conviene: fotos sueltas en "Sobre mí", una línea de tiempo en
+   "Experiencia", carpetas en "Mis trabajos"… La ventana estilo Mac solo
+   sale donde tiene sentido (decidido con Gigi, 2026-10-04).
+   ───────────────────────────────────────────────────────────── */
+
+.pagina{
+  max-width: var(--ancho-max);
+  margin: 0 auto;
+  padding: var(--e8) var(--e6) var(--e9);
+  position: relative; z-index: 1;
+}
+
+/* Al venir de la mesa, la página entra con un fundido corto para que
+   el salto no se note como una recarga. */
+body[data-pagina] { opacity: 0; }
+body[data-pagina][data-listo="true"]{ opacity: 1; transition: opacity 260ms var(--curva); }
+
+/* ── Cabecera del apartado ── */
+.volver-mesa{
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 14px; font-weight: 500; color: var(--tinta-suave);
+  text-decoration: none; margin-bottom: var(--e5);
+  padding: 6px 10px 6px 4px; border-radius: 7px;
+  transition: background var(--rapido), color var(--rapido);
+}
+.volver-mesa:hover{ background: var(--papel-hondo); color: var(--tinta); }
+
+.titulo-apartado{
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 900; line-height: 1.04; letter-spacing: -.015em;
+  margin-bottom: var(--e3);
+}
+:lang(zh) .titulo-apartado{ letter-spacing: 0; }
+
+.entradilla{
+  font-size: clamp(17px, 1.5vw, 20px);
+  color: var(--tinta-suave);
+  max-width: 46ch; margin-bottom: var(--e8);
+}
+
+/* ── Apartados dentro de la página ── */
+.bloque{
+  padding-top: var(--e7);
+  border-top: 1px solid var(--gris-calido);
+  margin-bottom: var(--e7);
+  /* hueco a la derecha para que la muñeca no se coma el texto */
+  max-width: min(100%, 720px);
+}
+.bloque:first-of-type{ border-top: 0; padding-top: 0; }
+.bloque__titulo{ font-size: clamp(22px, 2.3vw, 30px); margin-bottom: var(--e4); }
+
+.pendiente{
+  display: inline-block;
+  font-size: 15px; color: var(--tinta-tenue);
+  background: var(--papel-hondo);
+  border: 1px dashed var(--gris-calido);
+  border-radius: var(--radio-tarjeta);
+  padding: var(--e3) var(--e4);
+}
+
+/* ── Índice pegajoso de los apartados de la página ── */
+.indice{
+  position: sticky; top: calc(var(--alto-barra) + 8px);
+  z-index: 20;
+  display: flex; gap: 4px; flex-wrap: wrap;
+  margin-bottom: var(--e6);
+  padding: 6px; border-radius: var(--radio-boton);
+  background: color-mix(in srgb, var(--papel) 90%, transparent);
+  backdrop-filter: blur(8px);
+  width: fit-content;
+}
+.indice a{
+  font-size: 13.5px; font-weight: 500; color: var(--tinta-suave);
+  text-decoration: none; padding: 7px 12px; border-radius: var(--radio-boton);
+  transition: background var(--rapido), color var(--rapido);
+  white-space: nowrap;
+}
+.indice a:hover{ background: var(--papel-hondo); color: var(--tinta); }
+.indice a[aria-current="true"]{ background: var(--color-claro); color: var(--tinta); font-weight: 700; }
+
+/* ═══════════ La muñeca en la página ═══════════ */
+
+.figura{
+  position: fixed; z-index: 30;
+  bottom: 0;
+  height: clamp(340px, 62vh, 700px);
+  width: auto; pointer-events: none;
+  filter: drop-shadow(10px 18px 26px rgba(30,30,30,.20));
+  transition: opacity 170ms var(--curva),
+              left 480ms var(--curva), right 480ms var(--curva),
+              bottom 480ms var(--curva), transform 480ms var(--curva);
+}
+.figura[hidden]{ display: none; }
+.figura[data-sitio="derecha"]      { right: 0;   left: auto; bottom: 0; }
+.figura[data-sitio="izquierda"]    { left: 0;    right: auto; bottom: 0; }
+.figura[data-sitio="derecha-alta"] { right: 2vw; left: auto; bottom: 10vh; }
+.figura[data-girando="true"]{ transition: transform 150ms linear; transform: rotateY(16deg) scale(.98); }
+
+/* Cuando la muñeca está a la izquierda, el texto se corre a la derecha
+   para que no se solapen. */
+.pagina[data-lado="izquierda"] .bloque{ margin-left: auto; margin-right: 0; }
+
+@media (max-width: 1250px){
+  .figura{ height: clamp(280px, 46vh, 470px); }
+  .bloque{ max-width: min(100%, 620px); }
+}
+@media (max-width: 900px){
+  .figura{ height: 200px; opacity: .92; }
+  .bloque{ max-width: 100%; padding-bottom: var(--e6); }
+  .pagina{ padding: var(--e6) var(--margen-movil) 230px; }
+  .pagina[data-lado="izquierda"] .bloque{ margin-left: 0; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .figura{ transition: opacity 1ms; }
+  .figura[data-girando="true"]{ transform: none; }
+  body[data-pagina][data-listo="true"]{ transition: none; }
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   LA VENTANA ESTILO MAC, INCRUSTADA EN LA PÁGINA
+
+   Solo sale en "Mis trabajos", que es el único apartado con carpetas
+   de verdad. No es una ventana flotante: es un trozo de la página, así
+   que no hay que atrapar el foco ni cerrarla (Gigi, 2026-10-04).
+   ═══════════════════════════════════════════════════════════════ */
+
+.mac{
+  border-radius: var(--radio-ventana);
+  overflow: hidden;
+  background: var(--papel);
+  box-shadow: 0 18px 44px rgba(30,30,30,.14), 0 2px 6px rgba(30,30,30,.07);
+  border: 1px solid var(--gris-calido);
+  max-width: min(100%, 820px);
+}
+.mac__barra{
+  position: relative;
+  display: flex; align-items: center;
+  height: 42px; padding: 0 var(--e4);
+  background: var(--color-claro, var(--gris-calido));
+  border-bottom: 1px solid rgba(30,30,30,.07);
+}
+.mac__puntos{ display: flex; gap: 8px; }
+.mac__punto{ width: 11px; height: 11px; border-radius: 50%; box-shadow: inset 0 0 0 .5px rgba(0,0,0,.12); }
+.mac__punto--rojo{ background: #FF5F57; }
+.mac__punto--amarillo{ background: #FEBC2E; }
+.mac__punto--verde{ background: #28C840; }
+.mac__titulo{
+  position: absolute; left: 50%; transform: translateX(-50%);
+  font-family: var(--fuente-titulo); font-size: 14px; font-weight: 600;
+}
+:lang(zh) .mac__titulo{ font-family:"Noto Sans SC", var(--fuente-titulo); font-weight:700; }
+
+.mac__cuerpo{ padding: var(--e5) var(--e5) var(--e6); }
+.carpeta + .carpeta{ margin-top: var(--e6); }
+.carpeta__titulo{
+  font-size: 11.5px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--tinta-tenue);
+  margin-bottom: var(--e3);
+}
+.rejilla{
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+  gap: var(--e4); list-style: none; margin: 0; padding: 0;
+}
+.ficha{
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--e2);
+  width: 100%; text-align: left; font: inherit; cursor: pointer;
+  background: none; border: 0; padding: var(--e2);
+  border-radius: var(--radio-tarjeta);
+  transition: background var(--rapido) var(--curva), transform var(--rapido) var(--curva);
+}
+.ficha:hover{ background: var(--papel-hondo); transform: translateY(-2px); }
+.ficha__icono{ color: var(--color-icono, var(--tinta-tenue)); }
+.ficha__nombre{ font-size: 14px; font-weight: 500; line-height: 1.35; }
+
+@media (prefers-reduced-motion: reduce){ .ficha:hover{ transform: none; } }
