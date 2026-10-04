@@ -126,11 +126,11 @@
 /* ── 2. Etiqueta: la pegatina con el nombre del apartado ── */
 .caja__etiqueta{
   position:absolute;
-  background: var(--color);
-  color: var(--tinta);
+  background: var(--color-etiqueta, var(--color));
+  color: var(--tinta-etiqueta, var(--tinta));
   font-family: var(--fuente-texto);
   font-weight: 700;
-  font-size: clamp(9px, .92vw, 13px);
+  font-size: clamp(10px, 1.02vw, 14.5px);
   line-height: 1.25;
   letter-spacing: .005em;
   padding: .5em .72em;
@@ -165,21 +165,20 @@
 .caja__serie{
   position:absolute;
   font-family: var(--fuente-texto);
-  font-size: clamp(5px, .56vw, 7.5px);
-  font-weight: 500;
-  letter-spacing: .2em;
+  font-size: clamp(6px, .64vw, 8.6px);
+  font-weight: 600;
+  letter-spacing: .17em;
   text-transform: uppercase;
   color: var(--tinta);
-  opacity: .5;
+  opacity: .72;
   white-space: nowrap;
 }
 
 /* ═══════════════════════════════════════════════════════════
-   TRES COLOCACIONES DE LA TAPA — Gigi elige una (DESIGN § 3.1)
-   Se cambia con ?tapa=a | b | c
+   COLOCACIÓN DE LA TAPA — Gigi eligió la A (2026-10-04)
    ═══════════════════════════════════════════════════════════ */
 
-/* ── A · la que propone DESIGN.md ──
+/* Elegida: la que propone DESIGN.md.
    precinto cruzando el centro · etiqueta encima y a la izquierda
    sello arriba a la derecha · serie abajo · icono abajo a la derecha */
 [data-tapa="a"] .caja__precinto{ top: 46%; }
@@ -187,25 +186,6 @@
 [data-tapa="a"] .caja__sello   { right: 7%; top: 7%; transform: rotate(-4deg); }
 [data-tapa="a"] .caja__serie   { left: 8%;  bottom: 5%; }
 [data-tapa="a"] .caja__icono   { right: 9%; bottom: 13%; }
-
-/* ── B · simétrica ──
-   etiqueta centrada sobre el precinto · sello abajo a la izquierda
-   icono arriba a la derecha · serie abajo centrada */
-[data-tapa="b"] .caja__precinto{ top: 52%; }
-[data-tapa="b"] .caja__etiqueta{ left:50%; top:50%; transform: translate(-50%,-50%); }
-[data-tapa="b"] .caja__sello   { left: 8%;  bottom: 15%; transform: rotate(-4deg); }
-[data-tapa="b"] .caja__serie   { left:50%;  bottom: 3%; transform: translateX(-50%); }
-[data-tapa="b"] .caja__icono   { right: 9%; top: 9%; }
-
-/* ── C · sobria ──
-   icono grande y casi invisible en el centro, como marca de agua
-   precinto más abajo · etiqueta justo encima · sello abajo a la derecha
-   serie arriba */
-[data-tapa="c"] .caja__precinto{ top: 74%; }
-[data-tapa="c"] .caja__etiqueta{ left:50%; top: 50%; transform: translate(-50%,-50%); }
-[data-tapa="c"] .caja__sello   { right: 7%; top: 6%; transform: rotate(-4deg); }
-[data-tapa="c"] .caja__serie   { left:50%;  bottom: 2%; transform: translateX(-50%); }
-[data-tapa="c"] .caja__icono   { left:10%;  top: 9%;  width: 20%; opacity:.24; }
 
 /* ═══════════ Móvil (DESIGN § 9) ═══════════ */
 

@@ -39,16 +39,6 @@ function menuMovil(){
   matchMedia('(min-width: 901px)').addEventListener('change', cerrar);
 }
 
-/* ── Colocación de la tapa: ?tapa=a | b | c ──
-   Provisional: sirve para que Gigi compare las tres. Cuando elija una,
-   se deja fija en el HTML y se borra esto. */
-function colocacionTapa(){
-  const mesa = document.querySelector('[data-tapa]');
-  if (!mesa) return;
-  const pedida = new URLSearchParams(location.search).get('tapa');
-  if (['a', 'b', 'c'].includes(pedida)) mesa.dataset.tapa = pedida;
-}
-
 /* ── Las cajas todavía no abren nada (etapa 2) ── */
 function cajasProvisionales(){
   document.querySelectorAll('.caja').forEach(caja => {
@@ -59,7 +49,6 @@ function cajasProvisionales(){
 }
 
 async function iniciar(){
-  colocacionTapa();
   barraAlBajar();
   menuMovil();
   cajasProvisionales();

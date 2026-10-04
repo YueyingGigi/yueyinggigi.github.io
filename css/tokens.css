@@ -17,6 +17,10 @@
   /* ── Color de marca ── */
   --rojo-sello:       #D9412B;  /* botones, el sello del nombre */
   --rojo-sello-texto: #B8321F;  /* texto pequeño en rojo (5,5:1 sobre papel) */
+  /* Un pelín más oscuro, SOLO para fondos rojos con letra blanca pequeña:
+     con #D9412B el blanco se queda en 4,43:1 y hace falta 4,5:1.
+     Con este llega a 4,69:1 y a simple vista es el mismo rojo. */
+  --rojo-sobre-blanco: #D43C26;
 
   /* ── Un color por caja ── */
   --lavanda:   #C9B8E3;   /* Sobre mí */

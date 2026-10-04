@@ -1,12 +1,12 @@
 {
-  "_nota": "中文界面文字。由 Claude Code 起草，需要 Gigi 审核 [REVISAR]。中文名用拼音 Yueying Guan —— 汉字写法 Gigi 还没给，不要猜。",
+  "_nota": "中文界面文字。由 Claude Code 起草，需要 Gigi 审核 [REVISAR]。中文名：关月颖（Gigi 2026-10-04 确认）。",
 
   "html.lang": "zh",
-  "doc.titulo": "Gigi · Yueying Guan — 品牌传播与内容创作",
-  "doc.descripcion": "Yueying Guan（Gigi）的作品集：跨媒体传播、内容创作，连接中国与西班牙。",
+  "doc.titulo": "Gigi · 关月颖 — 品牌传播与内容创作",
+  "doc.descripcion": "关月颖（Gigi）的作品集：跨媒体传播、内容创作，连接中国与西班牙。",
 
   "saltar": "跳到正文",
-  "marca.nombre": "Yueying Guan",
+  "marca.nombre": "关月颖",
   "marca.sello.alt": "YUEYING 名章",
 
   "nav.sobre-mi": "关于我",

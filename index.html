@@ -27,19 +27,22 @@
     <!-- textura de tinta: desplaza un poco los bordes, como un sello de verdad -->
     <filter id="f-tinta" x="-12%" y="-12%" width="124%" height="124%">
       <feTurbulence type="fractalNoise" baseFrequency="0.55" numOctaves="4" seed="11" result="ruido"/>
-      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="1.7"
+      <feDisplacementMap in="SourceGraphic" in2="ruido" scale="1.0"
                          xChannelSelector="R" yChannelSelector="G"/>
     </filter>
 
+    <!-- Las dos líneas acaban igual de anchas, pero cada una con su
+         tamaño: YING tiene cuatro letras, así que va más pequeña y no
+         se le aprietan. Sin esto, "ING" se junta y no se lee. -->
     <symbol id="s-sello" viewBox="0 0 100 100">
       <g filter="url(#f-tinta)">
         <rect x="3" y="3" width="94" height="94" rx="5" fill="#D9412B"/>
-        <text x="50" y="45"  font-family="Fraunces, Georgia, serif" font-weight="900"
-              font-size="34" fill="#fff" text-anchor="middle"
-              textLength="72" lengthAdjust="spacing">YUE</text>
-        <text x="50" y="86" font-family="Fraunces, Georgia, serif" font-weight="900"
-              font-size="34" fill="#fff" text-anchor="middle"
-              textLength="72" lengthAdjust="spacing">YING</text>
+        <text x="50" y="45" font-family="Fraunces, Georgia, serif" font-weight="900"
+              font-size="33" fill="#fff" text-anchor="middle"
+              textLength="70" lengthAdjust="spacing">YUE</text>
+        <text x="50" y="84" font-family="Fraunces, Georgia, serif" font-weight="900"
+              font-size="27" fill="#fff" text-anchor="middle"
+              textLength="70" lengthAdjust="spacing">YING</text>
       </g>
     </symbol>
 
@@ -162,7 +165,7 @@
 
     <li>
       <button class="caja" type="button" id="experiencia" data-seccion="experiencia"
-              style="--color:var(--rojo-caja); --color-hondo:var(--rojo-caja-hondo)"
+              style="--color:var(--rojo-caja); --color-hondo:var(--rojo-caja-hondo); --color-etiqueta:var(--rojo-sobre-blanco); --tinta-etiqueta:#fff"
               data-t-attr="aria-label:caja.abrir">
         <span class="caja__sombra" aria-hidden="true"></span>
         <img class="caja__foto" src="assets/boxes/caja-cerrada.webp" width="777" height="800" alt="" loading="eager">
