@@ -1,26 +1,80 @@
 {
-  "_nota": "Estructura según docs/CONTENT.md § 5. Las fichas se rellenan en la etapa 3 desde data/作品视频整理/.",
+  "_nota": "Estructura según docs/CONTENT.md § 5. Las fichas se rellenan en la etapa 3 desde data/作品视频整理/. Xiaomi España y Ecoalf fuera (Gigi, 2026-10-04): no quiere subir esos archivos.",
   "id": "trabajos",
   "vista": "carpetas",
   "carpetas": [
     {
       "id": "destacados",
-      "titulo": { "es": "Casos destacados", "en": "Featured cases", "zh": "重点案例" },
+      "titulo": {
+        "es": "Casos destacados",
+        "en": "Featured cases",
+        "zh": "重点案例"
+      },
       "trabajos": [
-        { "id": "niunos",   "publicado": true, "titulo": { "es": "Niu&Nos",  "en": "Niu&Nos",  "zh": "Niu&Nos" } },
-        { "id": "upv",      "publicado": true, "titulo": { "es": "UPV · TikTok e Instagram", "en": "UPV · TikTok and Instagram", "zh": "UPV · TikTok 与 Instagram" } },
-        { "id": "fallera",  "publicado": true, "titulo": { "es": "Serie Fallera", "en": "Fallera series", "zh": "Fallera 系列" } },
-        { "id": "essencia", "publicado": true, "titulo": { "es": "Essencia Inmobiliaria", "en": "Essencia Inmobiliaria", "zh": "Essencia Inmobiliaria" } }
+        {
+          "id": "niunos",
+          "publicado": true,
+          "titulo": {
+            "es": "Niu&Nos",
+            "en": "Niu&Nos",
+            "zh": "Niu&Nos"
+          }
+        },
+        {
+          "id": "upv",
+          "publicado": true,
+          "titulo": {
+            "es": "UPV · TikTok e Instagram",
+            "en": "UPV · TikTok and Instagram",
+            "zh": "UPV · TikTok 与 Instagram"
+          }
+        },
+        {
+          "id": "fallera",
+          "publicado": true,
+          "titulo": {
+            "es": "Serie Fallera",
+            "en": "Fallera series",
+            "zh": "Fallera 系列"
+          }
+        },
+        {
+          "id": "essencia",
+          "publicado": true,
+          "titulo": {
+            "es": "Essencia Inmobiliaria",
+            "en": "Essencia Inmobiliaria",
+            "zh": "Essencia Inmobiliaria"
+          }
+        }
       ]
     },
     {
       "id": "otros",
-      "titulo": { "es": "Otros trabajos", "en": "Other work", "zh": "其他作品" },
+      "titulo": {
+        "es": "Otros trabajos",
+        "en": "Other work",
+        "zh": "其他作品"
+      },
       "trabajos": [
-        { "id": "respira",     "publicado": true, "titulo": { "es": "UPV Respira", "en": "UPV Respira", "zh": "UPV Respira" } },
-        { "id": "xiaomi",      "publicado": true, "titulo": { "es": "Xiaomi España", "en": "Xiaomi Spain", "zh": "Xiaomi 西班牙" } },
-        { "id": "ecoalf",      "publicado": true, "titulo": { "es": "Ecoalf · El Pasaporte Planeta B", "en": "Ecoalf · El Pasaporte Planeta B", "zh": "Ecoalf · El Pasaporte Planeta B" } },
-        { "id": "booktrailer", "publicado": true, "titulo": { "es": "Book trailer · El lector de cadáveres", "en": "Book trailer · El lector de cadáveres", "zh": "书籍预告片 · El lector de cadáveres" } }
+        {
+          "id": "respira",
+          "publicado": true,
+          "titulo": {
+            "es": "UPV Respira",
+            "en": "UPV Respira",
+            "zh": "UPV Respira"
+          }
+        },
+        {
+          "id": "booktrailer",
+          "publicado": true,
+          "titulo": {
+            "es": "Book trailer · El lector de cadáveres",
+            "en": "Book trailer · El lector de cadáveres",
+            "zh": "书籍预告片 · El lector de cadáveres"
+          }
+        }
       ]
     }
   ]
