@@ -14,6 +14,7 @@
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/desk.css">
+<link rel="stylesheet" href="css/window.css">
 </head>
 <body>
 
@@ -148,7 +149,7 @@
   <ul class="cajas">
 
     <li>
-      <button class="caja" type="button" id="sobre-mi" data-seccion="sobre-mi"
+      <button class="caja" type="button" data-seccion="sobre-mi"
               style="--color:var(--lavanda); --color-hondo:var(--lavanda-hondo)"
               data-t-attr="aria-label:caja.abrir">
         <span class="caja__sombra" aria-hidden="true"></span>
@@ -163,7 +164,7 @@
     </li>
 
     <li>
-      <button class="caja" type="button" id="experiencia" data-seccion="experiencia"
+      <button class="caja" type="button" data-seccion="experiencia"
               style="--color:var(--rojo-caja); --color-hondo:var(--rojo-caja-hondo); --color-etiqueta:var(--rojo-sobre-blanco); --tinta-etiqueta:#fff"
               data-t-attr="aria-label:caja.abrir">
         <span class="caja__sombra" aria-hidden="true"></span>
@@ -178,7 +179,7 @@
     </li>
 
     <li>
-      <button class="caja" type="button" id="trabajos" data-seccion="trabajos"
+      <button class="caja" type="button" data-seccion="trabajos"
               style="--color:var(--amarillo); --color-hondo:var(--amarillo-hondo)"
               data-t-attr="aria-label:caja.abrir">
         <span class="caja__sombra" aria-hidden="true"></span>
@@ -193,7 +194,7 @@
     </li>
 
     <li>
-      <button class="caja" type="button" id="vida" data-seccion="vida"
+      <button class="caja" type="button" data-seccion="vida"
               style="--color:var(--azul-mar); --color-hondo:var(--azul-mar-hondo)"
               data-t-attr="aria-label:caja.abrir">
         <span class="caja__sombra" aria-hidden="true"></span>
@@ -208,7 +209,7 @@
     </li>
 
     <li>
-      <button class="caja" type="button" id="colabora" data-seccion="colabora"
+      <button class="caja" type="button" data-seccion="colabora"
               style="--color:var(--rosa); --color-hondo:var(--rosa-hondo)"
               data-t-attr="aria-label:caja.abrir">
         <span class="caja__sombra" aria-hidden="true"></span>
@@ -224,6 +225,31 @@
 
   </ul>
 </main>
+
+<!-- ════════════════════ La ventana ════════════════════ -->
+<div class="velo" hidden></div>
+
+<div class="ventana" role="dialog" aria-modal="true" aria-labelledby="ventana-titulo" hidden>
+  <div class="ventana__barra">
+    <span class="ventana__puntos">
+      <button class="punto punto--rojo" type="button" data-t-attr="aria-label:ventana.cerrar"></button>
+      <span class="punto punto--amarillo" aria-hidden="true"></span>
+      <span class="punto punto--verde" aria-hidden="true"></span>
+    </span>
+    <h2 class="ventana__titulo" id="ventana-titulo"></h2>
+    <button class="cerrar-movil" type="button" data-t-attr="aria-label:ventana.cerrar">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+           stroke-width="1.9" stroke-linecap="round" aria-hidden="true">
+        <path d="M6 6l12 12M18 6L6 18"/>
+      </svg>
+    </button>
+  </div>
+
+  <div class="ventana__cuerpo">
+    <nav class="ventana__lado" data-t-attr="aria-label:ventana.apartados"><ul></ul></nav>
+    <div class="ventana__contenido" tabindex="-1"></div>
+  </div>
+</div>
 
 <script type="module" src="js/main.js"></script>
 </body>

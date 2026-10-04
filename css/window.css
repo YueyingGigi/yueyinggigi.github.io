@@ -1,0 +1,232 @@
+/* ─────────────────────────────────────────────────────────────
+   window.css — la ventana estilo Mac.
+   Solo se abre una a la vez (DESIGN § 6): no hace falta arrastrar
+   ni apilar ventanas, y así todo queda más simple.
+   ───────────────────────────────────────────────────────────── */
+
+/* ── El velo que apaga la mesa de fondo ── */
+.velo{
+  position: fixed; inset: 0; z-index: 50;
+  background: rgba(30,30,30,.28);
+  backdrop-filter: blur(2px);
+  opacity: 0;
+  transition: opacity var(--normal) var(--curva);
+}
+.velo[data-abierto="true"]{ opacity: 1; }
+.velo[hidden]{ display: none; }
+
+/* ── La ventana ── */
+.ventana{
+  position: fixed; z-index: 51;
+  left: 50%; top: 50%;
+  transform: translate(-50%, -50%) scale(.97);
+  width: min(80vw, 1100px);
+  height: min(82vh, 760px);
+  display: flex; flex-direction: column;
+  background: var(--papel);
+  border-radius: var(--radio-ventana);
+  box-shadow: 0 24px 60px rgba(30,30,30,.22), 0 4px 12px rgba(30,30,30,.10);
+  overflow: hidden;
+  opacity: 0;
+  transition: opacity var(--normal) var(--curva), transform var(--normal) var(--curva);
+}
+.ventana[data-abierto="true"]{ opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.ventana[hidden]{ display: none; }
+
+/* ── Barra de título ── */
+.ventana__barra{
+  flex: 0 0 auto;
+  position: relative;
+  display: flex; align-items: center;
+  height: 44px; padding: 0 var(--e4);
+  /* El color del apartado, pero aclarado: sobre el tono fuerte el texto
+     negro no llega al contraste mínimo (ver docs/DESIGN.md § 6). */
+  background: var(--color-claro, var(--gris-calido));
+  border-bottom: 1px solid rgba(30,30,30,.07);
+}
+.ventana__puntos{ display: flex; align-items: center; gap: 8px; }
+.punto{
+  width: 12px; height: 12px; border-radius: 50%;
+  border: 0; padding: 0; display: block;
+  box-shadow: inset 0 0 0 .5px rgba(0,0,0,.12);
+}
+.punto--rojo{ background: #FF5F57; cursor: pointer; position: relative; }
+.punto--rojo::before{            /* zona de clic más grande que el punto */
+  content:""; position:absolute; inset:-9px;
+}
+.punto--rojo:hover{ background: #E6453D; }
+.punto--amarillo{ background: #FEBC2E; }
+.punto--verde{ background: #28C840; }
+
+.ventana__titulo{
+  position: absolute; left: 50%; transform: translateX(-50%);
+  font-family: var(--fuente-titulo);
+  font-size: 15px; font-weight: 600;
+  color: var(--tinta);
+  white-space: nowrap; max-width: 60%; overflow: hidden; text-overflow: ellipsis;
+}
+:lang(zh) .ventana__titulo{ font-family: "Noto Sans SC", var(--fuente-titulo); font-weight: 700; }
+
+/* ── Cuerpo: barra lateral + contenido ── */
+.ventana__cuerpo{ flex: 1 1 auto; display: flex; min-height: 0; }
+
+.ventana__lado{
+  flex: 0 0 212px;
+  background: var(--papel-hondo);
+  border-right: 1px solid var(--gris-calido);
+  padding: var(--e4) var(--e3);
+  overflow-y: auto;
+}
+.ventana__lado ul{ list-style: none; margin: 0; padding: 0; }
+.ventana__lado button{
+  display: block; width: 100%; text-align: left;
+  font: inherit; font-size: 14.5px; font-weight: 500;
+  color: var(--tinta-suave);
+  background: none; border: 0; cursor: pointer;
+  padding: 8px 10px; border-radius: 7px;
+  transition: background var(--rapido), color var(--rapido);
+}
+.ventana__lado button:hover{ background: rgba(30,30,30,.05); color: var(--tinta); }
+.ventana__lado button[aria-current="true"]{
+  background: var(--color-claro, var(--gris-calido));
+  color: var(--tinta); font-weight: 700;
+}
+
+.ventana__contenido{
+  flex: 1 1 auto; min-width: 0;
+  overflow-y: auto;
+  padding: var(--e6) var(--e7) var(--e8);
+  scroll-behavior: smooth;
+}
+@media (prefers-reduced-motion: reduce){ .ventana__contenido{ scroll-behavior: auto; } }
+
+.ventana__contenido h3{
+  font-size: 23px; margin-bottom: var(--e3);
+}
+.ventana__contenido > section + section{
+  margin-top: var(--e7);
+  padding-top: var(--e6);
+  border-top: 1px solid var(--gris-calido);
+}
+
+/* Aviso de contenido que aún no está (etapa 3) */
+.pendiente{
+  display: inline-block;
+  font-size: 14px; color: var(--tinta-tenue);
+  background: var(--papel-hondo);
+  border: 1px dashed var(--gris-calido);
+  border-radius: var(--radio-tarjeta);
+  padding: var(--e3) var(--e4);
+}
+
+/* ═══════════ Carpetas y fichas (Mis trabajos) ═══════════ */
+
+.carpetas{ display: grid; gap: var(--e5); }
+.carpeta__titulo{
+  font-family: var(--fuente-texto);
+  font-size: 11.5px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--tinta-tenue);
+  margin-bottom: var(--e3);
+}
+.rejilla{
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: var(--e4);
+  list-style: none; margin: 0; padding: 0;
+}
+.ficha{
+  display: flex; flex-direction: column; align-items: flex-start; gap: var(--e2);
+  width: 100%; text-align: left;
+  font: inherit; cursor: pointer;
+  background: none; border: 0; padding: var(--e2);
+  border-radius: var(--radio-tarjeta);
+  transition: background var(--rapido) var(--curva), transform var(--rapido) var(--curva);
+}
+.ficha:hover{ background: var(--papel-hondo); transform: translateY(-2px); }
+.ficha__icono{ color: var(--color, var(--tinta-tenue)); }
+.ficha__nombre{ font-size: 14.5px; font-weight: 500; line-height: 1.35; }
+
+/* ── Ficha abierta: la ficha de un trabajo ── */
+.volver{
+  display: inline-flex; align-items: center; gap: 6px;
+  font: inherit; font-size: 14px; font-weight: 500;
+  color: var(--tinta-suave); background: none; border: 0;
+  cursor: pointer; padding: 6px 10px 6px 6px; margin-bottom: var(--e4);
+  border-radius: 7px;
+  transition: background var(--rapido), color var(--rapido);
+}
+.volver:hover{ background: var(--papel-hondo); color: var(--tinta); }
+
+.detalle__titulo{ font-size: 28px; margin-bottom: var(--e5); }
+.detalle__etiqueta{
+  display: inline-block;
+  font-size: 12px; font-weight: 600; letter-spacing: .04em;
+  background: var(--color-claro, var(--gris-calido));
+  color: var(--tinta);
+  padding: 4px 10px; border-radius: var(--radio-boton);
+  margin-bottom: var(--e5);
+}
+.detalle__bloque + .detalle__bloque{ margin-top: var(--e5); }
+.detalle__bloque h4{
+  font-family: var(--fuente-texto);
+  font-size: 11.5px; font-weight: 700; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--tinta-tenue);
+  margin-bottom: var(--e2);
+}
+
+/* ═══════════ Móvil: la ventana es una tarjeta a pantalla completa ═══════════ */
+
+@media (max-width: 767px){
+  .ventana{
+    left: 0; top: auto; bottom: 0;
+    transform: translateY(14px);
+    width: 100%; height: 92vh; height: 92dvh;
+    border-radius: var(--radio-ventana) var(--radio-ventana) 0 0;
+  }
+  .ventana[data-abierto="true"]{ transform: translateY(0); }
+
+  .ventana__barra{ height: 52px; padding: 0 var(--e3) 0 var(--e4); }
+  /* En el móvil los tres puntitos son difíciles de acertar: se cambian
+     por un botón de cerrar grande a la derecha (mínimo 44×44). */
+  .ventana__puntos{ display: none; }
+  .ventana__titulo{ left: var(--e4); transform: none; max-width: calc(100% - 64px); }
+  .cerrar-movil{
+    position: absolute; right: 6px; top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px; display: flex; align-items: center; justify-content: center;
+    background: none; border: 0; cursor: pointer; color: var(--tinta);
+    border-radius: 50%;
+  }
+  .cerrar-movil:hover{ background: rgba(30,30,30,.07); }
+
+  .ventana__cuerpo{ flex-direction: column; }
+  /* La lista de apartados pasa a ser una fila que se desliza */
+  .ventana__lado{
+    flex: 0 0 auto;
+    border-right: 0; border-bottom: 1px solid var(--gris-calido);
+    padding: var(--e2) var(--margen-movil);
+    overflow-x: auto; overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+  }
+  .ventana__lado ul{ display: flex; gap: 6px; }
+  .ventana__lado li{ flex: 0 0 auto; }
+  .ventana__lado button{ white-space: nowrap; padding: 8px 12px; min-height: 40px; }
+
+  .ventana__contenido{ padding: var(--e5) var(--margen-movil) var(--e8); }
+  .ventana__contenido h3{ font-size: 20px; }
+  .detalle__titulo{ font-size: 23px; }
+  .rejilla{ grid-template-columns: repeat(auto-fill, minmax(130px, 1fr)); }
+}
+
+@media (min-width: 768px){
+  .cerrar-movil{ display: none; }
+}
+
+/* Menos movimiento: la ventana aparece y desaparece sin deslizarse */
+@media (prefers-reduced-motion: reduce){
+  .ventana{ transform: translate(-50%, -50%); }
+  .ventana[data-abierto="true"]{ transform: translate(-50%, -50%); }
+  @media (max-width: 767px){
+    .ventana, .ventana[data-abierto="true"]{ transform: none; }
+  }
+  .ficha:hover{ transform: none; }
+}

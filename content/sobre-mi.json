@@ -1,0 +1,11 @@
+{
+  "_nota": "Estructura según docs/CONTENT.md § 3. Los textos se rellenan en la etapa 3.",
+  "id": "sobre-mi",
+  "apartados": [
+    { "id": "intro",  "titulo": { "es": "Quién soy",        "en": "Who I am",        "zh": "我是谁" } },
+    { "id": "vistazo","titulo": { "es": "De un vistazo",    "en": "At a glance",     "zh": "速览" } },
+    { "id": "videocv","titulo": { "es": "Vídeo CV",         "en": "Video CV",        "zh": "视频简历" } },
+    { "id": "fotos",  "titulo": { "es": "Fotos",            "en": "Photos",          "zh": "照片" } },
+    { "id": "redes",  "titulo": { "es": "Dónde encontrarme","en": "Where to find me","zh": "社交账号" } }
+  ]
+}

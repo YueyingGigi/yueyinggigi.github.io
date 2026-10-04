@@ -1,0 +1,11 @@
+{
+  "_nota": "Estructura según docs/CONTENT.md § 4. Los textos se rellenan en la etapa 3.",
+  "id": "experiencia",
+  "apartados": [
+    { "id": "trayectoria","titulo": { "es": "Trayectoria",            "en": "Career",                "zh": "工作经历" } },
+    { "id": "otras",      "titulo": { "es": "Otras experiencias",     "en": "Other experience",      "zh": "其他经历" } },
+    { "id": "formacion",  "titulo": { "es": "Formación",              "en": "Education",             "zh": "教育背景" } },
+    { "id": "habilidades","titulo": { "es": "Habilidades",            "en": "Skills",                "zh": "能力" } },
+    { "id": "herramientas","titulo": { "es": "Herramientas",          "en": "Tools",                 "zh": "工具" } }
+  ]
+}

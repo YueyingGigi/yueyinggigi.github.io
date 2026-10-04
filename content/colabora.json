@@ -1,0 +1,11 @@
+{
+  "_nota": "Estructura según docs/CONTENT.md § 7. Los vídeos se rellenan en la etapa 3 desde data/UGC作品整理/.",
+  "id": "colabora",
+  "apartados": [
+    { "id": "que-hago", "titulo": { "es": "Qué hago",        "en": "What I do",       "zh": "我能做什么" } },
+    { "id": "videos",   "titulo": { "es": "Vídeos UGC",      "en": "UGC videos",      "zh": "UGC 作品" } },
+    { "id": "marcas",   "titulo": { "es": "Marcas",          "en": "Brands",          "zh": "合作品牌" } },
+    { "id": "datos",    "titulo": { "es": "Mis cuentas",     "en": "My accounts",     "zh": "账号数据" } },
+    { "id": "contacto", "titulo": { "es": "Hablemos",        "en": "Let's talk",      "zh": "联系我" } }
+  ]
+}

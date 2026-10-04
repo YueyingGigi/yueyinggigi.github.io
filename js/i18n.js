@@ -102,14 +102,16 @@ export async function cambiarIdioma(idioma, guardarlo = true){
   marcarBotones(idioma);
   if (guardarlo) guardar(idioma);
   document.dispatchEvent(new CustomEvent('idioma:cambiado', { detail: { idioma, textos } }));
+  return textos;
 }
 
 export function idiomaActual(){ return actual; }
 
 export async function iniciarIdioma(){
-  await cambiarIdioma(elegirIdioma(), false);
+  const textos = await cambiarIdioma(elegirIdioma(), false);
 
   document.querySelectorAll('[data-idioma]').forEach(boton => {
     boton.addEventListener('click', () => cambiarIdioma(boton.dataset.idioma));
   });
+  return textos;
 }

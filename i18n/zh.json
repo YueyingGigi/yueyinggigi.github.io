@@ -29,5 +29,14 @@
   "entrada.linea": "内容创作者与品牌传播，连接中国与西班牙。",
   "entrada.pista": "选一个盒子，拆开看看。",
 
-  "caja.abrir": "打开：{seccion}"
+  "caja.abrir": "打开：{seccion}",
+
+  "ventana.cerrar": "关闭",
+  "ventana.apartados": "小节",
+  "ventana.volver": "返回",
+  "ventana.pendiente": "内容整理中。",
+  "ficha.contexto": "背景",
+  "ficha.rol": "我负责的部分",
+  "ficha.proceso": "过程",
+  "ficha.resultado": "结果"
 }

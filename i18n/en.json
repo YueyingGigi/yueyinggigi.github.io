@@ -29,5 +29,14 @@
   "entrada.linea": "Content creator and brand communicator, between China and Spain.",
   "entrada.pista": "Pick a box and open it.",
 
-  "caja.abrir": "Open: {seccion}"
+  "caja.abrir": "Open: {seccion}",
+
+  "ventana.cerrar": "Close",
+  "ventana.apartados": "Sections",
+  "ventana.volver": "Back",
+  "ventana.pendiente": "Content coming soon.",
+  "ficha.contexto": "Context",
+  "ficha.rol": "My role",
+  "ficha.proceso": "Process",
+  "ficha.resultado": "Result"
 }

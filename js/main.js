@@ -1,10 +1,13 @@
 /* ─────────────────────────────────────────────────────────────
    main.js — arranque de la página.
-   Etapa 1: idioma, barra, menú del móvil y colocación de la tapa.
-   El desembalaje y las ventanas llegan en las etapas 2 y 5.
+   Etapa 1: idioma, barra y menú del móvil.
+   Etapa 2: ventanas y enlaces directos.
+   El desembalaje y la mano llegan en la etapa 5.
    ───────────────────────────────────────────────────────────── */
 
 import { iniciarIdioma } from './i18n.js';
+import { alCambiarRuta } from './router.js';
+import { iniciarVentanas, sincronizarConRuta, refrescarIdioma, estaAbierta } from './window.js';
 
 /* ── La barra se marca con una línea al bajar ── */
 function barraAlBajar(){
@@ -34,29 +37,28 @@ function menuMovil(){
     panel.dataset.abierto === 'true' ? cerrar() : abrir();
   });
   panel.addEventListener('click', e => { if (e.target.closest('a')) cerrar(); });
-  document.addEventListener('keydown', e => { if (e.key === 'Escape') cerrar(); });
-  // al volver al escritorio, que no quede el panel abierto
+  // Esc cierra el menú solo si no hay una ventana abierta (esa tiene prioridad)
+  document.addEventListener('keydown', e => { if (e.key === 'Escape' && !estaAbierta()) cerrar(); });
   matchMedia('(min-width: 901px)').addEventListener('change', cerrar);
-}
-
-/* ── Las cajas todavía no abren nada (etapa 2) ── */
-function cajasProvisionales(){
-  document.querySelectorAll('.caja').forEach(caja => {
-    caja.addEventListener('click', () => {
-      console.log('Caja:', caja.dataset.seccion, '— la ventana llega en la etapa 2');
-    });
-  });
 }
 
 async function iniciar(){
   barraAlBajar();
   menuMovil();
-  cajasProvisionales();
+
+  let textos = {};
   try {
-    await iniciarIdioma();
+    textos = await iniciarIdioma();
   } catch (e) {
     console.error('No se han podido cargar los textos:', e);
   }
+
+  iniciarVentanas(textos);
+  alCambiarRuta(sincronizarConRuta);
+
+  // Si se cambia de idioma con una ventana abierta, se vuelve a pintar
+  document.addEventListener('idioma:cambiado', e => refrescarIdioma(e.detail.textos));
+
   document.body.dataset.listo = 'true';
 }
 

@@ -29,5 +29,14 @@
   "entrada.linea": "Creadora de contenido y comunicación de marca, entre China y España.",
   "entrada.pista": "Elige una caja y ábrela.",
 
-  "caja.abrir": "Abrir: {seccion}"
+  "caja.abrir": "Abrir: {seccion}",
+
+  "ventana.cerrar": "Cerrar",
+  "ventana.apartados": "Apartados",
+  "ventana.volver": "Volver",
+  "ventana.pendiente": "Contenido en preparación.",
+  "ficha.contexto": "Contexto",
+  "ficha.rol": "Mi rol",
+  "ficha.proceso": "Proceso",
+  "ficha.resultado": "Resultado"
 }

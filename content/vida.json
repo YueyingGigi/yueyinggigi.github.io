@@ -1,0 +1,10 @@
+{
+  "_nota": "Estructura según docs/CONTENT.md § 6. Rejilla de fotos con una etiqueta por afición; los textos, en la etapa 3.",
+  "id": "vida",
+  "vista": "fotos",
+  "apartados": [
+    { "id": "aficiones", "titulo": { "es": "Lo que me gusta", "en": "What I enjoy", "zh": "我喜欢的" } },
+    { "id": "fallas",    "titulo": { "es": "Las Fallas",      "en": "Las Fallas",   "zh": "法雅节" } },
+    { "id": "dos",       "titulo": { "es": "Entre dos culturas", "en": "Between two cultures", "zh": "在两种文化之间" } }
+  ]
+}
