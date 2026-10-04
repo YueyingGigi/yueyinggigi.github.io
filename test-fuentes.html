@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Prueba de fuentes — Portfolio Gigi</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
+
+<style>
+  :root{
+    --papel:#F7F5F2; --tinta:#1E1E1E; --gris-calido:#E9E6E1;
+    --rojo-sello:#D9412B; --rojo-sello-texto:#B8321F;
+    --lavanda:#C9B8E3; --rojo-caja:#D9412B; --amarillo:#F8E08E;
+    --azul-mar:#4A9DB8; --rosa:#F6C1CC;
+  }
+  *{box-sizing:border-box}
+  body{
+    margin:0; padding:40px 16px 80px; background:var(--papel); color:var(--tinta);
+    font-family:"DM Sans",system-ui,sans-serif; font-size:17px; line-height:1.6;
+  }
+  .wrap{max-width:860px;margin:0 auto}
+  h1{font-family:Fraunces,Georgia,serif;font-weight:900;font-size:34px;line-height:1.15;margin:0 0 4px}
+  .sub{color:#6b6660;font-size:15px;margin:0 0 36px}
+  section{border-top:1px solid var(--gris-calido);padding:26px 0 6px}
+  .et{font-family:"DM Sans",sans-serif;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:#8a837b;margin:0 0 14px}
+  .muestra{margin:0 0 10px}
+  .big{font-size:30px;line-height:1.25}
+  .mid{font-size:20px}
+  .fraunces{font-family:Fraunces,Georgia,serif}
+  .dmsans{font-family:"DM Sans",system-ui,sans-serif}
+  .caveat{font-family:Caveat,cursive}
+  .noto{font-family:"Noto Sans SC",sans-serif}
+  .wenkai{font-family:"LXGW WenKai","LXGW WenKai Lite",serif}
+  .fallback{color:#b4ada5;font-size:13px;margin-top:6px}
+  .colores{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+  .chip{width:92px;height:62px;border-radius:10px;display:flex;align-items:flex-end;padding:6px;font-size:10px;color:var(--tinta);background:#ccc}
+  .btn{display:inline-block;background:var(--rojo-sello);color:#fff;font-weight:700;font-size:19px;
+       padding:12px 22px;border-radius:999px;text-decoration:none}
+  .nota{font-size:14px;color:#6b6660;background:#fff;border-left:3px solid var(--rojo-sello);padding:10px 14px;border-radius:0 8px 8px 0;margin-top:14px}
+  code{font-family:ui-monospace,Menlo,monospace;font-size:13px;background:var(--gris-calido);padding:1px 5px;border-radius:4px}
+  #estado div{font-size:14px;padding:3px 0}
+  .ok::before{content:"✓ ";color:#2f7d4f;font-weight:700}
+  .no::before{content:"✗ ";color:var(--rojo-sello-texto);font-weight:700}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Prueba de fuentes</h1>
+  <p class="sub">Portfolio de Gigi · comprobación de acentos españoles, signos ¿ ¡ y caracteres chinos</p>
+
+  <section>
+    <p class="et">Detección automática</p>
+    <div id="estado">cargando…</div>
+  </section>
+
+  <section>
+    <p class="et">Fraunces — títulos</p>
+    <p class="muestra big fraunces">Hola, soy Gigi. Comunicación transmedia entre China y España.</p>
+    <p class="muestra mid fraunces">¿Qué me pongo? ¡Añade más! · áéíóú ñ ü Ñ Ü · 0123456789</p>
+    <p class="muestra fraunces" style="font-weight:900;font-size:46px;letter-spacing:.02em">YUEYING</p>
+  </section>
+
+  <section>
+    <p class="et">DM Sans — texto e interfaz</p>
+    <p class="muestra mid dmsans">Creadora de contenido y comunicación de marca, entre China y España.</p>
+    <p class="muestra dmsans">Guion, grabación, edición y presentación a cámara. Diseño de plantillas estandarizadas de documentación oficial. ¿Tienes una marca y una idea? ¡Escríbeme! · áéíóú ñ ü ¿ ¡</p>
+    <p class="muestra dmsans" style="font-size:11px;letter-spacing:.18em">SERIE GIGI · EDICIÓN ESPAÑA</p>
+  </section>
+
+  <section>
+    <p class="et">Caveat — anotaciones a mano</p>
+    <p class="muestra big caveat">Elige una caja y ábrela. ¿Cuál primero? ¡Ánimo!</p>
+  </section>
+
+  <section>
+    <p class="et">Noto Sans SC — texto en chino</p>
+    <p class="muestra mid noto">你好，我是 Gigi。内容创作者与品牌传播，连接中国与西班牙。</p>
+    <p class="muestra noto">我在西班牙的生活 · 品牌合作 · 关于我 · 经历 · 作品 · 下载简历 · 盲盒 · 搪胶公仔 · 工作台</p>
+  </section>
+
+  <section>
+    <p class="et">LXGW WenKai 霞鹜文楷 — anotaciones a mano en chino</p>
+    <p class="muestra big wenkai">选一个盒子，拆开看看。</p>
+    <p class="muestra mid wenkai">一套 Gigi 的个人盲盒 · 西班牙版 · 阿车 · 瓦伦西亚 · 法雅节</p>
+    <p class="fallback">Si estas dos líneas se ven igual que Noto Sans SC, la fuente no ha cargado.</p>
+  </section>
+
+  <section>
+    <p class="et">Colores y contraste</p>
+    <div class="colores">
+      <div class="chip" style="background:var(--lavanda)">lavanda</div>
+      <div class="chip" style="background:var(--rojo-caja);color:#fff">rojo sello</div>
+      <div class="chip" style="background:var(--amarillo)">amarillo</div>
+      <div class="chip" style="background:var(--azul-mar)">azul mar</div>
+      <div class="chip" style="background:var(--rosa)">rosa</div>
+      <div class="chip" style="background:var(--gris-calido)">gris cálido</div>
+    </div>
+    <p style="margin-top:18px"><a class="btn" href="#">Descargar CV</a></p>
+    <p class="muestra" style="color:var(--rojo-sello-texto);font-size:15px">Texto pequeño en rojo: usa #B8321F, no #D9412B (contraste 5,5:1).</p>
+    <div class="nota">Comprobar a 390 px de ancho: nada se sale, no hay scroll horizontal.</div>
+  </section>
+
+</div>
+
+<script>
+// Comprueba si cada fuente ha cargado de verdad, comparando el ancho del
+// texto con el de una fuente de referencia (monospace).
+const fuentes = [
+  ['Fraunces',      'Hola ¿qué tal? áéíóúñü'],
+  ['DM Sans',       'Hola ¿qué tal? áéíóúñü'],
+  ['Caveat',        'Hola ¿qué tal? áéíóúñü'],
+  ['Noto Sans SC',  '你好，我是 Gigi 内容创作'],
+  ['LXGW WenKai',   '你好，我是 Gigi 内容创作'],
+];
+function ancho(familia, texto){
+  const c = document.createElement('canvas').getContext('2d');
+  c.font = `40px ${familia}`;
+  return c.measureText(texto).width;
+}
+function pintar(){
+  const caja = document.getElementById('estado');
+  caja.innerHTML = '';
+  for (const [nombre, texto] of fuentes){
+    const base = ancho('monospace', texto);
+    const con  = ancho(`"${nombre}", monospace`, texto);
+    const ok = Math.abs(con - base) > 0.5;
+    const d = document.createElement('div');
+    d.className = ok ? 'ok' : 'no';
+    d.textContent = nombre + (ok ? ' — cargada' : ' — NO ha cargado');
+    caja.appendChild(d);
+  }
+}
+if (document.fonts && document.fonts.ready) {
+  document.fonts.ready.then(() => setTimeout(pintar, 300));
+} else {
+  window.addEventListener('load', () => setTimeout(pintar, 800));
+}
+</script>
+</body>
+</html>

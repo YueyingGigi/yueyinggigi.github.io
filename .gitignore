@@ -1,0 +1,32 @@
+# ── 只留在本地，绝对不上传到公开的 GitHub ──────────────────
+
+# 给 Claude Code 的说明文件和内容事实库
+CLAUDE.md
+docs/
+
+# 原始素材（公仔原图、原始视频、个人照片、Notion 导出、CV 源文件）
+data/
+
+# 保险：就算文件放错位置，这些格式也绝不上传
+*.MOV
+*.mov
+*.HEIC
+*.heic
+*.docx
+*.pptx
+
+# macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+
+# 临时
+node_modules/
+*.log
+LEEME-Gigi.md
