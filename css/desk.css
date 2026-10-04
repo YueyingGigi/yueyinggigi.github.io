@@ -296,3 +296,75 @@
   filter: drop-shadow(10px 18px 26px rgba(30,30,30,.32));
 }
 .figura[hidden]{ display: none; }
+
+/* ═══════════ La mano que sustituye al ratón (DESIGN § 4) ═══════════
+   Solo en la mesa y solo con ratón de verdad. La pone js/hand.js. */
+
+@media (pointer: fine){
+  body[data-mano-puesta] .mesa,
+  body[data-mano-puesta] .caja{ cursor: none; }
+}
+
+.mano{
+  position: fixed; left: 0; top: 0;
+  z-index: 55;
+  width: clamp(110px, 11vw, 165px);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 140ms var(--curva);
+  will-change: transform;
+}
+.mano[data-visible="true"]{ opacity: 1; }
+.mano img{
+  display: block; width: 100%; height: auto;
+  filter: drop-shadow(7px 11px 10px rgba(30,30,30,.20));
+  transition: opacity 100ms linear;
+}
+
+/* Ni en el móvil ni si se ha pedido menos movimiento */
+@media (pointer: coarse), (prefers-reduced-motion: reduce){
+  .mano{ display: none !important; }
+}
+
+/* ═══════════ Entrada de la mesa ═══════════
+   El título sale desde detrás de una máscara y las cajas suben una
+   detrás de otra. Nada aparece de golpe: es lo que separa una web
+   cuidada de una que simplemente "está ahí". */
+
+@keyframes subir-tras-mascara{
+  from{ transform: translateY(105%); }
+  to  { transform: translateY(0); }
+}
+@keyframes aparecer-subiendo{
+  from{ opacity: 0; transform: translateY(26px) rotate(var(--giro,0deg)) scale(.97); }
+  to  { opacity: 1; transform: translateY(0)    rotate(var(--giro,0deg)) scale(1); }
+}
+@keyframes aparecer{
+  from{ opacity: 0; transform: translateY(12px); }
+  to  { opacity: 1; transform: none; }
+}
+
+.entrada__saludo{ overflow: hidden; }
+.entrada__saludo span{ display: inline-block; }
+
+.entrada__saludo span{
+  animation: subir-tras-mascara 760ms cubic-bezier(.19,1,.22,1) both;
+}
+.entrada__linea{ animation: aparecer 620ms var(--curva) 160ms both; }
+.entrada__pista{ animation: aparecer 620ms var(--curva) 300ms both; }
+.cajas > li .caja{
+  animation: aparecer-subiendo 680ms cubic-bezier(.19,1,.22,1) both;
+}
+.cajas > li:nth-child(1) .caja{ animation-delay: 360ms; }
+.cajas > li:nth-child(2) .caja{ animation-delay: 430ms; }
+.cajas > li:nth-child(3) .caja{ animation-delay: 500ms; }
+.cajas > li:nth-child(4) .caja{ animation-delay: 570ms; }
+.cajas > li:nth-child(5) .caja{ animation-delay: 640ms; }
+
+
+@media (prefers-reduced-motion: reduce){
+  .entrada__saludo span,
+  .entrada__linea,
+  .entrada__pista,
+  .cajas > li .caja{ animation: none; }
+}

@@ -178,3 +178,33 @@ body[data-pagina][data-listo="true"]{ opacity: 1; transition: opacity 260ms var(
 .ficha__nombre{ font-size: 14px; font-weight: 500; line-height: 1.35; }
 
 @media (prefers-reduced-motion: reduce){ .ficha:hover{ transform: none; } }
+
+/* ═══════════ Entrada de las páginas de apartado ═══════════ */
+
+@keyframes subir-tras-mascara{ from{ transform: translateY(105%); } to{ transform: translateY(0); } }
+@keyframes aparecer{ from{ opacity:0; transform: translateY(14px); } to{ opacity:1; transform:none; } }
+
+.titulo-apartado{ overflow: hidden; }
+.titulo-apartado span{ display: inline-block; }
+
+.titulo-apartado span{
+  animation: subir-tras-mascara 740ms cubic-bezier(.19,1,.22,1) both;
+}
+.volver-mesa{ animation: aparecer 500ms var(--curva) both; }
+.indice-anim{ animation: aparecer 560ms var(--curva) 220ms both; }
+
+/* Cada bloque entra cuando se acerca a la pantalla */
+/* Visibles por defecto. Solo si el JavaScript funciona se ponen en
+   data-oculto y entran al acercarse a la pantalla: si falla, se lee todo. */
+.bloque[data-oculto="true"]{ opacity: 0; transform: translateY(22px); }
+.bloque[data-visto="true"]{
+  opacity: 1; transform: none;
+  transition: opacity 620ms var(--curva), transform 620ms cubic-bezier(.19,1,.22,1);
+}
+
+@media (prefers-reduced-motion: reduce){
+  .titulo-apartado span,
+  .volver-mesa,
+  .indice-anim{ animation: none; }
+  .bloque[data-oculto]{ opacity: 1; transform: none; }
+}

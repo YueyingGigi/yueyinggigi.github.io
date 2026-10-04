@@ -10,16 +10,15 @@
      0,95 s         debajo aparece el nombre del apartado
      1,80 s         se funde y entra en la página
 
-   Una caja ya abierta va mucho más rápido (0,55 s en total). Quien
-   vuelve no tiene por qué volver a esperar: esto lo miran empresas con
-   prisa, y la segunda vez la sorpresa ya no sorprende.
+   Se abre entera SIEMPRE, también al recargar: Gigi quiere poder ver
+   el efecto cada vez. Quien tenga prisa tiene la barra de arriba, que
+   lleva a cualquier apartado sin animación ninguna.
 
    Cada apartado tiene su propia página (sobre-mi.html, trabajos.html…),
    no una ventana: así cada uno puede tener la pinta que le conviene.
    ───────────────────────────────────────────────────────────── */
 
 import { sonarAbrir } from './sound.js';
-import { marcar, estaAbierta } from './coleccion.js';
 
 const sinMovimiento = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const revelado = () => document.querySelector('.revelado');
@@ -42,9 +41,6 @@ function irA(destino){
 }
 
 export function abrirCaja(caja, seccion, figura, textos, destino){
-  const repetida = estaAbierta(seccion);
-  marcar(seccion);
-
   // Sin animación: quien ha pedido menos movimiento entra directo
   if (sinMovimiento()){ location.href = destino; return; }
 
@@ -53,13 +49,7 @@ export function abrirCaja(caja, seccion, figura, textos, destino){
 
   const precinto = caja.querySelector('.caja__precinto');
   if (precinto) precinto.dataset.roto = 'true';
-  setTimeout(() => { caja.dataset.tapa = 'levantada'; }, repetida ? 90 : 200);
-
-  // Ya la había abierto: se entra casi de seguido
-  if (repetida){
-    setTimeout(() => irA(destino), 550);
-    return;
-  }
+  setTimeout(() => { caja.dataset.tapa = 'levantada'; }, 200);
 
   setTimeout(async () => {
     const rev = revelado();

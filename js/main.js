@@ -9,17 +9,8 @@
 import { iniciarIdioma } from './i18n.js';
 import { Figura } from './figure.js';
 import { abrirCaja } from './unbox.js';
-import { estaAbierta } from './coleccion.js';
-import { sonidoEncendido, cambiarSonido } from './sound.js';
 import { iniciarBarra } from './chrome.js';
-
-/* Las cajas que ya se abrieron se quedan abiertas: ese es todo el
-   "progreso" que hay. Sin contadores (ver js/coleccion.js). */
-function marcarCajasAbiertas(){
-  document.querySelectorAll('.caja').forEach(caja => {
-    if (estaAbierta(caja.dataset.seccion)) caja.dataset.abierta = 'true';
-  });
-}
+import { iniciarMano } from './hand.js';
 
 async function iniciar(){
   iniciarBarra();
@@ -28,7 +19,7 @@ async function iniciar(){
   try { textos = await iniciarIdioma(); }
   catch (e) { console.error('No se han podido cargar los textos:', e); }
 
-  marcarCajasAbiertas();
+  iniciarMano(document.querySelector('.mesa'));
 
   const figura = new Figura(document.querySelector('img.figura'));
 

@@ -48,6 +48,7 @@ export class Figura{
     this.seccion = null;
     this.paso = 0;
     this.girando = false;
+    this.pendiente = null;
   }
 
   /* En su sitio, de cara. Es lo normal al entrar en una página. */
@@ -80,9 +81,16 @@ export class Figura{
   ocultar(){ this.el.hidden = true; this.el.removeAttribute('style'); }
   estaVisible(){ return !this.el.hidden; }
 
-  /* Pasa a la parada que toca: se da la vuelta y se coloca */
+  cuantasParadas(){ return PARADAS.length; }
+
+  /* Pasa a la parada que toca: se da la vuelta y se coloca.
+
+     Si llega una petición mientras está girando se apunta y se atiende
+     al terminar. Antes se descartaba, y como nadie la volvía a pedir,
+     la muñeca se quedaba clavada en la segunda postura. */
   irA(indice){
-    if (!this.seccion || this.girando) return;
+    if (!this.seccion) return;
+    if (this.girando){ this.pendiente = indice; return; }
     if (indice === this.paso) return;
 
     const desde  = PARADAS[this.paso % PARADAS.length].angulo;
@@ -113,6 +121,11 @@ export class Figura{
         if (n === vuelta.length - 1){
           this.el.dataset.girando = 'false';
           this.girando = false;
+          if (this.pendiente != null){
+            const siguiente = this.pendiente;
+            this.pendiente = null;
+            this.irA(siguiente);
+          }
         }
       }, paso * (n + 1));
     });
