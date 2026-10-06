@@ -675,9 +675,8 @@ function pintarContacto(c, textos){
   });
   mano.appendChild(copiar);
   const porCorreo = (cuerpo) => 'mailto:' + c.email + '?subject=' + encodeURIComponent(enIdioma(c.asunto)) + '&body=' + encodeURIComponent(cuerpo);
-  const abrir = el('a', 'correo-a-mano__boton', t('colabora.abrir-correo'));
-  abrir.href = porCorreo(enIdioma(c.plantilla));
-  mano.appendChild(abrir);
+  // (hubo un botón «abrir en mi programa de correo»: fuera, 2026-10-07 — a quien usa
+  //  el correo en el navegador no le hacía nada; quedan la dirección, copiarla y la carta)
   sec.appendChild(mano);
 
   // abrir la caja
