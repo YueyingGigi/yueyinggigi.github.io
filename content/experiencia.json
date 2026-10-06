@@ -1,11 +1,243 @@
 {
-  "_nota": "Estructura según docs/CONTENT.md § 4. Los textos se rellenan en la etapa 3.",
+  "_nota": "2026-10-05: esta página YA NO es un segundo CV. Es una ruta de Chengdu a València, una línea por parada, y el detalle se deja al PDF del CV que está en la barra de arriba. Las habilidades de abajo son BLANDAS: las técnicas se cuentan en Sobre mí. Hechos: los dos CV y docs/CONTENT.md § 4.",
   "id": "experiencia",
   "apartados": [
-    { "id": "trayectoria","titulo": { "es": "Trayectoria",            "en": "Career",                "zh": "工作经历" } },
-    { "id": "otras",      "titulo": { "es": "Otras experiencias",     "en": "Other experience",      "zh": "其他经历" } },
-    { "id": "formacion",  "titulo": { "es": "Formación",              "en": "Education",             "zh": "教育背景" } },
-    { "id": "habilidades","titulo": { "es": "Habilidades",            "en": "Skills",                "zh": "能力" } },
-    { "id": "herramientas","titulo": { "es": "Herramientas",          "en": "Tools",                 "zh": "工具" } }
+    {
+      "id": "ruta",
+      "titulo": {
+        "es": "El recorrido",
+        "en": "The route",
+        "zh": "这条路"
+      },
+      "bloques": [
+        {
+          "tipo": "ruta",
+          "origen": {
+            "es": "Chengdu",
+            "en": "Chengdu",
+            "zh": "成都"
+          },
+          "destino": {
+            "es": "València",
+            "en": "Valencia",
+            "zh": "瓦伦西亚"
+          },
+          "paradas": [
+            {
+              "lugar": {
+                "es": "Chengdu",
+                "en": "Chengdu",
+                "zh": "成都"
+              },
+              "fechas": {
+                "es": "2015 – 2019",
+                "en": "2015 – 2019",
+                "zh": "2015 – 2019"
+              },
+              "titulo": {
+                "es": "Grado en Gestión de la Información y Sistemas, Universidad Minzu del Suroeste",
+                "en": "BSc in Information Management and Systems, Southwest Minzu University",
+                "zh": "信息管理与信息系统学士，西南民族大学"
+              }
+            },
+            {
+              "lugar": {
+                "es": "Chengdu",
+                "en": "Chengdu",
+                "zh": "成都"
+              },
+              "fechas": {
+                "es": "2019 – 2023",
+                "en": "2019 – 2023",
+                "zh": "2019 – 2023"
+              },
+              "titulo": {
+                "es": "Asistente Ejecutiva de Dirección General en POWERCHINA",
+                "en": "Executive Assistant, General Management, at POWERCHINA",
+                "zh": "中国电建总经理行政助理"
+              }
+            },
+            {
+              "lugar": {
+                "es": "València",
+                "en": "Valencia",
+                "zh": "瓦伦西亚"
+              },
+              "fechas": {
+                "es": "2024",
+                "en": "2024",
+                "zh": "2024"
+              },
+              "titulo": {
+                "es": "Primeros encargos en España: interpretación chino–español y compras a proveedores chinos",
+                "en": "First jobs in Spain: Chinese–Spanish interpreting and sourcing from Chinese suppliers",
+                "zh": "在西班牙接的第一批活：中西口译，以及从中国供应商采购"
+              }
+            },
+            {
+              "lugar": {
+                "es": "Gandia",
+                "en": "Gandia",
+                "zh": "Gandia"
+              },
+              "fechas": {
+                "es": "2025 – 2026",
+                "en": "2025 – 2026",
+                "zh": "2025 – 2026"
+              },
+              "titulo": {
+                "es": "Máster en Comunicación Transmedia, Universitat Politècnica de València",
+                "en": "Master's in Transmedia Communication, Universitat Politècnica de València",
+                "zh": "跨媒体传播硕士，瓦伦西亚理工大学"
+              },
+              "caso": "niunos"
+            },
+            {
+              "lugar": {
+                "es": "València",
+                "en": "Valencia",
+                "zh": "瓦伦西亚"
+              },
+              "fechas": {
+                "es": "2026",
+                "en": "2026",
+                "zh": "2026"
+              },
+              "titulo": {
+                "es": "Creadora de contenido en prácticas para las cuentas oficiales de la UPV",
+                "en": "Content creator intern for the UPV's official accounts",
+                "zh": "UPV 官方账号内容创作实习"
+              },
+              "caso": "upv"
+            }
+          ],
+          "continua": {
+            "fechas": {
+              "es": "2021 → actualidad",
+              "en": "2021 → today",
+              "zh": "2021 年至今"
+            },
+            "titulo": {
+              "es": "Creadora de contenido independiente, en paralelo a todo lo demás",
+              "en": "Independent content creator, alongside everything else",
+              "zh": "独立内容创作者，和上面这些并行"
+            },
+            "caso": "fallera"
+          }
+        }
+      ]
+    },
+    {
+      "id": "blandas",
+      "titulo": {
+        "es": "Lo que me llevo de este camino",
+        "en": "What this road gave me",
+        "zh": "这条路上我带走了什么"
+      },
+      "bloques": [
+        {
+          "tipo": "blandas",
+          "filas": [
+            {
+              "habilidad": {
+                "es": "Aprender rápido",
+                "en": "Learning fast",
+                "zh": "学得快"
+              },
+              "prueba": {
+                "es": "De cero a un DELE B2 en un año, y un máster en español tres años después de llegar.",
+                "en": "From zero to a DELE B2 in one year, and a master's in Spanish three years after arriving.",
+                "zh": "一年从零基础到 DELE B2；来了三年后用西语读完一个硕士。"
+              }
+            },
+            {
+              "habilidad": {
+                "es": "No dejar de aprender",
+                "en": "Never stopping",
+                "zh": "一直在学"
+              },
+              "prueba": {
+                "es": "DELE B2 (2024), inglés C1 (2025), curso de marketing digital de HubSpot (2025), máster (2025–2026) y el carnet de conducir por el camino.",
+                "en": "DELE B2 (2024), English C1 (2025), HubSpot's digital marketing course (2025), the master's (2025–2026), and a driving licence along the way.",
+                "zh": "DELE B2（2024）、英语 C1（2025）、HubSpot 数字营销课程（2025）、硕士（2025–2026），中间还考了驾照。"
+              }
+            },
+            {
+              "habilidad": {
+                "es": "Cuidar el detalle",
+                "en": "Caring about detail",
+                "zh": "抠细节"
+              },
+              "prueba": {
+                "es": "Las plantillas de documentación oficial que diseñé las acabó usando toda la empresa: más de 1.300 personas.",
+                "en": "The official document templates I designed ended up in use across the whole company: over 1,300 people.",
+                "zh": "我设计的公文模板最后全公司在用，1,300 多人。"
+              }
+            },
+            {
+              "habilidad": {
+                "es": "Exigirme",
+                "en": "Pushing myself",
+                "zh": "对自己要求高"
+              },
+              "prueba": {
+                "es": "Los idiomas, el máster y publicar contenido: las tres cosas a la vez, no una detrás de otra.",
+                "en": "Languages, the master's and publishing content: all three at once, not one after the other.",
+                "zh": "语言、硕士、持续更新内容，三件事是同时在做，不是一件做完再做下一件。"
+              }
+            },
+            {
+              "habilidad": {
+                "es": "Entenderme con gente de otra cultura",
+                "en": "Working across cultures",
+                "zh": "和不同文化的人打交道"
+              },
+              "prueba": {
+                "es": "Tres idiomas; interpretación chino–español sobre el terreno en SPF-Rush; contenido pensado a la vez para público chino e internacional.",
+                "en": "Three languages; on-site Chinese–Spanish interpreting at SPF-Rush; content made for Chinese and international audiences at once.",
+                "zh": "三种语言；在 SPF-Rush 做现场中西口译；内容同时面向中国和国际受众。"
+              }
+            },
+            {
+              "habilidad": {
+                "es": "Coordinar a gente que no es mi equipo",
+                "en": "Coordinating people who aren't my team",
+                "zh": "协调不归我管的人"
+              },
+              "prueba": {
+                "es": "Entre la Dirección General y 15 departamentos, con el proveedor que desarrolló el sistema documental, y formando a los secretarios de cada departamento.",
+                "en": "Between General Management and 15 departments, with the vendor that built the document system, and training each department's secretaries.",
+                "zh": "在总经理办公室和 15 个部门之间；对接开发公文系统的供应商；给各部门秘书做培训。"
+              }
+            },
+            {
+              "habilidad": {
+                "es": "Mente creativa",
+                "en": "Creative mind",
+                "zh": "有创意"
+              },
+              "prueba": {
+                "es": "Un vídeo CV en collage retro que rompe la cuarta pared, una marca que pasó de los bebés a cuidar a las madres, y este portfolio en forma de blind box.",
+                "en": "A retro-collage video CV that breaks the fourth wall, a brand that shifted from babies to caring for mothers, and this blind-box portfolio.",
+                "zh": "一支复古拼贴、打破第四面墙的视频简历；一个从婴儿用品转向关心妈妈的品牌；还有这个盲盒作品集本身。"
+              }
+            }
+          ]
+        },
+        {
+          "tipo": "cv-pregunta",
+          "pregunta": {
+            "es": "¿Te quedas con mi CV?",
+            "en": "Want to keep my CV?",
+            "zh": "要不要把我的简历带走？"
+          },
+          "boton": {
+            "es": "Descargar el CV (PDF)",
+            "en": "Download the CV (PDF)",
+            "zh": "下载简历（PDF）"
+          }
+        }
+      ]
+    }
   ]
 }

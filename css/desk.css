@@ -63,117 +63,7 @@
 .cajas > li:nth-child(4) .caja{ --giro: 1.4deg; margin-top: 4px; }
 .cajas > li:nth-child(5) .caja{ --giro:-0.9deg; margin-top: 12px; }
 
-/* ═══════════ Una caja ═══════════ */
-
-.caja{
-  position: relative;
-  width: 100%;
-  aspect-ratio: 777 / 800;     /* la proporción real de la foto */
-  padding: 0; border: 0; background: none;
-  cursor: pointer;
-  transform: rotate(var(--giro, 0deg));
-  transition: transform var(--normal) var(--curva);
-  -webkit-tap-highlight-color: transparent;
-}
-.caja:hover,
-.caja:focus-visible{ transform: rotate(var(--giro,0deg)) translateY(-6px); }
-.caja:active{ transform: rotate(var(--giro,0deg)) translateY(-2px); }
-
-/* La sombra va en su propia capa para poder crecer sola al pasar por encima */
-.caja__sombra{
-  position:absolute; inset: 16% 6% -1% 10%;
-  border-radius: 50%;
-  background: radial-gradient(ellipse at 50% 50%,
-              rgba(30,30,30,.30) 0%, rgba(30,30,30,.16) 48%, rgba(30,30,30,0) 72%);
-  filter: blur(14px);
-  opacity: .55;
-  transition: opacity var(--normal) var(--curva), transform var(--normal) var(--curva);
-  z-index: 0;
-}
-.caja:hover .caja__sombra,
-.caja:focus-visible .caja__sombra{ opacity:.75; transform: translate(3px, 8px) scale(1.03); }
-
-.caja__foto{
-  position:absolute; inset:0; width:100%; height:100%;
-  object-fit: contain; z-index:1;
-}
-
-/* La tapa: la zona donde se colocan los cinco elementos.
-   Se mete un poco hacia dentro porque en la foto se ve un filo
-   de lateral arriba y abajo. */
-.caja__tapa{
-  position:absolute; z-index:2;
-  left: 2.5%; right: 2.5%; top: 6%; bottom: 10%;
-  display:block;
-}
-
-/* ── 1. Precinto: la cinta que hay que romper ── */
-.caja__precinto{
-  position:absolute; left:-2.6%; right:-2.6%;
-  height: 8.4%;
-  background: var(--color);
-  opacity: .78;
-  box-shadow: 0 1px 2px rgba(30,30,30,.10);
-}
-/* textura de cinta de papel: rayitas muy flojas */
-.caja__precinto::after{
-  content:""; position:absolute; inset:0;
-  background:
-    repeating-linear-gradient(90deg, rgba(255,255,255,.14) 0 1px, transparent 1px 7px),
-    linear-gradient(180deg, rgba(255,255,255,.30), rgba(30,30,30,.06));
-}
-
-/* ── 2. Etiqueta: la pegatina con el nombre del apartado ── */
-.caja__etiqueta{
-  position:absolute;
-  background: var(--color-etiqueta, var(--color));
-  color: var(--tinta-etiqueta, var(--tinta));
-  font-family: var(--fuente-texto);
-  font-weight: 700;
-  font-size: clamp(10px, 1.02vw, 14.5px);
-  line-height: 1.25;
-  letter-spacing: .005em;
-  padding: .5em .72em;
-  border-radius: 4px;
-  box-shadow: 1px 2px 4px rgba(30,30,30,.13);
-  max-width: 78%;
-  text-align: center;
-  text-wrap: balance;
-}
-:lang(zh) .caja__etiqueta{ font-family:"Noto Sans SC", var(--fuente-texto); }
-
-/* ── 3. Icono: muy flojo, como una marca de agua ── */
-.caja__icono{
-  position:absolute;
-  width: 26%; height:auto;
-  color: var(--color-hondo, var(--color));
-  opacity: .26;
-  stroke-width: 1.5;
-  fill: none;
-  stroke: currentColor;
-  stroke-linecap: round;
-  stroke-linejoin: round;
-}
-
-/* ── 4. Sello del nombre ── */
-.caja__sello{
-  position:absolute;
-  width: 19%; height:auto;
-}
-
-/* ═══════════════════════════════════════════════════════════
-   COLOCACIÓN DE LA TAPA — Gigi eligió la A (2026-10-04)
-   ═══════════════════════════════════════════════════════════ */
-
-/* Elegida: la que propone DESIGN.md.
-   precinto cruzando el centro · etiqueta encima y a la izquierda
-   sello arriba a la derecha · icono abajo a la derecha.
-   La línea "SERIE GIGI · EDICIÓN ESPAÑA" se quitó el 2026-10-04:
-   no aportaba información y recargaba la tapa. */
-[data-tapa="a"] .caja__precinto{ top: 46%; }
-[data-tapa="a"] .caja__etiqueta{ left: 8%;  bottom: 58%; text-align:left; }
-[data-tapa="a"] .caja__sello   { right: 7%; top: 7%; transform: rotate(-4deg); }
-[data-tapa="a"] .caja__icono   { left:50%; bottom: 11%; width: 30%; transform: translateX(-50%); }
+/* «Una caja» y «abrir la caja» están en css/caja.css */
 
 /* ═══════════ Móvil (DESIGN § 9) ═══════════ */
 
@@ -211,71 +101,7 @@
   .caja:hover .caja__sombra{ transform:none; }
 }
 
-/* ═══════════════════════════════════════════════════════════════
-   ABRIR LA CAJA  (DESIGN § 5 · lo hace js/unbox.js)
-   Menos de un segundo: precinto → tapa → muñeca.
-   ═══════════════════════════════════════════════════════════════ */
-
-/* La foto de la caja abierta, debajo de la cerrada. Se descarga solo
-   cuando hace falta, no en la primera pantalla. */
-.caja__dentro{
-  position:absolute; inset:0; width:100%; height:100%;
-  object-fit: contain; z-index:1;
-  opacity: 0;
-  transition: opacity 180ms var(--curva);
-}
-.caja[data-abriendo="true"] .caja__dentro,
-.caja[data-abierta="true"]  .caja__dentro{ opacity: 1; }
-
-/* La tapa (= la foto de la caja cerrada) se levanta girando sobre
-   su borde de arriba, como una tapa de cartón de verdad. */
-.caja__foto{
-  transform-origin: 50% 2%;
-  transition: transform 300ms var(--curva), opacity 180ms var(--curva);
-  backface-visibility: hidden;
-}
-.caja{ perspective: 760px; }
-.caja[data-tapa="levantada"] .caja__foto,
-.caja[data-abierta="true"]   .caja__foto{
-  transform: rotateX(-96deg) translateY(-6%);
-  opacity: 0;
-}
-/* lo que va pegado a la tapa se levanta con ella */
-.caja__tapa{
-  transform-origin: 50% 2%;
-  transition: transform 300ms var(--curva), opacity 180ms var(--curva);
-}
-.caja[data-tapa="levantada"] .caja__tapa,
-.caja[data-abierta="true"]   .caja__tapa{
-  transform: rotateX(-96deg) translateY(-6%);
-  opacity: 0;
-}
-
-/* El precinto se despega por un lado y sale volando */
-.caja__precinto{
-  transform-origin: 8% 50%;
-  transition: transform 200ms cubic-bezier(.5,-.2,.8,.4), opacity 200ms ease-in;
-}
-.caja__precinto[data-roto="true"]{
-  transform: rotate(-16deg) translate(42%, -120%) scaleX(.72);
-  opacity: 0;
-}
-
-/* La caja tiembla un poco al romperse el precinto */
-.caja[data-abriendo="true"]{ animation: temblor 200ms var(--curva); }
-@keyframes temblor{
-  0%,100%{ transform: rotate(var(--giro,0deg)) translateX(0); }
-  30%    { transform: rotate(var(--giro,0deg)) translateX(-2.5px); }
-  65%    { transform: rotate(var(--giro,0deg)) translateX(1.8px); }
-}
-
-/* Una caja ya abierta se queda abierta y sin precinto (DESIGN § 5) */
-.caja[data-abierta="true"] .caja__precinto{ display: none; }
-
-/* Menos movimiento: ni temblor, ni tapa girando, ni salto */
 @media (prefers-reduced-motion: reduce){
-  .caja[data-abriendo="true"]{ animation: none; }
-  .caja__foto, .caja__tapa, .caja__precinto, .caja__dentro{ transition: none; }
   .saltarina{ display: none !important; }
 }
 
@@ -286,11 +112,14 @@
    entra en la página del apartado. La coloca js/unbox.js. */
 .figura{
   position: fixed;
-  left: 50%; top: 46%;            /* centrada con CSS: así no hay que
+  left: 50%; top: 41%;            /* centrada con CSS: así no hay que
                                      calcular lo ancha que es la imagen,
                                      que es justo lo que salía mal */
   z-index: 61;                    /* por delante del velo del revelado */
-  height: clamp(360px, 70vh, 760px);
+  /* 62vh y no 70: con 70 los pies caían encima de la frase de
+     debajo (Gigi, 2026-10-05). Así el borde de abajo queda en ~72vh
+     y la frase empieza por debajo del 75vh. */
+  height: min(62vh, 720px);
   width: auto; pointer-events: none;
   transform: translate(-50%, -50%);
   filter: drop-shadow(10px 18px 26px rgba(30,30,30,.32));
@@ -315,6 +144,14 @@
   will-change: transform;
 }
 .mano[data-visible="true"]{ opacity: 1; }
+/* quietas abajo, respiran (DESIGN 15.1): una animación CSS suelta,
+   así cuando no se mueven no hay ningún bucle de JS gastando batería */
+.mano[data-reposo="true"] img{ animation: respirar-mano 3.8s ease-in-out infinite; }
+.mano--izq[data-reposo="true"] img{ animation-delay: -1.7s; animation-duration: 4.3s; }
+@keyframes respirar-mano{
+  0%, 100% { translate: 0 0;    rotate: 0deg; }
+  50%      { translate: 0 -5px; rotate: -1.2deg; }
+}
 .mano img{
   display: block; width: 100%; height: auto;
   filter: drop-shadow(7px 11px 10px rgba(30,30,30,.20));

@@ -6,6 +6,8 @@ docs/
 
 # 原始素材（公仔原图、原始视频、个人照片、Notion 导出、CV 源文件）
 data/
+# fotos originales que va dejando Gigi: solo fuente, la web usa las de assets/media/fotos/
+assets/media/fotos/新增图片/
 
 # 保险：就算文件放错位置，这些格式也绝不上传
 *.MOV
@@ -36,3 +38,5 @@ movil.html
 comprobar.html
 anim.html
 sonda.html
+desplazar.html
+herramientas/

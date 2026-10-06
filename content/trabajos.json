@@ -1,5 +1,5 @@
 {
-  "_nota": "Estructura según docs/CONTENT.md § 5. Las fichas se rellenan en la etapa 3 desde data/作品视频整理/. Xiaomi España y Ecoalf fuera (Gigi, 2026-10-04): no quiere subir esos archivos.",
+  "_nota": "Hechos: docs/CONTENT.md § 5. Cada trabajo lleva título + etiqueta + una frase + materiales; sin las cuatro secciones de ficha (Gigi, 2026-10-05). Las reproducciones de los vídeos externos son las de TikTok, leídas el 2026-10-05. Xiaomi España y Ecoalf fuera: no quiere subir esos archivos. Las etiquetas «contenido de esta caja» solo dicen lo que consta en docs/CONTENT.md; donde no se sabe con qué herramientas se hizo ESE encargo, se deja sin herramientas (2026-10-05). 2026-10-05 (2ª ronda): «presentacion» dice cómo sale cada trabajo de la pantalla (web / cine / serie, ver js/trabajos.js); «total» es la cifra de la serie entera que va arriba de los cuatro móviles.",
   "id": "trabajos",
   "vista": "carpetas",
   "carpetas": [
@@ -18,7 +18,59 @@
             "es": "Niu&Nos",
             "en": "Niu&Nos",
             "zh": "Niu&Nos"
-          }
+          },
+          "etiqueta": {
+            "es": "Proyecto académico · Trabajo Fin de Máster, 2026",
+            "en": "Academic project · Master's thesis, 2026",
+            "zh": "课程项目 · 硕士毕业设计，2026"
+          },
+          "resumen": {
+            "es": "Creación integral de una marca DNVB de cajas regalo maternoinfantiles: identidad visual, manual de marca, estrategia transmedia, web, vídeo promocional y prototipo físico de la caja con recorrido QR–web. La marca sigue en fase de planificación: no está a la venta. TFM calificado con 10 y matrícula de honor.",
+            "en": "End-to-end creation of a DNVB brand of mother-and-baby gift boxes: visual identity, brand manual, transmedia strategy, website, promo video and a physical box prototype with a QR-to-web journey. The brand is still at the planning stage: it is not on sale. Master's thesis graded 10 with honours.",
+            "zh": "从零创建一个母婴礼盒 DNVB 品牌：视觉识别、品牌手册、跨媒体策略、网页、宣传视频，以及带 QR–网页动线的礼盒实物原型。品牌仍在规划阶段，尚未上市。硕士论文 10 分并获优秀表彰。"
+          },
+          "media": [
+            {
+              "tipo": "video",
+              "archivo": "assets/media/video/niunos-promo.mp4",
+              "portada": "assets/media/portadas/niunos-promo.webp",
+              "vertical": false,
+              "titulo": {
+                "es": "Vídeo promocional",
+                "en": "Promo video",
+                "zh": "宣传视频"
+              }
+            },
+            {
+              "tipo": "foto",
+              "archivo": "assets/media/niunos-caja.webp",
+              "mini": "assets/media/niunos-caja-640.webp",
+              "alt": {
+                "es": "Prototipo físico de la caja regalo de Niu&Nos",
+                "en": "Physical prototype of the Niu&Nos gift box",
+                "zh": "Niu&Nos 礼盒实物原型"
+              }
+            },
+            {
+              "tipo": "enlace",
+              "url": "https://yueyinggigi.github.io/niuynos-web/",
+              "plataforma": "web",
+              "texto": {
+                "es": "La web de Niu&Nos",
+                "en": "The Niu&Nos site",
+                "zh": "Niu&Nos 网页"
+              }
+            }
+          ],
+          "contenido": {
+            "aporte": {
+              "es": "Marca creada de principio a fin, yo sola: identidad visual, manual de marca, estrategia transmedia, web, vídeo promocional y prototipo físico de la caja.",
+              "en": "A brand built end to end, on my own: visual identity, brand manual, transmedia strategy, website, promo video and a physical box prototype.",
+              "zh": "一个人从头到尾做完的品牌：视觉识别、品牌手册、跨媒体策略、网页、宣传视频、礼盒实物原型。"
+            }
+          },
+          "presentacion": "web",
+          "web": "https://yueyinggigi.github.io/niuynos-web/"
         },
         {
           "id": "upv",
@@ -27,6 +79,115 @@
             "es": "UPV · TikTok e Instagram",
             "en": "UPV · TikTok and Instagram",
             "zh": "UPV · TikTok 与 Instagram"
+          },
+          "etiqueta": {
+            "es": "Prácticas · 2026",
+            "en": "Internship · 2026",
+            "zh": "实习 · 2026"
+          },
+          "resumen": {
+            "es": "Guion, grabación, edición y presentación a cámara para las cuentas oficiales de la UPV: 24 vídeos y más de 180.000 visualizaciones. El núcleo del trabajo es esta serie de cuatro capítulos, una guía de supervivencia en China para extranjeros, con 63.600 visualizaciones en TikTok.",
+            "en": "Scripting, filming, editing and presenting for the UPV's official accounts: 24 videos and over 180,000 views. The core of the work is this four-part series, a survival guide to China for foreigners, with 63,600 views on TikTok.",
+            "zh": "为 UPV 官方账号做脚本、拍摄、剪辑和出镜：24 条视频，18 万以上播放。核心是这个四集系列——给外国人的中国生存指南，TikTok 合计 63,600 播放。"
+          },
+          "media": [
+            {
+              "tipo": "video-enlace",
+              "portada": "assets/media/portadas/OBRA-1.webp",
+              "etiqueta": {
+                "es": "Parte 1",
+                "en": "Part 1",
+                "zh": "第 1 集"
+              },
+              "titulo": {
+                "es": "Apps para tu viaje a China",
+                "en": "Apps for your trip to China",
+                "zh": "去中国要装的 App"
+              },
+              "reproducciones": 10700,
+              "enlaces": [
+                {
+                  "url": "https://www.tiktok.com/@upv/video/7660892751986216214",
+                  "plataforma": "tiktok"
+                }
+              ]
+            },
+            {
+              "tipo": "video-enlace",
+              "portada": "assets/media/portadas/OBRA-2.webp",
+              "etiqueta": {
+                "es": "Parte 2",
+                "en": "Part 2",
+                "zh": "第 2 集"
+              },
+              "titulo": {
+                "es": "Olvídate de Google Maps en China",
+                "en": "Forget Google Maps in China",
+                "zh": "在中国别指望 Google 地图"
+              },
+              "reproducciones": 12500,
+              "enlaces": [
+                {
+                  "url": "https://www.tiktok.com/@upv/video/7660894670486031638",
+                  "plataforma": "tiktok"
+                }
+              ]
+            },
+            {
+              "tipo": "video-enlace",
+              "portada": "assets/media/portadas/OBRA-3.webp",
+              "etiqueta": {
+                "es": "Parte 3",
+                "en": "Part 3",
+                "zh": "第 3 集"
+              },
+              "titulo": {
+                "es": "Haz así tu maleta para China",
+                "en": "How to pack for China",
+                "zh": "去中国的行李这样收"
+              },
+              "reproducciones": 35000,
+              "enlaces": [
+                {
+                  "url": "https://www.tiktok.com/@upv/video/7660895695980858646",
+                  "plataforma": "tiktok"
+                }
+              ]
+            },
+            {
+              "tipo": "video-enlace",
+              "portada": "assets/media/portadas/OBRA-4.webp",
+              "etiqueta": {
+                "es": "Parte 4",
+                "en": "Part 4",
+                "zh": "第 4 集"
+              },
+              "titulo": {
+                "es": "Tips para tu día a día en China",
+                "en": "Tips for everyday life in China",
+                "zh": "在中国的日常小技巧"
+              },
+              "reproducciones": 5665,
+              "enlaces": [
+                {
+                  "url": "https://www.tiktok.com/@upv/video/7660896828510031126",
+                  "plataforma": "tiktok"
+                }
+              ]
+            }
+          ],
+          "contenido": {
+            "aporte": {
+              "es": "Guion · Grabación · Edición · Presentación a cámara",
+              "en": "Script · Filming · Editing · On-camera presenting",
+              "zh": "脚本 · 拍摄 · 剪辑 · 出镜"
+            }
+          },
+          "presentacion": "serie",
+          "total": {
+            "es": "63.600 visualizaciones en TikTok",
+            "en": "63,600 views on TikTok",
+            "zh": "TikTok 合计 6.36 万播放"
           }
         },
         {
@@ -36,6 +197,107 @@
             "es": "Serie Fallera",
             "en": "Fallera series",
             "zh": "Fallera 系列"
+          },
+          "etiqueta": {
+            "es": "Personal, en colaboración con la UPV · 2026",
+            "en": "Personal, in collaboration with the UPV · 2026",
+            "zh": "个人账号，与 UPV 合作 · 2026"
+          },
+          "resumen": {
+            "es": "Cuatro vídeos sobre vivir las Fallas como fallera, publicados en mi cuenta y grabados con la UPV. Más de 1 millón de visualizaciones entre Instagram y TikTok; el más visto llegó a 363.000. No forman parte de los 24 vídeos de las prácticas.",
+            "en": "Four videos about experiencing Las Fallas as a fallera, published on my own account and filmed with the UPV. Over 1 million views across Instagram and TikTok; the most watched reached 363,000. They are not part of the 24 internship videos.",
+            "zh": "四条关于「作为 fallera 过法雅节」的视频，发在我自己的账号上，和 UPV 合作出镜。Instagram 和 TikTok 合计超过 100 万播放，单条最高 36.3 万。这四条不属于实习期间的 24 条。"
+          },
+          "media": [
+            {
+              "tipo": "video-enlace",
+              "portada": "assets/media/portadas/OBRA-6.webp",
+              "titulo": {
+                "es": "Cómo una chica china acaba siendo fallera",
+                "en": "How a Chinese girl ends up being a fallera",
+                "zh": "一个中国女生怎么当上了 fallera"
+              },
+              "reproducciones": 363400,
+              "enlaces": [
+                {
+                  "url": "https://www.tiktok.com/@soygigivibes/video/7615731014203231510",
+                  "plataforma": "tiktok"
+                },
+                {
+                  "url": "https://www.instagram.com/reel/DVt6QDUjrkI/",
+                  "plataforma": "instagram"
+                }
+              ]
+            },
+            {
+              "tipo": "video-enlace",
+              "portada": "assets/media/portadas/OBRA-8.webp",
+              "titulo": {
+                "es": "La mascletà desde el balcón del ayuntamiento",
+                "en": "The mascletà from the city hall balcony",
+                "zh": "从市政厅阳台看 mascletà"
+              },
+              "reproducciones": 59600,
+              "enlaces": [
+                {
+                  "url": "https://www.tiktok.com/@soygigivibes/video/7617899818492366102",
+                  "plataforma": "tiktok"
+                },
+                {
+                  "url": "https://www.instagram.com/reel/DV9Ai-yDNIl/",
+                  "plataforma": "instagram"
+                }
+              ]
+            },
+            {
+              "tipo": "video-enlace",
+              "portada": "assets/media/portadas/OBRA-7.webp",
+              "titulo": {
+                "es": "Cómo acabé vistiéndome de fallera",
+                "en": "How I ended up dressing as a fallera",
+                "zh": "我是怎么穿上 fallera 服装的"
+              },
+              "reproducciones": 45300,
+              "enlaces": [
+                {
+                  "url": "https://www.tiktok.com/@soygigivibes/video/7616676500103843094",
+                  "plataforma": "tiktok"
+                },
+                {
+                  "url": "https://www.instagram.com/reel/DV26BCMjIka/",
+                  "plataforma": "instagram"
+                }
+              ]
+            },
+            {
+              "tipo": "video-enlace",
+              "portada": "assets/media/portadas/OBRA-5.webp",
+              "titulo": {
+                "es": "Este año he sido fallera",
+                "en": "This year I was a fallera",
+                "zh": "今年我当了 fallera"
+              },
+              "reproducciones": 23500,
+              "enlaces": [
+                {
+                  "url": "https://www.tiktok.com/@soygigivibes/video/7614618116147973398",
+                  "plataforma": "tiktok"
+                }
+              ]
+            }
+          ],
+          "contenido": {
+            "aporte": {
+              "es": "Serie propia: idea, grabación y edición. Grabada en colaboración con la UPV.",
+              "en": "My own series: idea, filming and editing. Shot in collaboration with the UPV.",
+              "zh": "自己账号的系列：想法、拍摄、剪辑。与 UPV 合作出镜。"
+            }
+          },
+          "presentacion": "serie",
+          "total": {
+            "es": "Más de 1.000.000 de visualizaciones entre Instagram y TikTok",
+            "en": "Over 1,000,000 views across Instagram and TikTok",
+            "zh": "Instagram 和 TikTok 合计 100 万+ 播放"
           }
         },
         {
@@ -45,7 +307,52 @@
             "es": "Essencia Inmobiliaria",
             "en": "Essencia Inmobiliaria",
             "zh": "Essencia Inmobiliaria"
-          }
+          },
+          "etiqueta": {
+            "es": "Proyecto académico con cliente real",
+            "en": "Academic project with a real client",
+            "zh": "有真实客户的课程项目"
+          },
+          "resumen": {
+            "es": "Producción de un vídeo de caso y un vídeo de marca con herramientas de IA generativa, y propuesta de estrategia para redes sociales.",
+            "en": "Production of a case video and a brand video using generative AI tools, plus a social media strategy proposal.",
+            "zh": "用生成式 AI 工具制作一支案例视频和一支品牌视频，并提出社交媒体策略方案。"
+          },
+          "media": [
+            {
+              "tipo": "video",
+              "archivo": "assets/media/video/essencia-marca.mp4",
+              "portada": "assets/media/portadas/essencia-marca.webp",
+              "vertical": false,
+              "titulo": {
+                "es": "Vídeo de marca",
+                "en": "Brand video",
+                "zh": "品牌视频"
+              }
+            },
+            {
+              "tipo": "video",
+              "archivo": "assets/media/video/essencia-caso.mp4",
+              "portada": "assets/media/portadas/essencia-caso.webp",
+              "vertical": true,
+              "titulo": {
+                "es": "Vídeo de caso",
+                "en": "Case video",
+                "zh": "案例视频"
+              }
+            }
+          ],
+          "contenido": {
+            "aporte": {
+              "es": "Dos vídeos producidos con herramientas de IA generativa y una propuesta de estrategia para redes sociales.",
+              "en": "Two videos produced with generative AI tools, plus a social media strategy proposal.",
+              "zh": "用生成式 AI 工具做的两支视频，外加一份社交媒体策略方案。"
+            },
+            "herramientas": [
+              "IA generativa"
+            ]
+          },
+          "presentacion": "cine"
         }
       ]
     },
@@ -64,7 +371,38 @@
             "es": "UPV Respira",
             "en": "UPV Respira",
             "zh": "UPV Respira"
-          }
+          },
+          "etiqueta": {
+            "es": "Proyecto académico",
+            "en": "Academic project",
+            "zh": "课程项目"
+          },
+          "resumen": {
+            "es": "Concepto de intervención transmedia de bienestar para el campus, con acciones online y presenciales, y diseño de una web demo.",
+            "en": "A transmedia wellbeing intervention for the campus, with online and on-site actions, and the design of a demo website.",
+            "zh": "为校园设计的跨媒体身心健康干预方案，包含线上和线下行动，并做了一个网页 demo。"
+          },
+          "media": [
+            {
+              "tipo": "enlace",
+              "url": "https://upvrespiraaudio.netlify.app/",
+              "plataforma": "web",
+              "texto": {
+                "es": "Ver la web demo",
+                "en": "Open the demo site",
+                "zh": "打开网页 demo"
+              }
+            }
+          ],
+          "contenido": {
+            "aporte": {
+              "es": "Concepto de la intervención, acciones online y presenciales, y diseño de una web demo.",
+              "en": "The intervention concept, online and on-site actions, and the design of a demo website.",
+              "zh": "干预方案的概念、线上与线下行动，以及一个网页 demo 的设计。"
+            }
+          },
+          "presentacion": "web",
+          "web": "https://upvrespiraaudio.netlify.app/"
         },
         {
           "id": "booktrailer",
@@ -73,7 +411,31 @@
             "es": "Book trailer · El lector de cadáveres",
             "en": "Book trailer · El lector de cadáveres",
             "zh": "书籍预告片 · El lector de cadáveres"
-          }
+          },
+          "etiqueta": {
+            "es": "Proyecto académico",
+            "en": "Academic project",
+            "zh": "课程项目"
+          },
+          "resumen": {
+            "es": "Tráiler audiovisual de la novela El lector de cadáveres.",
+            "en": "An audiovisual trailer for the novel El lector de cadáveres.",
+            "zh": "小说《El lector de cadáveres》的影像预告片。"
+          },
+          "media": [
+            {
+              "tipo": "video",
+              "archivo": "assets/media/video/booktrailer.mp4",
+              "portada": "assets/media/portadas/booktrailer.webp",
+              "vertical": false,
+              "titulo": {
+                "es": "Book trailer",
+                "en": "Book trailer",
+                "zh": "预告片"
+              }
+            }
+          ],
+          "presentacion": "cine"
         }
       ]
     }

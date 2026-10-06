@@ -11,6 +11,7 @@ import { Figura } from './figure.js';
 import { abrirCaja } from './unbox.js';
 import { iniciarBarra } from './chrome.js';
 import { iniciarMano } from './hand.js';
+import { montarEscena } from './escena.js';
 
 async function iniciar(){
   iniciarBarra();
@@ -19,13 +20,18 @@ async function iniciar(){
   try { textos = await iniciarIdioma(); }
   catch (e) { console.error('No se han podido cargar los textos:', e); }
 
+  // la mesa en 3D y el plano de entrada (docs/HOME-3D.md)
+  const escena = montarEscena(document.querySelector('.mesa'), textos);
+
   iniciarMano(document.querySelector('.mesa'));
 
   const figura = new Figura(document.querySelector('img.figura'));
 
   document.querySelectorAll('.caja').forEach(caja => {
-    caja.addEventListener('click', () => {
+    caja.addEventListener('click', async () => {
       if (caja.dataset.abriendo === 'true') return;
+      // si el plano de entrada aún va, primero se termina (~0,35 s)
+      if (escena) await escena.terminar();
       const s = caja.dataset.seccion;
       abrirCaja(caja, s, figura, textos, `${s}.html`);
     });

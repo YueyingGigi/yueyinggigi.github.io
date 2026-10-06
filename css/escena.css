@@ -1,0 +1,207 @@
+/* ─────────────────────────────────────────────────────────────
+   escena.css — la mesa en 3D (docs/HOME-3D.md).
+
+   Todo cuelga de `html.con-3d`, que solo pone js/escena.js cuando
+   arranca. Sin JavaScript, o si algo falla, la mesa es la plana de
+   siempre (ESTADO § 5.1).
+
+   Estructura (la monta js/escena.js alrededor de la lista de cajas):
+     .escena            perspectiva
+       .camara          gira en X: de frente (~76°) a cenital (0°)
+         .pared         de pie detrás de las cajas, con la cinta de letras
+         .tablero       el suelo de la mesa (en cenital no se nota)
+         ul.cajas
+           li > .cubo   un cubo de verdad (preserve-3d)
+                 button.caja        = la TAPA (arriba), la de siempre
+                 .cubo__cara × 4    frente / atrás / izquierda / derecha
+
+   Medidas: la tapa es la foto de la caja vista desde arriba (777 × 800);
+   el alto sale de la foto de frente: 0,873 × el ancho.
+   ───────────────────────────────────────────────────────────── */
+
+.con-3d .escena{
+  position: relative; z-index: 1;
+  /* desde arriba la perspectiva es suave (la mesa de siempre, con un
+     poco de relieve); en el plano de frente js/escena.js la acerca */
+  perspective: 1900px;
+  /* el centro de la perspectiva en la fila de cajas: así las tapas
+     crecen igual hacia arriba y hacia abajo y no tapan la frase */
+  perspective-origin: 50% 50%;
+  margin-top: clamp(14px, 3vh, 34px);
+}
+/* la pared y el suelo son más anchos que la pantalla: que no salga
+   barra de desplazamiento horizontal (clip no crea contenedor de
+   scroll, así que no rompe el 3D de dentro) */
+@media (max-width: 767px){ .con-3d .mesa{ overflow-x: clip; } }
+/* la frase de presentación no se mueve y queda por delante de la pared */
+.con-3d .entrada{ position: relative; z-index: 3; }
+.con-3d .camara{
+  position: relative;
+  transform-style: preserve-3d;
+  transform-origin: 50% 70%;
+}
+
+/* ── La pared, de pie detrás de las cajas ── */
+.con-3d .pared{
+  position: absolute; left: -4%; right: -4%;
+  bottom: 100%;                          /* pegada al borde de atrás */
+  height: 260%;
+  transform-origin: 50% 100%;
+  transform: translateY(-14%) rotateX(-90deg);
+  background:
+    linear-gradient(to top, rgba(30,30,30,.07), transparent 14%),
+    color-mix(in srgb, var(--papel) 93%, var(--tinta));
+  overflow: hidden;
+  display: flex; align-items: center;
+  pointer-events: none;
+  opacity: 0;                             /* la enseña js/escena.js */
+  /* sin bordes duros: la pared se funde con el papel por los lados */
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.con-3d .pared__cinta{
+  display: flex; align-items: center; flex: none;
+  white-space: nowrap;
+  font-family: var(--fuente-titulo); font-weight: 900;
+  font-size: clamp(90px, 13vw, 210px); line-height: 1; letter-spacing: -.01em;
+  color: color-mix(in srgb, var(--papel) 82%, var(--tinta));
+  animation: cinta 26s linear infinite;
+}
+:lang(zh) .con-3d .pared__cinta{ font-family: "Noto Sans SC", var(--fuente-titulo); }
+.con-3d .pared__grupo{ display: flex; align-items: center; flex: none; }
+.con-3d .pared__frase{ padding: 0 .28em; }
+.con-3d .pared__sello{ width: .42em; height: .42em; flex: none; opacity: .5; rotate: -6deg; }
+@keyframes cinta{ to{ transform: translateX(-50%); } }
+
+/* ── El suelo de la mesa ── */
+.con-3d .tablero{
+  position: absolute; left: -4%; right: -4%; top: -14%; bottom: -40%;
+  background: var(--papel);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+
+/* la luz de una ventana, cruzando la mesa muy despacio (25 s ida y
+   vuelta). Tan floja que casi no se nota: no le quita el sitio a las cajas */
+.con-3d .tablero::after{
+  content: ""; position: absolute; inset: 0; pointer-events: none;
+  background: linear-gradient(115deg, transparent 30%, rgba(255,250,236,.55) 42%,
+              rgba(255,250,236,.55) 50%, transparent 62%);
+  background-size: 260% 100%;
+  animation: luz-ventana 25s ease-in-out infinite alternate;
+  mix-blend-mode: soft-light;
+}
+@keyframes luz-ventana{ from{ background-position: 100% 0; } to{ background-position: 0 0; } }
+
+/* ── Las cajas: un cubo cada una ── */
+.con-3d .cajas{ position: relative; transform-style: preserve-3d; }
+.con-3d .cajas > li{ transform-style: preserve-3d; }
+.con-3d .cubo{
+  --h: calc(var(--ancho-cubo) * .873);
+  position: relative; width: 100%;
+  aspect-ratio: 777 / 800;
+  transform-style: preserve-3d;
+  transform: rotateZ(var(--giro, 0deg));
+}
+.con-3d .cajas > li:nth-child(1) .cubo{ --giro:-1.2deg; }
+.con-3d .cajas > li:nth-child(2) .cubo{ --giro:  .8deg; }
+.con-3d .cajas > li:nth-child(3) .cubo{ --giro:-0.4deg; }
+.con-3d .cajas > li:nth-child(4) .cubo{ --giro: 1.4deg; }
+.con-3d .cajas > li:nth-child(5) .cubo{ --giro:-0.9deg; }
+
+/* la tapa: la caja de siempre, subida a la altura del cubo */
+.con-3d .cajas > li .cubo > .caja{
+  /* (selector largo a propósito: gana a los anchos de la mesa plana
+     de desk.css, que aquí ya los lleva el cubo) */
+  position: absolute; inset: 0; margin: 0; width: auto;
+  transform: translateZ(var(--h));
+  transform-style: preserve-3d;
+  animation: none;                  /* la entrada plana de desk.css no aplica */
+}
+.con-3d .cubo > .caja:hover,
+.con-3d .cubo > .caja:focus-visible,
+.con-3d .cubo > .caja:active{ transform: translateZ(var(--h)); }
+.con-3d .cubo > .caja .caja__sombra{ display: none; }
+
+/* sombra en la mesa, hacia abajo a la derecha (luz de arriba a la
+   izquierda). Es hermana del cubo, no hija: se queda en la mesa. */
+.con-3d .cajas > li{ position: relative; }
+.con-3d .cubo__sombra{
+  position: absolute; z-index: 0; width: 100%; aspect-ratio: 777 / 800; top: 0; left: 0;
+  pointer-events: none;
+}
+@media (max-width: 767px){
+  .con-3d .cajas > li:nth-child(5) .cubo__sombra{ width: calc(50% - 8px); left: 50%; translate: -50% 0; }
+}
+.con-3d .cubo__sombra::before{
+  content: ""; position: absolute; inset: 4% -6% -10% 6%;
+  background: radial-gradient(ellipse at 45% 45%, rgba(30,30,30,.30), rgba(30,30,30,.12) 50%, transparent 72%);
+  filter: blur(12px);
+  transform: translate(calc(var(--ancho-cubo, 200px) * .19), calc(var(--ancho-cubo, 200px) * .24));
+  pointer-events: none;
+}
+
+/* las cuatro caras */
+.con-3d .cubo__cara{
+  position: absolute; pointer-events: none;
+  backface-visibility: hidden;
+  background: #EFE9E0;
+}
+/* el frente, con la foto de verdad: de pie sobre el borde de delante */
+.con-3d .cubo__cara--frente{
+  left: 0; width: 100%; top: calc(100% - var(--h)); height: var(--h);
+  transform-origin: 50% 100%; transform: rotateX(-90deg);
+  background: url("../assets/boxes/caja-frente.webp") center / 100% 100%;
+  filter: brightness(.97);
+}
+.con-3d .cubo__cara--atras{
+  left: 0; width: 100%; top: 0; height: var(--h);
+  transform-origin: 50% 0; transform: rotateX(90deg);
+  background: linear-gradient(#E6DFD3, #EDE7DD);
+}
+.con-3d .cubo__cara--izq{
+  top: 0; height: 100%; left: 0; width: var(--h);
+  transform-origin: 0 50%; transform: rotateY(-90deg);
+  background: linear-gradient(to left, #F1ECE3, #E9E3D8);
+}
+.con-3d .cubo__cara--der{
+  top: 0; height: 100%; left: calc(100% - var(--h)); width: var(--h);
+  transform-origin: 100% 50%; transform: rotateY(90deg);
+  background: linear-gradient(to right, #DCD4C6, #E3DCCF);
+}
+
+/* ── Abrir la caja en 3D: la tapa gira por su borde de atrás y se
+   levanta hacia quien mira (en plano, caja.css la hace girar hacia
+   dentro y desaparecer). ── */
+.con-3d .cajas > li .cubo > .caja{ perspective: none; }
+.con-3d .caja[data-tapa="levantada"] .caja__foto,
+.con-3d .caja[data-abierta="true"]   .caja__foto,
+.con-3d .caja[data-tapa="levantada"] .caja__tapa,
+.con-3d .caja[data-abierta="true"]   .caja__tapa{
+  transform: rotateX(108deg);
+  opacity: 1;
+}
+.con-3d .caja__foto, .con-3d .caja__tapa{
+  transform-origin: 50% 0;
+  transition: transform 520ms cubic-bezier(.3,1.25,.5,1), opacity 180ms var(--curva);
+}
+
+/* el foco del teclado, sobre la tapa */
+.con-3d .cubo > .caja:focus-visible{ outline: 3px solid var(--rojo-sello); outline-offset: 4px; }
+
+/* ── Móvil: la quinta, centrada debajo (como en la mesa plana) ── */
+@media (max-width: 767px){
+  .con-3d .cajas > li:nth-child(5) .cubo{ width: calc(50% - 8px); }
+}
+
+/* ── En el móvil, durante el plano de entrada, las cinco en fila ── */
+.con-3d .cajas.en-fila{ grid-template-columns: repeat(5, 1fr) !important; gap: 8px !important; }
+.con-3d .cajas.en-fila > li:nth-child(5){ grid-column: auto !important; }
+.con-3d .cajas.en-fila > li:nth-child(5) .caja,
+.con-3d .cajas.en-fila > li:nth-child(5) .cubo{ width: 100% !important; }
+
+@media (prefers-reduced-motion: reduce){
+  .con-3d .pared__cinta, .con-3d .tablero::after{ animation: none; }
+  .con-3d .caja__foto, .con-3d .caja__tapa{ transition: opacity 200ms linear; }
+}

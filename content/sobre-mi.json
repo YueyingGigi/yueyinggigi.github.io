@@ -1,11 +1,296 @@
 {
-  "_nota": "Estructura según docs/CONTENT.md § 3. Los textos se rellenan en la etapa 3.",
+  "_nota": "2026-10-05, rehecha. Esta página es la presentación PROFESIONAL, pensada para quien contrata: quién es, qué hace, cómo contactarla y dónde está el CV. Lo personal (los tres años, las aficiones, las fotos de deporte) está en «Mi vida en España» y aquí no se repite. El perfil sale del borrador que escribió Gigi, quitando las frases hechas y ajustando lo que no tenía respaldo (ver docs/CONTENT.md). 2026-10-05 (2ª ronda): sin la nota de debajo del proceso y sin la frase que explicaba el vídeo CV; el vídeo va en un móvil inclinado con recortes de papel.",
   "id": "sobre-mi",
   "apartados": [
-    { "id": "intro",  "titulo": { "es": "Quién soy",        "en": "Who I am",        "zh": "我是谁" } },
-    { "id": "vistazo","titulo": { "es": "De un vistazo",    "en": "At a glance",     "zh": "速览" } },
-    { "id": "videocv","titulo": { "es": "Vídeo CV",         "en": "Video CV",        "zh": "视频简历" } },
-    { "id": "fotos",  "titulo": { "es": "Fotos",            "en": "Photos",          "zh": "照片" } },
-    { "id": "redes",  "titulo": { "es": "Dónde encontrarme","en": "Where to find me","zh": "社交账号" } }
+    {
+      "id": "perfil",
+      "titulo": {
+        "es": "Quién soy",
+        "en": "Who I am",
+        "zh": "我是谁"
+      },
+      "bloques": [
+        {
+          "tipo": "portada",
+          "firma": {
+            "es": "Soy Gigi, una china en España que todavía está aprendiendo a vivir aquí… y a contarlo.",
+            "en": "I'm Gigi, a Chinese woman in Spain still learning how to live here… and how to tell it.",
+            "zh": "我是 Gigi，一个在西班牙的中国女生，还在学怎么在这里生活，也在学怎么把它讲出来。"
+          },
+          "parrafos": [
+            {
+              "es": "Trabajo en comunicación de marca y creación de contenido digital, con una base previa de cuatro años en administración y dirección en China.",
+              "en": "I work in brand communication and digital content creation, on top of four years in administration and general management in China.",
+              "zh": "我做品牌传播和数字内容创作，在那之前有四年在中国做行政与总经理办公室工作的底子。"
+            },
+            {
+              "es": "Lo que mejor hago es construir puentes entre China y el resto del mundo: estrategia de marca, storytelling y marketing digital en tres idiomas.",
+              "en": "What I do best is building bridges between China and the rest of the world: brand strategy, storytelling and digital marketing, in three languages.",
+              "zh": "我最擅长的是在中国和世界之间搭桥：品牌策略、故事表达和数字营销，三种语言都能用。"
+            },
+            {
+              "es": "También trabajo delante de la cámara, porque comunicar también funciona sin palabras.",
+              "en": "I also work in front of the camera, because communication happens without words too.",
+              "zh": "我也站在镜头前，因为沟通这件事，不说话也成立。"
+            }
+          ],
+          "foto": {
+            "archivo": "assets/media/fotos/valencia-nord.webp",
+            "alt": {
+              "es": "Gigi delante de la Estació del Nord de València",
+              "en": "Gigi in front of Valencia's Estació del Nord",
+              "zh": "Gigi 站在瓦伦西亚北站前"
+            },
+            "pie": {
+              "es": "València",
+              "en": "Valencia",
+              "zh": "瓦伦西亚"
+            }
+          },
+          "foto2": {
+            "archivo": "assets/media/fotos/ciudad-artes-640.webp",
+            "alt": {
+              "es": "Gigi en la Ciutat de les Arts i les Ciències",
+              "en": "Gigi at the City of Arts and Sciences",
+              "zh": "Gigi 在艺术科学城"
+            },
+            "pie": {
+              "es": "Ciutat de les Arts",
+              "en": "City of Arts and Sciences",
+              "zh": "艺术科学城"
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "vistazo",
+      "titulo": {
+        "es": "De un vistazo",
+        "en": "At a glance",
+        "zh": "速览"
+      },
+      "bloques": [
+        {
+          "tipo": "bento",
+          "celdas": [
+            {
+              "etiqueta": {
+                "es": "Dónde vivo",
+                "en": "Based in",
+                "zh": "所在地"
+              },
+              "valor": {
+                "es": "València, España",
+                "en": "Valencia, Spain",
+                "zh": "西班牙·瓦伦西亚"
+              }
+            },
+            {
+              "etiqueta": {
+                "es": "Idiomas",
+                "en": "Languages",
+                "zh": "语言"
+              },
+              "valor": {
+                "es": "Chino · Español · Inglés",
+                "en": "Chinese · Spanish · English",
+                "zh": "中文 · 西班牙语 · 英语"
+              },
+              "pie": {
+                "es": "Chino nativo · DELE B2 (2024) · Inglés C1 (2025)",
+                "en": "Native Chinese · DELE B2 (2024) · English C1 (2025)",
+                "zh": "中文母语 · DELE B2（2024）· 英语 C1（2025）"
+              },
+              "ancho": "2"
+            },
+            {
+              "etiqueta": {
+                "es": "Formación",
+                "en": "Education",
+                "zh": "学历"
+              },
+              "valor": {
+                "es": "Máster en Comunicación Transmedia",
+                "en": "MA in Transmedia Communication",
+                "zh": "跨媒体传播硕士"
+              },
+              "pie": {
+                "es": "UPV, 2025 – 2026",
+                "en": "UPV, 2025 – 2026",
+                "zh": "瓦伦西亚理工大学，2025–2026"
+              }
+            },
+            {
+              "etiqueta": {
+                "es": "Currículum",
+                "en": "Résumé",
+                "zh": "简历"
+              },
+              "valor": {
+                "es": "Descargar el CV en PDF",
+                "en": "Download the CV as PDF",
+                "zh": "下载 PDF 简历"
+              },
+              "url": "cv"
+            },
+            {
+              "etiqueta": {
+                "es": "LinkedIn",
+                "en": "LinkedIn",
+                "zh": "LinkedIn"
+              },
+              "valor": {
+                "es": "yueyingguan-communication",
+                "en": "yueyingguan-communication",
+                "zh": "yueyingguan-communication"
+              },
+              "url": "https://www.linkedin.com/in/yueyingguan-communication"
+            },
+            {
+              "etiqueta": {
+                "es": "Correo",
+                "en": "Email",
+                "zh": "邮箱"
+              },
+              "valor": {
+                "es": "yueying.g1997@gmail.com",
+                "en": "yueying.g1997@gmail.com",
+                "zh": "yueying.g1997@gmail.com"
+              },
+              "url": "mailto:yueying.g1997@gmail.com"
+            },
+            {
+              "etiqueta": {
+                "es": "TikTok",
+                "en": "TikTok",
+                "zh": "TikTok"
+              },
+              "valor": {
+                "es": "@soygigivibes",
+                "en": "@soygigivibes",
+                "zh": "@soygigivibes"
+              },
+              "url": "https://www.tiktok.com/@soygigivibes"
+            },
+            {
+              "etiqueta": {
+                "es": "Instagram",
+                "en": "Instagram",
+                "zh": "Instagram"
+              },
+              "valor": {
+                "es": "@soygigivibes",
+                "en": "@soygigivibes",
+                "zh": "@soygigivibes"
+              },
+              "url": "https://www.instagram.com/soygigivibes/"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "videocv",
+      "titulo": {
+        "es": "Vídeo CV",
+        "en": "Video CV",
+        "zh": "视频简历"
+      },
+      "bloques": [
+        {
+          "tipo": "video-cv",
+          "archivo": "assets/media/video/video-cv.mp4",
+          "portada": "assets/media/portadas/video-cv.webp",
+          "titulo": {
+            "es": "Vídeo CV",
+            "en": "Video CV",
+            "zh": "视频简历"
+          }
+        }
+      ]
+    },
+    {
+      "id": "proceso",
+      "titulo": {
+        "es": "Por ejemplo, así sale un vídeo mío",
+        "en": "For example, here's how one of my videos gets made",
+        "zh": "举个例子，我的一条视频是这样做出来的"
+      },
+      "bloques": [
+        {
+          "tipo": "proceso",
+          "pasos": [
+            {
+              "paso": {
+                "es": "La idea",
+                "en": "The idea",
+                "zh": "想法"
+              }
+            },
+            {
+              "paso": {
+                "es": "Guion",
+                "en": "Script",
+                "zh": "脚本"
+              },
+              "herramientas": [
+                "Office"
+              ]
+            },
+            {
+              "paso": {
+                "es": "Rodaje",
+                "en": "Shooting",
+                "zh": "拍摄"
+              },
+              "herramientas": [
+                "Móvil",
+                "Estabilizador"
+              ]
+            },
+            {
+              "paso": {
+                "es": "Montaje",
+                "en": "Editing",
+                "zh": "剪辑"
+              },
+              "herramientas": [
+                "CapCut",
+                "DaVinci Resolve"
+              ]
+            },
+            {
+              "paso": {
+                "es": "Portada y gráficos",
+                "en": "Cover and graphics",
+                "zh": "封面与图形"
+              },
+              "herramientas": [
+                "Canva",
+                "Photoshop",
+                "Illustrator",
+                "IA generativa"
+              ]
+            },
+            {
+              "paso": {
+                "es": "Publicar y seguir",
+                "en": "Publish and follow up",
+                "zh": "发布与跟进"
+              },
+              "herramientas": [
+                "Trello"
+              ]
+            }
+          ],
+          "nota": {
+            "es": "Pero lo que sé hacer es mucho más que esto.",
+            "en": "But what I can do goes well beyond this.",
+            "zh": "但我能做的，远不止这些。"
+          }
+        }
+      ]
+    }
   ]
 }
