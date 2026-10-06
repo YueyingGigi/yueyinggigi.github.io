@@ -236,6 +236,21 @@ body[data-pagina][data-listo="true"]{ opacity: 1; transition: opacity 260ms var(
   box-shadow: 0 4px 14px rgba(0,0,0,.3);
 }
 .lupa__cerrar:hover{ background: #fff; }
+/* pasar a la foto de al lado */
+.lupa{ touch-action: pan-y; }
+.lupa__paso{
+  display: none; position: absolute; top: 50%; translate: 0 -50%; z-index: 2;
+  width: 42px; height: 42px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+  place-items: center; background: var(--papel); color: var(--tinta); box-shadow: 0 4px 14px rgba(0,0,0,.3);
+}
+.lupa[data-varias="true"] .lupa__paso{ display: grid; }
+.lupa__paso--antes{ left: -58px; }
+.lupa__paso--despues{ right: -58px; }
+@media (max-width: 900px){
+  .lupa__paso{ top: auto; bottom: -56px; translate: none; }
+  .lupa__paso--antes{ left: calc(50% - 52px); }
+  .lupa__paso--despues{ right: calc(50% - 52px); }
+}
 
 /* ═══════════════════════════════════════════════════════════════
    LA RUTA (Experiencia) — vertical

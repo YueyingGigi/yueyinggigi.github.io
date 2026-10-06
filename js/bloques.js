@@ -154,22 +154,64 @@ function cajaDeFotos(textos){
         <path d="M6 6l12 12M18 6L6 18"/>
       </svg>
     </button>
-    <figure class="lupa__marco"><img alt=""><figcaption></figcaption></figure>`;
+    <figure class="lupa__marco"><img alt=""><figcaption></figcaption></figure>
+    <button class="lupa__paso lupa__paso--antes" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 6l-6 6 6 6"/></svg></button>
+    <button class="lupa__paso lupa__paso--despues" type="button"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 6l6 6-6 6"/></svg></button>`;
   const cerrar = caja.querySelector('.lupa__cerrar');
   cerrar.setAttribute('aria-label', textos['foto.cerrar'] || 'Cerrar');
   cerrar.addEventListener('click', () => caja.close());
   // pinchar fuera de la foto también cierra
   caja.addEventListener('click', e => { if (e.target === caja) caja.close(); });
+  // pasar a la de al lado: flechas, teclado y dedo
+  const pasar = s => { if (grupo.length > 1) ponerFoto(caja, cual + s, s); };
+  const [antes, despues] = caja.querySelectorAll('.lupa__paso');
+  antes.setAttribute('aria-label', textos['foto.anterior'] || '');
+  despues.setAttribute('aria-label', textos['foto.siguiente'] || '');
+  antes.addEventListener('click', () => pasar(-1));
+  despues.addEventListener('click', () => pasar(1));
+  caja.addEventListener('keydown', e => {
+    if (e.key === 'ArrowRight'){ e.preventDefault(); pasar(1); }
+    else if (e.key === 'ArrowLeft'){ e.preventDefault(); pasar(-1); }
+  });
+  let x0 = null, y0 = 0;
+  caja.addEventListener('touchstart', e => { x0 = e.touches[0].clientX; y0 = e.touches[0].clientY; }, { passive: true });
+  caja.addEventListener('touchend', e => {
+    if (x0 == null) return;
+    const dx = e.changedTouches[0].clientX - x0, dy = e.changedTouches[0].clientY - y0; x0 = null;
+    if (Math.abs(dx) > 44 && Math.abs(dx) > Math.abs(dy) * 1.2) pasar(dx < 0 ? 1 : -1);
+  });
   document.body.appendChild(caja);
   return caja;
 }
 
-function abrirFoto(foto, textos){
-  const d = cajaDeFotos(textos);
+/* Las fotos de un mismo grupo (la mesa de Mi vida, una rejilla…) se
+   pasan sin cerrar: deslizando el dedo, con las flechas del teclado o
+   con las dos flechas de los lados (Gigi, 2026-10-07: en el móvil, con
+   la foto grande, no se podía pasar a la siguiente). */
+let grupo = [], cual = 0;
+function ponerFoto(d, k, sentido = 0){
+  cual = (k + grupo.length) % grupo.length;
+  const foto = grupo[cual];
   const img = d.querySelector('img');
   img.src = foto.archivo;
   img.alt = enIdioma(foto.alt);
   d.querySelector('figcaption').textContent = enIdioma(foto.pie);
+  d.dataset.varias = String(grupo.length > 1);
+  if (sentido && !matchMedia('(prefers-reduced-motion: reduce)').matches){
+    d.querySelector('.lupa__marco').animate(
+      [{ transform: `translateX(${sentido * 7}%)`, opacity: 0.3 }, { transform: 'none', opacity: 1 }],
+      { duration: 240, easing: 'cubic-bezier(.2,.8,.3,1)' });
+  }
+  const sig = grupo[(cual + 1) % grupo.length];
+  if (sig && sig !== foto) new Image().src = sig.archivo;
+}
+function abrirFoto(foto, textos, boton){
+  const d = cajaDeFotos(textos);
+  // las compañeras: las demás fotos del mismo bloque, en su orden
+  const sitio = boton?.closest('.b-mesa, .b-rejilla, .b-pila, .mesa-trabajo__cosas, .bloque');
+  const todas = sitio ? [...sitio.querySelectorAll('.polaroid')].map(x => x._foto).filter(Boolean) : [];
+  grupo = todas.includes(foto) ? todas : [foto];
+  ponerFoto(d, grupo.indexOf(foto));
   d.showModal();
 }
 
@@ -187,7 +229,8 @@ function polaroid(foto, textos, clase){
   const pie = enIdioma(foto.pie);
   if (pie) b.appendChild(el('span', 'polaroid__pie', pie));
   b.setAttribute('aria-label', (textos['foto.ampliar'] || '') + ': ' + (enIdioma(foto.alt) || pie));
-  b.addEventListener('click', () => abrirFoto(foto, textos));
+  b._foto = foto;
+  b.addEventListener('click', () => abrirFoto(foto, textos, b));
   return b;
 }
 
