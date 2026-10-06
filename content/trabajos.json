@@ -1,5 +1,5 @@
 {
-  "_nota": "Hechos: docs/CONTENT.md § 5. Cada trabajo lleva título + etiqueta + una frase + materiales; sin las cuatro secciones de ficha (Gigi, 2026-10-05). Las reproducciones de los vídeos externos son las de TikTok, leídas el 2026-10-05. Xiaomi España y Ecoalf fuera: no quiere subir esos archivos. Las etiquetas «contenido de esta caja» solo dicen lo que consta en docs/CONTENT.md; donde no se sabe con qué herramientas se hizo ESE encargo, se deja sin herramientas (2026-10-05). 2026-10-05 (2ª ronda): «presentacion» dice cómo sale cada trabajo de la pantalla (web / cine / serie, ver js/trabajos.js); «total» es la cifra de la serie entera que va arriba de los cuatro móviles.",
+  "_nota": "Hechos: docs/CONTENT.md § 5. Cada trabajo lleva título + etiqueta + una frase + materiales; sin las cuatro secciones de ficha (Gigi, 2026-10-05). Las reproducciones de los vídeos externos son las de TikTok, leídas el 2026-10-05; en la serie Fallera, a los tres vídeos que también están en Instagram se les suma lo de Instagram (cifras de Gigi, 2026-10-07: 286.000, 35.100 y 25.800). Xiaomi España y Ecoalf fuera: no quiere subir esos archivos. Las etiquetas «contenido de esta caja» solo dicen lo que consta en docs/CONTENT.md; donde no se sabe con qué herramientas se hizo ESE encargo, se deja sin herramientas (2026-10-05). 2026-10-05 (2ª ronda): «presentacion» dice cómo sale cada trabajo de la pantalla (web / cine / serie, ver js/trabajos.js); «total» es la cifra de la serie entera que va arriba de los cuatro móviles.",
   "id": "trabajos",
   "vista": "carpetas",
   "carpetas": [
@@ -204,9 +204,9 @@
             "zh": "个人账号，与 UPV 合作 · 2026"
           },
           "resumen": {
-            "es": "Cuatro vídeos sobre vivir las Fallas como fallera, publicados en mi cuenta y grabados con la UPV. Más de 1 millón de visualizaciones entre Instagram y TikTok; el más visto llegó a 363.000. No forman parte de los 24 vídeos de las prácticas.",
-            "en": "Four videos about experiencing Las Fallas as a fallera, published on my own account and filmed with the UPV. Over 1 million views across Instagram and TikTok; the most watched reached 363,000. They are not part of the 24 internship videos.",
-            "zh": "四条关于「作为 fallera 过法雅节」的视频，发在我自己的账号上，和 UPV 合作出镜。Instagram 和 TikTok 合计超过 100 万播放，单条最高 36.3 万。这四条不属于实习期间的 24 条。"
+            "es": "Cuatro vídeos sobre vivir las Fallas como fallera, publicados en mi cuenta y grabados con la UPV. Más de 1 millón de visualizaciones entre Instagram y TikTok; el más visto llegó a 649.000. No forman parte de los 24 vídeos de las prácticas.",
+            "en": "Four videos about experiencing Las Fallas as a fallera, published on my own account and filmed with the UPV. Over 1 million views across Instagram and TikTok; the most watched reached 649,000. They are not part of the 24 internship videos.",
+            "zh": "四条关于「作为 fallera 过法雅节」的视频，发在我自己的账号上，和 UPV 合作出镜。Instagram 和 TikTok 合计超过 100 万播放，单条最高 64.9 万。这四条不属于实习期间的 24 条。"
           },
           "media": [
             {
@@ -217,7 +217,7 @@
                 "en": "How a Chinese girl ends up being a fallera",
                 "zh": "一个中国女生怎么当上了 fallera"
               },
-              "reproducciones": 363400,
+              "reproducciones": 649400,
               "enlaces": [
                 {
                   "url": "https://www.tiktok.com/@soygigivibes/video/7615731014203231510",
@@ -237,7 +237,7 @@
                 "en": "The mascletà from the city hall balcony",
                 "zh": "从市政厅阳台看 mascletà"
               },
-              "reproducciones": 59600,
+              "reproducciones": 85400,
               "enlaces": [
                 {
                   "url": "https://www.tiktok.com/@soygigivibes/video/7617899818492366102",
@@ -257,7 +257,7 @@
                 "en": "How I ended up dressing as a fallera",
                 "zh": "我是怎么穿上 fallera 服装的"
               },
-              "reproducciones": 45300,
+              "reproducciones": 80400,
               "enlaces": [
                 {
                   "url": "https://www.tiktok.com/@soygigivibes/video/7616676500103843094",
