@@ -64,9 +64,9 @@
                 "zh": "我第一次尝试做的品牌识别手册。"
               },
               "aviso": {
-                "es": "Esto es solo una parte: el manual completo tiene 22 páginas.",
-                "en": "This is only a selection: the full manual has 22 pages.",
-                "zh": "这里只是节选，完整手册共 22 页。"
+                "es": "Esto es solo una parte del manual.",
+                "en": "This is only part of the manual.",
+                "zh": "这里只是手册的一部分。"
               },
               "paginas": [
                 "assets/media/niunos-manual/01.webp",
