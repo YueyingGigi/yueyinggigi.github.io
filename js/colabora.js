@@ -51,8 +51,9 @@ function lineaDe(v){
   const partes = [];
   if (v.formato) partes.push(enIdioma(v.formato));
   if (v.idioma) partes.push(enIdioma(v.idioma));
-  if (v.plataformas) partes.push(v.plataformas.join(', '));
-  return partes.join(' · ');
+  if (v.plataformas?.length) partes.push(v.plataformas.filter(Boolean).join(', '));
+  // (los vacíos, fuera: el panel de edición guarda "" donde no se escribe nada)
+  return partes.filter(Boolean).join(' · ');
 }
 
 /* ═══════════ La página ═══════════ */
@@ -64,7 +65,7 @@ export function pintarTienda(datos, textos){
   caja.innerHTML = '';
   caja.classList.add('tienda');
   const t = clave => textos[clave] || '';
-  const videos = (datos.estantes || []).flatMap(e => e.videos || []);
+  const videos = (datos.estantes || []).flatMap(e => e.videos || []).filter(v => v.archivo);
 
   // ── 1 · la entrada: el móvil con la mezcla ──
   const entrada = el('section', 'tienda__entrada');
@@ -117,7 +118,7 @@ export function pintarTienda(datos, textos){
     const fila = el('ul', 'estanteria__fila');
     fila.style.setProperty('--columnas', String(columnas));
     fila.style.setProperty('--cuantos', String((e.videos || []).length));
-    (e.videos || []).forEach((v, n) => {
+    (e.videos || []).filter(v => v.archivo).forEach((v, n) => {
       const li = el('li', 'producto');
       li.id = 'v-' + v.id;
       // la columna, dicha: la tabla ocupa la fila de en medio entera y,
@@ -301,9 +302,10 @@ function pintarAnillo(marcas, videos, textos){
       if (m.conNombre){ i.alt = ''; pie.appendChild(el('span', 'anillo__nombre', m.nombre)); }
     } else pie.appendChild(el('span', 'anillo__nombre', m.nombre));
     cuerpo.appendChild(pie);
-    const tipo = m.tipo ? enIdioma(m.tipo) : (video ? lineaDe(video) : '');
+    const tipo = (m.tipo && enIdioma(m.tipo)) || (video ? lineaDe(video) : '');
     if (tipo) cuerpo.appendChild(el('p', 'anillo__tipo', tipo));
-    if (m.texto) cuerpo.appendChild(el('p', 'anillo__texto', enIdioma(m.texto)));
+    const frase = m.texto && enIdioma(m.texto);
+    if (frase) cuerpo.appendChild(el('p', 'anillo__texto', frase));
     if (video){
       const ver = el('button', 'anillo__ver');
       ver.type = 'button';
@@ -802,7 +804,7 @@ function abrirVisor(videos, indice, origen, textos){
     pie.appendChild(el('p', 'visor__linea', lineaDe(x)));
     if (x.enlaces?.length){
       const ul = el('ul', 'visor__enlaces');
-      x.enlaces.forEach(e => {
+      x.enlaces.filter(e => e.url).forEach(e => {
         const p = dePlataforma(e.url, e.plataforma);
         const li = document.createElement('li');
         li.appendChild(enlaceFuera(e.url, t(p.texto), p.clave, textos));

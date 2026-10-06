@@ -34,7 +34,11 @@
       "en": "Try-on",
       "zh": "穿搭试穿"
      },
-     "idioma": "ES",
+     "idioma": {
+      "es": "ES",
+      "en": "ES",
+      "zh": "ES"
+     },
      "plataformas": [
       "TikTok",
       "Instagram"
@@ -113,7 +117,11 @@
       "en": "Talking head",
       "zh": "口播"
      },
-     "idioma": "ES",
+     "idioma": {
+      "es": "ES",
+      "en": "ES",
+      "zh": "ES"
+     },
      "plataformas": [
       "RedNote"
      ]
@@ -182,7 +190,11 @@
       "en": "GRWM · talking head",
       "zh": "GRWM · 口播"
      },
-     "idioma": "ES",
+     "idioma": {
+      "es": "ES",
+      "en": "ES",
+      "zh": "ES"
+     },
      "plataformas": [
       "TikTok",
       "Instagram"
@@ -213,7 +225,11 @@
       "en": "Product demo",
       "zh": "产品展示"
      },
-     "idioma": "ZH · EN · ES",
+     "idioma": {
+      "es": "ZH · EN · ES",
+      "en": "ZH · EN · ES",
+      "zh": "ZH · EN · ES"
+     },
      "plataformas": [
       "RedNote"
      ]
@@ -243,7 +259,11 @@
       "en": "Demo · talking head",
       "zh": "产品展示 · 口播"
      },
-     "idioma": "ZH",
+     "idioma": {
+      "es": "ZH",
+      "en": "ZH",
+      "zh": "ZH"
+     },
      "plataformas": [
       "RedNote"
      ]
@@ -262,7 +282,11 @@
       "en": "Tutorial · lifestyle",
       "zh": "教程 · 生活方式"
      },
-     "idioma": "ES",
+     "idioma": {
+      "es": "ES",
+      "en": "ES",
+      "zh": "ES"
+     },
      "plataformas": [
       "TikTok"
      ],
@@ -287,7 +311,11 @@
       "en": "Unboxing",
       "zh": "开箱"
      },
-     "idioma": "ES",
+     "idioma": {
+      "es": "ES",
+      "en": "ES",
+      "zh": "ES"
+     },
      "plataformas": [
       "TikTok"
      ],
@@ -312,7 +340,11 @@
       "en": "Explainer",
       "zh": "讲解"
      },
-     "idioma": "ES",
+     "idioma": {
+      "es": "ES",
+      "en": "ES",
+      "zh": "ES"
+     },
      "plataformas": [
       "TikTok"
      ]

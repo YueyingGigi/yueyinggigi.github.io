@@ -1,0 +1,145 @@
+# Panel de edición (Pages CMS · app.pagescms.org). Gigi entra con su
+# cuenta de GitHub y cambia el contenido sin tocar código. Cada vez que
+# guarda, el panel hace un commit en `main` y la web se publica sola.
+#
+# Lo que se edita con formulario: «Colabora conmigo» (vídeos, marcas,
+# datos, contacto). Los otros cuatro apartados están hechos de bloques
+# de formas distintas y se abren como texto (JSON): sirven para corregir
+# una frase, con cuidado de no borrar comillas ni comas.
+
+media:
+  - name: videos
+    label: Vídeos
+    input: assets/media/video
+    output: assets/media/video
+    extensions: [mp4, webm]
+  - name: portadas
+    label: Portadas de vídeo
+    input: assets/media/portadas
+    output: assets/media/portadas
+    categories: [image]
+  - name: fotos-marcas
+    label: Fotos de marcas
+    input: assets/media/marcas
+    output: assets/media/marcas
+    categories: [image]
+  - name: logos
+    label: Logos de marcas
+    input: assets/marcas
+    output: assets/marcas
+    categories: [image]
+  - name: fotos
+    label: Fotos (Mi vida, Sobre mí)
+    input: assets/media/fotos
+    output: assets/media/fotos
+    categories: [image]
+
+content:
+  - name: colabora
+    label: Colabora conmigo
+    type: file
+    path: content/colabora.json
+    format: json
+    fields:
+      - { name: _nota, type: text, hidden: true }
+      - { name: id, type: string, hidden: true }
+      - { name: vista, type: string, hidden: true }
+      - name: presentacion
+        label: Frase de presentación
+        type: object
+        fields: &tri_texto
+          - { name: es, label: Español, type: text }
+          - { name: en, label: English, type: text }
+          - { name: zh, label: 中文, type: text }
+      - name: mezcla
+        label: Vídeo del móvil de la entrada (la mezcla)
+        type: object
+        fields:
+          - { name: archivo, label: Vídeo, type: file, options: { media: videos } }
+          - { name: portada, label: Portada, type: image, options: { media: portadas } }
+      - name: estantes
+        label: Estanterías (los vídeos, por sector)
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{fields.id}" }
+        fields:
+          - { name: id, label: Identificador (sin espacios), type: string, required: true }
+          - name: titulo
+            label: Nombre de la balda
+            type: object
+            fields: &tri
+              - { name: es, label: Español, type: string }
+              - { name: en, label: English, type: string }
+              - { name: zh, label: 中文, type: string }
+          - name: videos
+            label: Vídeos de esta balda
+            type: object
+            list:
+              collapsible: { collapsed: true, summary: "{fields.id}" }
+            fields:
+              - { name: id, label: "Identificador único (ej.: UGC-20)", type: string, required: true }
+              - { name: archivo, label: "Vídeo (MP4 vertical, ya comprimido: 720p, menos de 10 MB)", type: file, required: true, options: { media: videos } }
+              - { name: portada, label: Portada (imagen vertical), type: image, required: true, options: { media: portadas } }
+              - { name: titulo, label: Título, type: object, fields: *tri }
+              - { name: marca, label: "Marca (vacío si es una pieza propia)", type: string }
+              - { name: formato, label: "Formato (talking head, try-on, demo…)", type: object, fields: *tri }
+              - { name: idioma, label: "Idioma del vídeo (vacío si no se habla)", type: object, fields: *tri }
+              - { name: plataformas, label: Dónde se publicó, type: string, list: true }
+              - name: enlaces
+                label: Enlaces al vídeo publicado
+                type: object
+                list: true
+                fields:
+                  - { name: url, label: Enlace, type: string }
+                  - name: plataforma
+                    label: Plataforma
+                    type: select
+                    options: { values: [tiktok, instagram, rednote, youtube, web] }
+      - name: marcas
+        label: Marcas (el anillo)
+        type: object
+        list:
+          collapsible: { collapsed: true, summary: "{fields.nombre}" }
+        fields:
+          - { name: nombre, label: Nombre de la marca, type: string, required: true }
+          - { name: logo, label: "Logo (si no hay, sale el nombre escrito)", type: image, options: { media: logos } }
+          - { name: fondo, label: "Color de fondo del logo (ej.: #FEC72D; vacío = blanco)", type: string }
+          - { name: conNombre, label: "El logo no dice el nombre completo: escribirlo al lado", type: boolean }
+          - { name: foto, label: Foto de la colaboración, type: image, options: { media: fotos-marcas } }
+          - { name: video, label: "Identificador de su vídeo en las estanterías (ej.: UGC-2)", type: string }
+          - { name: tipo, label: "Una línea: qué fue y dónde (vacío = la línea del vídeo)", type: object, fields: *tri }
+          - { name: texto, label: Una frase (opcional), type: object, fields: *tri_texto }
+      - name: ficha
+        label: "Datos de la caja «¿Por qué elegirme?»"
+        type: object
+        list: true
+        fields:
+          - { name: clave, label: Título, type: object, fields: *tri }
+          - { name: valor, label: Texto, type: object, fields: *tri_texto }
+      - name: cuentas
+        label: Mis cuentas (enlaces)
+        type: object
+        list: true
+        fields:
+          - { name: texto, label: Texto, type: object, fields: *tri }
+          - { name: url, label: Enlace, type: string }
+          - { name: icono, label: Icono, type: select, options: { values: [tiktok, instagram, rednote, youtube, web] } }
+      - name: contacto
+        label: Contacto (la caja vacía y la carta)
+        type: object
+        fields:
+          - { name: texto, label: Título, type: object, fields: *tri }
+          - { name: nota, label: Nota escrita a mano, type: object, fields: *tri }
+          - { name: email, label: Correo, type: string }
+          - { name: web3forms, label: "Clave de Web3Forms (no tocar)", type: string, readonly: true }
+          - { name: asunto, label: Asunto del correo, type: object, fields: *tri }
+          - { name: plantilla, label: Mensaje ya escrito en la carta, type: object, fields: *tri_texto }
+
+  - name: textos
+    label: Los otros apartados (texto, con cuidado)
+    type: group
+    items:
+      - { name: sobre-mi, label: Sobre mí, type: file, path: content/sobre-mi.json, format: code }
+      - { name: experiencia, label: Experiencia, type: file, path: content/experiencia.json, format: code }
+      - { name: trabajos, label: Mis trabajos, type: file, path: content/trabajos.json, format: code }
+      - { name: vida, label: Mi vida en España, type: file, path: content/vida.json, format: code }
