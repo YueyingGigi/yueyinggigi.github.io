@@ -292,6 +292,19 @@ body[data-pagina][data-listo="true"]{ opacity: 1; transition: opacity 260ms var(
   filter: drop-shadow(5px 9px 10px rgba(30,30,30,.22));
 }
 .b-ruta__caminante[data-andando="true"] img{ animation: andar 360ms ease-in-out infinite; }
+/* La misma muñeca, puesta en el HTML para que exista desde el primer
+   fotograma: es a donde llega la que sale de la caja (reveal.css).
+   Sin top ni left: se queda donde empieza .bloques, y el margen la
+   baja hasta donde saldrá la de la ruta. */
+.aterrizaje{
+  position: absolute; z-index: 3; margin-top: 99px;
+  width: 150px; height: clamp(150px, 20vh, 185px);
+  display: flex; justify-content: center; pointer-events: none;
+}
+.aterrizaje img{
+  height: 100%; width: auto; view-transition-name: muneca;
+  filter: drop-shadow(5px 9px 10px rgba(30,30,30,.22));
+}
 @keyframes andar{
   0%, 100% { translate: 0 0;    rotate: -2deg; }
   50%      { translate: 0 -7px; rotate:  2deg; }
@@ -1067,6 +1080,7 @@ body[data-pagina="trabajos"] .figura{ right: 0; left: auto; bottom: 0; }
   .b-carta{ flex: 0 0 74%; scroll-snap-align: center; }
   .b-bento__celda[data-ancho="2"]{ grid-column: span 1; }
   .b-ruta{ --via: 76px; --alto-munieca: 96px; }
+  .aterrizaje{ width: 76px; height: 96px; margin-top: 90px; }
   .b-ruta__ciudad{ font-size: 18px; }
   .b-ruta__parada{ padding: var(--e4) 0 var(--e4) var(--e3); min-height: 20vh; }
   .b-proceso__pasos{ grid-template-columns: 1fr 1fr; }
@@ -1256,6 +1270,26 @@ body[data-pagina="trabajos"] .figura{ right: 0; left: auto; bottom: 0; }
 .navegador__vista{ position: relative; width: 100%; aspect-ratio: 1280 / 800; overflow: hidden; background: #fff; }
 .navegador__marco{ position: absolute; left: 0; top: 0; width: 1280px; height: 800px; border: 0; transform-origin: 0 0; background: #fff; }
 .navegador__movil{ margin: var(--e5) auto; display: flex; }
+
+/* el vídeo de la web, en la pantalla del portátil y encima de la web */
+.navegador__cine{
+  position: absolute; inset: 0; z-index: 2; background: #0d0d0d;
+  opacity: 0; transition: opacity 240ms var(--curva);
+}
+.navegador__cine[data-visible="true"]{ opacity: 1; }
+.navegador__cine video{ width: 100%; height: 100%; display: block; object-fit: contain; }
+.navegador__cine-boton{
+  position: absolute; top: 10px; width: 34px; height: 34px; padding: 0;
+  display: grid; place-items: center; border: 0; border-radius: 50%; cursor: pointer;
+  background: rgba(20,20,20,.62); color: #fff;
+  transition: background 160ms var(--curva), scale 160ms var(--curva);
+}
+.navegador__cine-boton:hover{ background: rgba(20,20,20,.9); scale: 1.08; }
+.navegador__cine-volver{ right: 10px; }
+.navegador__cine-ampliar{ right: 52px; }
+@media (prefers-reduced-motion: reduce){
+  .navegador__cine, .navegador__cine-boton{ transition: none; }
+}
 .esc__extra{ display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: var(--e4); align-items: start; }
 .esc__extra .video, .esc__extra .material-foto{ margin: 0; max-width: none; }
 

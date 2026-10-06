@@ -125,50 +125,82 @@
    Menos de un segundo: precinto → tapa → muñeca.
    ═══════════════════════════════════════════════════════════════ */
 
-/* La foto de la caja abierta, debajo de la cerrada. Se descarga solo
-   cuando hace falta, no en la primera pantalla. */
+/* La foto de la caja abierta, debajo de la cerrada.
+
+   En esa foto la caja ocupa solo una parte: arriba está la tapa, ya
+   volcada hacia atrás, y a los lados las dos solapas. Se coloca para
+   que el CUERPO de la caja caiga justo donde está la caja cerrada (su
+   tapa mide 400 de los 682 px de ancho y la bisagra está en el 410 de
+   800), y lo que sobresale —tapa y solapas— queda recortado hasta que
+   la tapa termina de abrirse. Antes se metía la foto entera en el
+   hueco y, al abrir, la caja encogía a la mitad (Gigi, 2026-10-06:
+   «no coincide con la foto de la caja abierta»). */
 .caja__dentro{
-  position:absolute; inset:0; width:100%; height:100%;
-  object-fit: contain; z-index:1;
+  position: absolute; z-index: 1;
+  left: -35%; top: -102.5%; width: 170.5%; height: 200%;
+  max-width: none; object-fit: fill;
+  --solo-cuerpo: inset(51% 20.6% 0 20.3%);
+  clip-path: var(--solo-cuerpo);
   opacity: 0;
   transition: opacity 180ms var(--curva);
+  pointer-events: none;
 }
 .caja[data-abriendo="true"] .caja__dentro,
 .caja[data-abierta="true"]  .caja__dentro{ opacity: 1; }
+.caja[data-abierta="true"]  .caja__dentro{ clip-path: var(--abierta, inset(0)); }
+/* en el cajón de los apartados las cajas son pequeñas y van pegadas al
+   borde: la tapa volcada se saldría del cajón. Ahí la caja abierta se
+   queda con el cuerpo y las solapas; la tapa gira igual y se funde. */
+.estante .caja__dentro{ --abierta: inset(50% 0 0 0); }
 
-/* La tapa (= la foto de la caja cerrada) se levanta girando sobre
-   su borde de arriba, como una tapa de cartón de verdad. */
-.caja__foto{
-  transform-origin: 50% 2%;
-  transition: transform 300ms var(--curva), opacity 180ms var(--curva);
-  backface-visibility: hidden;
-}
-.caja{ perspective: 760px; }
+/* LA TAPA SE ABRE COMO EN LA FOTO: sujeta por el borde de atrás, se
+   levanta por delante, pasa de pie hacia quien mira y cae hacia atrás
+   hasta quedar tumbada donde la foto de la caja abierta tiene la suya;
+   ahí se funde con ella y salen las solapas de los lados.
+   (Historia: giraba 108° y se quedaba a medias —«como una puerta»—;
+   luego se quitaba entera y se iba volando —«no la tires»—. Gigi,
+   2026-10-06.) Lo que dura lo marca js/unbox.js en --t-tapa. */
+.caja{ perspective: 900px; }
+.caja__foto{ transform-origin: 50% 0; }
+/* lo pegado a la tapa (etiqueta, sello, icono) gira sobre la MISMA
+   línea que la foto —su recuadro empieza un 6 % más abajo— y por
+   detrás no se ve: la tapa por dentro es cartón liso */
+.caja__tapa{ transform-origin: 50% -7.14%; backface-visibility: hidden; }
 .caja[data-tapa="levantada"] .caja__foto,
-.caja[data-abierta="true"]   .caja__foto{
-  transform: rotateX(-96deg) translateY(-6%);
-  opacity: 0;
+.caja[data-tapa="levantada"] .caja__tapa{
+  animation: tapa-abre var(--t-tapa, 600ms) cubic-bezier(.45,.05,.4,1) forwards;
 }
-/* lo que va pegado a la tapa se levanta con ella */
-.caja__tapa{
-  transform-origin: 50% 2%;
-  transition: transform 300ms var(--curva), opacity 180ms var(--curva);
+.caja[data-tapa="levantada"] .caja__dentro{
+  animation: salen-solapas var(--t-tapa, 600ms) linear forwards;
 }
-.caja[data-tapa="levantada"] .caja__tapa,
-.caja[data-abierta="true"]   .caja__tapa{
-  transform: rotateX(-96deg) translateY(-6%);
-  opacity: 0;
+.caja[data-abierta="true"] .caja__foto,
+.caja[data-abierta="true"] .caja__tapa{ opacity: 0; }
+@keyframes tapa-abre{
+  0%  { transform: rotateX(0deg);   opacity: 1; }
+  14% { transform: rotateX(9deg); }
+  82% { transform: rotateX(172deg); opacity: 1; }
+  100%{ transform: rotateX(180deg); opacity: 0; }
+}
+@keyframes salen-solapas{
+  0%, 74%{ clip-path: var(--solo-cuerpo); }
+  100%   { clip-path: var(--abierta, inset(0)); }
 }
 
-/* El precinto se despega por un lado y sale volando */
-.caja__precinto{
-  transform-origin: 8% 50%;
-  transition: transform 200ms cubic-bezier(.5,-.2,.8,.4), opacity 200ms ease-in;
+/* El precinto se despega de izquierda a derecha: lo que sigue pegado
+   se va acortando y la tira ya despegada va por delante, levantada
+   (la mueve js/unbox.js · despegar). */
+.caja__precinto[data-roto="true"]{ opacity: 0; }
+.caja__tira{
+  position: absolute; left: -2.6%; width: 36%; height: 8.4%;
+  transform-origin: 0 50%;
+  /* el dorso de la cinta, más claro */
+  background:
+    linear-gradient(180deg, rgba(255,255,255,.35), rgba(30,30,30,.05)),
+    color-mix(in srgb, var(--color) 62%, #fff);
+  box-shadow: 2px 4px 6px rgba(30,30,30,.18);
+  pointer-events: none;
 }
-.caja__precinto[data-roto="true"]{
-  transform: rotate(-16deg) translate(42%, -120%) scaleX(.72);
-  opacity: 0;
-}
+[data-tapa="a"] .caja__tira{ top: 46%; }
 
 /* La caja tiembla un poco al romperse el precinto */
 .caja[data-abriendo="true"]{ animation: temblor 200ms var(--curva); }
@@ -185,4 +217,6 @@
 @media (prefers-reduced-motion: reduce){
   .caja[data-abriendo="true"]{ animation: none; }
   .caja__foto, .caja__tapa, .caja__precinto, .caja__dentro{ transition: none; }
+  .caja[data-tapa="levantada"] :is(.caja__foto, .caja__tapa){ animation: none; opacity: 0; }
+  .caja[data-tapa="levantada"] .caja__dentro{ animation: none; clip-path: var(--abierta, inset(0)); }
 }

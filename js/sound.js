@@ -73,14 +73,18 @@ function roce(dur = 0.09, vol = 0.05){
   fuente.start();
 }
 
-export function sonarAbrir(){
+/* Los tres sonidos de abrir una caja, cada uno cuando toca: los
+   tiempos los pone js/unbox.js, que es quien sabe cuánto tarda cada
+   paso (con manos, sin manos, en el cajón). */
+/* Dentro del clic: Safari solo deja sonar lo que arranca con un gesto,
+   y el primer sonido de la caja llega medio segundo después. */
+export function despertarSonido(){ if (encendido) contexto(); }
+export function sonarPrecinto(ms = 100){ if (encendido) roce(Math.max(0.1, ms / 1000 * 0.8), 0.045); }
+export function sonarTapa(){ if (encendido) tono({ de: 420, a: 880, dur: 0.16, vol: 0.09 }); }
+export function sonarSorpresa(){
   if (!encendido) return;
-  roce(0.10, 0.045);                                     // el precinto
-  setTimeout(() => tono({ de: 420, a: 880, dur: 0.16, vol: 0.09 }), 150);  // la tapa
-  setTimeout(() => {                                     // ¡sorpresa!
-    tono({ de: 660, a: 1320, dur: 0.22, vol: 0.10, tipo: 'triangle' });
-    setTimeout(() => tono({ de: 990, a: 1760, dur: 0.20, vol: 0.06, tipo: 'triangle' }), 70);
-  }, 470);
+  tono({ de: 660, a: 1320, dur: 0.22, vol: 0.10, tipo: 'triangle' });
+  setTimeout(() => tono({ de: 990, a: 1760, dur: 0.20, vol: 0.06, tipo: 'triangle' }), 70);
 }
 
 export function sonarCerrar(){

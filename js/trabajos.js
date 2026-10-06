@@ -4,7 +4,8 @@
 
    · web   (Niu&Nos, UPV Respira): en la pantalla se abre un navegador
            con la web de verdad, que se puede tocar y bajar. En el
-           móvil, un botón la abre a pantalla completa.
+           móvil, un botón la abre a pantalla completa. Su vídeo
+           horizontal se ve en esa misma pantalla (`verEnPortatil`).
    · cine  (Essencia, Book trailer): la pantalla se vuelve un
            reproductor panorámico. Si hay un vídeo vertical, va al
            lado como un móvil.
@@ -77,7 +78,7 @@ export function miniaturaDe(t){
 
 /* Un botón de vídeo para la mesa. Si el vídeo es vertical, se ve en
    el móvil de la muñeca; si es horizontal, en una pantalla grande. */
-function botonVideo(m, t, textos){
+function botonVideo(m, t, textos, alPinchar){
   const b = el('button', 'boton-video');
   b.type = 'button';
   b.innerHTML = '<svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l13-7.5z" fill="currentColor"/></svg>';
@@ -88,7 +89,10 @@ function botonVideo(m, t, textos){
     i.className = 'boton-video__mini' + (m.vertical ? ' boton-video__mini--vertical' : '');
     b.prepend(i);
   }
-  b.addEventListener('click', () => m.vertical ? abrirVideoEnMovil(m, t, textos, b) : abrirPantalla(m, textos, b));
+  b.addEventListener('click', () => {
+    if (alPinchar) return alPinchar(b);
+    m.vertical ? abrirVideoEnMovil(m, t, textos, b) : abrirPantalla(m, textos, b);
+  });
   return b;
 }
 
@@ -110,13 +114,14 @@ function escenarioWeb(t, textos){
   barra.appendChild(fuera);
   nav.appendChild(barra);
 
+  let vista = null;
   if (enMovil()){
     const abrir = el('button', 'navegador__movil boton', textos['web.abrir'] || '');
     abrir.type = 'button';
     abrir.addEventListener('click', () => webCompleta(url, enIdioma(t.titulo), textos));
     nav.appendChild(abrir);
   } else {
-    const vista = el('div', 'navegador__vista');
+    vista = el('div', 'navegador__vista');
     const marco = document.createElement('iframe');
     marco.className = 'navegador__marco';
     marco.src = url;
@@ -137,8 +142,80 @@ function escenarioWeb(t, textos){
   const mesa = el('div', 'mesa-trabajo__cosas');
   const fotos = (t.media || []).filter(m => m.tipo === 'foto');
   if (fotos.length) pintarMateriales(mesa, fotos, textos);
-  (t.media || []).filter(m => m.tipo === 'video').forEach(m => mesa.appendChild(botonVideo(m, t, textos)));
+  (t.media || []).filter(m => m.tipo === 'video').forEach(m => {
+    const enPortatil = vista && !m.vertical;
+    mesa.appendChild(botonVideo(m, t, textos, enPortatil ? b => verEnPortatil(m, vista, textos, b) : null));
+  });
   return { pantalla, mesa };
+}
+
+/* El vídeo horizontal de una web se ve EN la pantalla del portátil,
+   encima de la web (Gigi, 2026-10-06): la miniatura vuela hasta la
+   pantalla, se reproduce ahí, y al acabar o al cerrar vuelve la web,
+   que sigue debajo tal como estaba. Un botón lo pasa a la pantalla
+   grande de siempre, por donde iba. */
+async function verEnPortatil(m, vista, textos, origen){
+  if (vista.querySelector('.navegador__cine') || vista.dataset.llegando) return;
+  vista.dataset.llegando = 'true';
+  const calma = sinMovimiento();
+  /* El vídeo se crea YA, dentro del clic, y se le da un play que se
+     corta al instante: Safari solo deja sonar un vídeo que se ha
+     arrancado con un gesto, y para cuando aterriza la miniatura el
+     gesto ya ha pasado. */
+  const v = document.createElement('video');
+  v.controls = true; v.playsInline = true; v.preload = 'auto';
+  v.poster = m.portada || ''; v.src = m.archivo;
+  v.setAttribute('aria-label', enIdioma(m.titulo));
+  const llave = v.play(); v.pause(); llave?.catch(() => {});
+  const r = vista.getBoundingClientRect();
+  if (r.top < 70 || r.bottom > innerHeight){
+    vista.scrollIntoView({ block: 'center', behavior: calma ? 'auto' : 'smooth' });
+    if (!calma) await new Promise(ok => setTimeout(ok, 380));
+  }
+  await volarEnArco(m.portada, origen, vista, { escalaFin: 2.4, duracion: 560 });
+  delete vista.dataset.llegando;
+  if (!vista.isConnected) return;
+
+  const cine = el('div', 'navegador__cine');
+  const volver = el('button', 'navegador__cine-boton navegador__cine-volver');
+  volver.type = 'button';
+  volver.setAttribute('aria-label', textos['video.volver-web'] || 'Cerrar');
+  volver.title = textos['video.volver-web'] || '';
+  volver.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>`;
+  const ampliar = el('button', 'navegador__cine-boton navegador__cine-ampliar');
+  ampliar.type = 'button';
+  ampliar.setAttribute('aria-label', textos['video.ampliar'] || 'Ampliar');
+  ampliar.title = textos['video.ampliar'] || '';
+  ampliar.innerHTML = `<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+    stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h6v6M10 20H4v-6M20 4l-7 7M4 20l7-7"/></svg>`;
+  cine.append(v, ampliar, volver);
+  vista.appendChild(cine);
+  requestAnimationFrame(() => { cine.dataset.visible = 'true'; });
+  v.play().catch(() => {});
+  volver.focus({ preventScroll: true });
+
+  let fuera = false;
+  const cerrar = (devolverFoco = true) => {
+    if (fuera) return;
+    fuera = true;
+    v.pause();
+    document.removeEventListener('keydown', tecla);
+    cine.dataset.visible = 'false';
+    setTimeout(() => cine.remove(), calma ? 0 : 260);
+    if (devolverFoco) origen?.focus?.({ preventScroll: true });
+  };
+  const tecla = e => { if (e.key === 'Escape') cerrar(); };
+  document.addEventListener('keydown', tecla);
+  volver.addEventListener('click', () => cerrar());
+  v.addEventListener('ended', () => cerrar(false));
+  // si se cambia de trabajo, la pantalla desaparece: que no siga sonando
+  v.addEventListener('timeupdate', () => { if (!v.isConnected) v.pause(); });
+  // a la pantalla grande se lleva el MISMO vídeo: sigue por donde iba
+  ampliar.addEventListener('click', () => {
+    cerrar(false);
+    abrirPantalla(m, textos, origen, v);
+  });
 }
 
 function webCompleta(url, titulo, textos){
@@ -370,12 +447,14 @@ export function abrirVideoEnMovil(m, t, textos, origen){
 }
 
 /* Un vídeo horizontal: sin muñeca, pantalla grande sobre el velo */
-export function abrirPantalla(m, textos, origen){
+export function abrirPantalla(m, textos, origen, yaEmpezado){
   const sala = el('div', 'serie__sala');
-  const v = document.createElement('video');
-  v.controls = true; v.playsInline = true; v.preload = 'auto';
-  v.poster = m.portada || ''; v.src = m.archivo;
-  v.setAttribute('aria-label', enIdioma(m.titulo));
+  const v = yaEmpezado || document.createElement('video');
+  if (!yaEmpezado){
+    v.controls = true; v.playsInline = true; v.preload = 'auto';
+    v.poster = m.portada || ''; v.src = m.archivo;
+    v.setAttribute('aria-label', enIdioma(m.titulo));
+  }
   sala.appendChild(v);
   const piezas = capa({ titulo: enIdioma(m.titulo), cuerpo: sala, clase: 'serie--sala' }, textos);
   piezas.alAbrir = () => v.play().catch(() => {});

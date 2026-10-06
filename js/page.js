@@ -304,6 +304,19 @@ function seguirElScroll(figura, totalParadas){
   mirar();
 }
 
+/* Experiencia: la muñeca del HTML (.aterrizaje) aguanta hasta que
+   la transición de entrada ha terminado y la de la ruta está pintada;
+   entonces se cambian sin que se note. */
+function relevarAterrizaje(){
+  const puesta = document.querySelector('.aterrizaje');
+  if (!puesta) return;
+  const deVerdad = document.querySelector('.b-ruta__caminante');
+  if (!deVerdad){ puesta.remove(); return; }
+  deVerdad.style.visibility = 'hidden';
+  setTimeout(() => { deVerdad.style.visibility = ''; puesta.remove(); },
+             Math.max(0, 950 - performance.now()));
+}
+
 async function iniciar(){
   const seccion = document.body.dataset.pagina;
   iniciarBarra();
@@ -332,6 +345,7 @@ async function iniciar(){
       return r;
     };
     dibujar(textos);
+    relevarAterrizaje();
     seguirElScroll(figura, figura.cuantasParadas());
     document.addEventListener('idioma:cambiado', e => {
       dibujar(e.detail.textos);

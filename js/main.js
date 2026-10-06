@@ -33,7 +33,8 @@ async function iniciar(){
       // si el plano de entrada aún va, primero se termina (~0,35 s)
       if (escena) await escena.terminar();
       const s = caja.dataset.seccion;
-      abrirCaja(caja, s, figura, textos, `${s}.html`);
+      // la cámara se pone encima de esa caja mientras las manos llegan
+      abrirCaja(caja, s, figura, textos, `${s}.html`, { enfocar: c => escena?.enfocar(c) });
     });
   });
 

@@ -48,10 +48,17 @@
   max-width: min(90vw, 34ch); text-align: center; line-height: 1.2;
   text-shadow: 0 2px 16px rgba(0,0,0,.4);
   opacity: 0; transform: translateY(12px);
-  transition: opacity 340ms var(--curva) 140ms, transform 340ms var(--curva) 140ms;
+  /* sale a la vez que la muñeca, no después (Gigi, 2026-10-06) */
+  transition: opacity 300ms var(--curva) 60ms, transform 300ms var(--curva) 60ms;
 }
 .revelado[data-visible="true"] .revelado__nombre{ opacity: 1; transform: none; }
 :lang(zh) .revelado__nombre{ font-family:"LXGW WenKai", var(--fuente-mano); font-weight:500; font-size: clamp(22px, 2.6vw, 30px); }
+
+/* Mientras espera, la muñeca flota un poco: si se queda clavada, el
+   revelado parece una foto. (`translate` suelto: no pisa el transform
+   con el que la coloca js/unbox.js.) */
+.figura[data-flota="true"], .figura-revelado[data-flota="true"]{ animation: flotar 2.4s ease-in-out infinite; }
+@keyframes flotar{ 0%, 100%{ translate: 0 0; } 50%{ translate: 0 -10px; } }
 
 /* Al salir hacia la página del apartado, todo se funde */
 body[data-saliendo="true"]{ opacity: 0; transition: opacity 260ms var(--curva); }
@@ -86,8 +93,19 @@ body[data-saliendo="true"]{ opacity: 0; transition: opacity 260ms var(--curva); 
   animation-duration: 650ms;
   animation-timing-function: cubic-bezier(.22,.8,.3,1);
 }
-::view-transition-old(root),
-::view-transition-new(root){ animation-duration: 320ms; }
+/* El resto no se cruza en un fundido seco (Gigi, 2026-10-06: «queda
+   brusco»): la página vieja —con su velo oscuro— se aclara hasta el
+   papel, y la nueva sube un poco desde abajo mientras la muñeca llega. */
+::view-transition{ background: var(--papel); }
+::view-transition-old(root){ animation: pagina-fuera 380ms var(--curva) both; }
+::view-transition-new(root){ animation: pagina-dentro 620ms cubic-bezier(.22,.8,.3,1) both; }
+@keyframes pagina-fuera{ to{ opacity: 0; } }
+@keyframes pagina-dentro{
+  0%  { opacity: 0; transform: translateY(26px); }
+  30% { opacity: 0; transform: translateY(26px); }
+  100%{ opacity: 1; transform: none; }
+}
 @media (prefers-reduced-motion: reduce){
   @view-transition{ navigation: none; }
+  .figura[data-flota="true"], .figura-revelado[data-flota="true"]{ animation: none; }
 }

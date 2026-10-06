@@ -19,6 +19,8 @@
      taparían lo que se quiere tocar.
    ───────────────────────────────────────────────────────────── */
 
+import { PELADO } from './unbox.js';
+
 const POSTURAS = {
   reposo:   'assets/hands/mano-abierta.webp',
   alcanzar: 'assets/hands/mano-alcanzando.webp',
@@ -75,7 +77,9 @@ export async function iniciarMano(zona){
 
   let siguiendo = false, ratonX = 0, ratonY = 0, anteriorX = 0;
   let cajaEncima = null, saliendo = false, animando = false;
-  let coreo = null;          // durante la apertura: { der:{x,y}, izq:{x,y,giro} }
+  let coreo = null;          // durante la apertura: { der, izq } — un punto {x,y,giro} o una función que lo da
+  let coreoFuera = null;     // para cortar la apertura si se la saltan
+  let abriendo = false;      // mientras se abre una caja, el ratón ya no manda
   let rapidez = SEGUIMIENTO;
 
   function colocarAlInstante(m, p){
@@ -90,7 +94,8 @@ export async function iniciarMano(zona){
     if (saliendo){
       der.oy = reposo.fuera().y; izq.oy = reposo.fuera().y;
     } else if (coreo){
-      der.ox = coreo.der.x; der.oy = coreo.der.y; der.objGiro = coreo.der.giro || 0;
+      const d = typeof coreo.der === 'function' ? coreo.der() : coreo.der;
+      der.ox = d.x; der.oy = d.y; der.objGiro = d.giro || 0;
       izq.ox = coreo.izq.x; izq.oy = coreo.izq.y; izq.objGiro = coreo.izq.giro || 0;
     } else {
       if (siguiendo){ der.ox = ratonX; der.oy = ratonY; }
@@ -120,66 +125,140 @@ export async function iniciarMano(zona){
     requestAnimationFrame(mover);
   }
 
-  /* Aparecen cuando termina el plano de entrada: suben desde abajo */
+  /* Las manos son de la vista desde arriba: suben desde abajo cuando
+     la cámara llega arriba y se van si vuelve a bajar (js/escena.js
+     avisa con `escena:vista`). */
   function entrar(){
-    colocarAlInstante(der, { x: reposo.der().x, y: reposo.fuera().y });
-    colocarAlInstante(izq, { x: reposo.izq().x, y: reposo.fuera().y });
-    der.el.dataset.visible = 'true'; izq.el.dataset.visible = 'true';
+    saliendo = false;
+    if (der.el.dataset.visible !== 'true'){
+      colocarAlInstante(der, { x: reposo.der().x, y: reposo.fuera().y });
+      colocarAlInstante(izq, { x: reposo.izq().x, y: reposo.fuera().y });
+      der.el.dataset.visible = 'true'; izq.el.dataset.visible = 'true';
+    }
     despertar();
   }
-  if (document.documentElement.classList.contains('con-3d') && !document.querySelector('.escena')?.dataset.lista){
-    document.addEventListener('escena:lista', entrar, { once: true });
+  function salir(){ if (abriendo) return; saliendo = true; siguiendo = false; cajaEncima = null; despertar(); }
+  if (document.documentElement.classList.contains('con-3d')){
+    document.addEventListener('escena:vista', e => e.detail.arriba ? entrar() : salir());
+    if (document.querySelector('.escena')?.dataset.lista === 'true') entrar();
   } else {
     entrar();
   }
 
   zona.addEventListener('pointerenter', e => {
+    if (abriendo || saliendo) return;
     siguiendo = true;
     ratonX = e.clientX; ratonY = e.clientY;
     document.body.dataset.manoPuesta = 'true';
     despertar();
   });
   zona.addEventListener('pointerleave', () => {
+    if (abriendo) return;
     siguiendo = false;
     delete document.body.dataset.manoPuesta;
     ponerPostura(der, 'reposo');
     despertar();
   });
-  zona.addEventListener('pointermove', e => { ratonX = e.clientX; ratonY = e.clientY; despertar(); });
+  zona.addEventListener('pointermove', e => {
+    ratonX = e.clientX; ratonY = e.clientY;
+    // (si las manos acaban de volver, el ratón ya estaba dentro)
+    if (!abriendo && !saliendo && !siguiendo){ siguiendo = true; document.body.dataset.manoPuesta = 'true'; }
+    despertar();
+  });
 
   zona.querySelectorAll('.caja').forEach(caja => {
-    caja.addEventListener('pointerenter', () => { ponerPostura(der, 'alcanzar'); cajaEncima = caja; despertar(); });
-    caja.addEventListener('pointerleave', () => { ponerPostura(der, 'reposo'); cajaEncima = null; despertar(); });
+    // (al acercarse la cámara las cajas pasan por debajo del ratón quieto
+    //  y saltan estos mismos eventos: por eso el `abriendo`)
+    caja.addEventListener('pointerenter', () => { if (abriendo) return; ponerPostura(der, 'alcanzar'); cajaEncima = caja; despertar(); });
+    caja.addEventListener('pointerleave', () => { if (abriendo) return; ponerPostura(der, 'reposo'); cajaEncima = null; despertar(); });
   });
-  zona.addEventListener('pointerdown', () => ponerPostura(der, 'pellizco'));
-  zona.addEventListener('pointerup',   () => ponerPostura(der, der.postura === 'pellizco' ? (cajaEncima ? 'alcanzar' : 'reposo') : der.postura));
+  zona.addEventListener('pointerdown', () => { if (!abriendo) ponerPostura(der, 'pellizco'); });
+  zona.addEventListener('pointerup',   () => !abriendo && ponerPostura(der, der.postura === 'pellizco' ? (cajaEncima ? 'alcanzar' : 'reposo') : der.postura));
 
   /* ── Abrir la caja con las manos (lo dispara js/unbox.js) ──
      Los tiempos vienen de unbox.js: el precinto se rompe en
      `precinto`, la tapa se levanta en `tapa`, el destello en `destello`. */
   document.addEventListener('caja:abriendo', e => {
     const caja = e.detail?.caja;
+    abriendo = true;
     siguiendo = false; cajaEncima = null;
     delete document.body.dataset.manoPuesta;
     if (!caja || der.el.dataset.visible !== 'true'){ saliendo = true; despertar(); return; }
-    const T = e.detail.tiempos || { precinto: 140, tapa: 380, destello: 700 };
-    const b = caja.getBoundingClientRect();
-    const p = caja.querySelector('.caja__precinto')?.getBoundingClientRect()
-           || { left: b.left, top: b.top + b.height * .45, width: b.width, height: b.height * .08 };
-    const izqSujeta = { x: b.left + b.width * 0.04, y: b.top + b.height * 0.5, giro: 18 };
-    rapidez = 0.42;
+    const T = e.detail.tiempos;
+    /* Dónde va a estar la tapa cuando la cámara termine de acercarse
+       (lo calcula js/escena.js): las manos van ya hacia allí. */
+    const b = e.detail.rect || caja.getBoundingClientRect();
+    const W = b.width, H = b.height;
+    // el precinto cruza la tapa de lado a lado, un poco por debajo del medio
+    const p = { izq: b.left, ancho: W, y: b.top + H * 0.482 };
+    const sujeta = { x: b.left + W * 0.03, y: b.top + H * 0.5, giro: 18 };
+    const pasos = [];
+    const en = (ms, f) => pasos.push(setTimeout(() => { f(); despertar(); }, ms));
+    coreoFuera = () => pasos.splice(0).forEach(clearTimeout);
+
+    // 1 · mientras la cámara baja: la izquierda sujeta la caja y la
+    //     derecha va a pellizcar la punta izquierda del precinto
+    rapidez = 0.11;
     ponerPostura(der, 'pellizco');
-    // 1 · la derecha va al extremo izquierdo del precinto; la izquierda sujeta
-    coreo = { der: { x: p.left + p.width * 0.1, y: p.top + p.height * 0.5, giro: -6 }, izq: izqSujeta };
+    coreo = { der: { x: p.izq + W * 0.03, y: p.y, giro: -6 }, izq: sujeta };
     despertar();
-    // 2 · tira del precinto en diagonal, hacia arriba a la derecha
-    setTimeout(() => { coreo.der = { x: p.left + p.width * 0.7, y: p.top - b.height * 0.35, giro: 10 }; despertar(); }, T.precinto);
-    // 3 · coge la tapa por el borde de delante…
-    setTimeout(() => { coreo.der = { x: b.left + b.width * 0.55, y: b.top + b.height * 0.9, giro: 0 }; despertar(); }, T.tapa - 150);
-    // 4 · …y la levanta (desde arriba, la tapa se abre hacia el borde de atrás)
-    setTimeout(() => { coreo.der = { x: b.left + b.width * 0.55, y: b.top - b.height * 0.25, giro: -4 }; despertar(); }, T.tapa);
-    // 5 · fuera las dos, antes del destello
-    setTimeout(() => { coreo = null; saliendo = true; rapidez = 0.3; despertar(); }, T.destello - 120);
+
+    // 2 · lo despega de punta a punta: la mano lleva la punta de la
+    //     tira que js/unbox.js va levantando (mismo recorrido: PELADO)
+    en(T.precinto, () => {
+      const t0 = performance.now(), dur = T.pelar * PELADO.hasta;
+      rapidez = 0.5;
+      coreo.der = () => {
+        const k = Math.min(1, (performance.now() - t0) / dur);
+        const ang = (PELADO.giro[0] + (PELADO.giro[2] - PELADO.giro[0]) * Math.min(1, k * 1.6)) * Math.PI / 180;
+        const largo = W * PELADO.largo * Math.min(1, 0.15 + k * 2.2);
+        return { x: p.izq + p.ancho * k + Math.cos(ang) * largo, y: p.y - Math.sin(ang) * largo, giro: 4 + k * 10 };
+      };
+    });
+    // …y lo suelta arriba a la derecha
+    en(T.precinto + T.pelar * PELADO.hasta, () => {
+      rapidez = 0.16;
+      coreo.der = { x: b.left + W * 1.12, y: b.top - H * 0.02, giro: 16 };
+    });
+
+    // 3 · vuelve a por la tapa: la coge por el borde de delante
+    en(T.tapa - 330, () => {
+      rapidez = 0.2;
+      ponerPostura(der, 'alcanzar');
+      coreo.der = { x: b.left + W * 0.52, y: b.top + H * 0.97, giro: 0 };
+    });
+    en(T.tapa - 50, () => ponerPostura(der, 'pellizco'));
+
+    // 4 · la levanta por delante y la vuelca hacia atrás.
+    //     La izquierda suelta un poco: ya no hay nada que sujetar.
+    en(T.tapa, () => {
+      const t0 = performance.now();
+      rapidez = 0.85;        // casi pegada: al final la tapa va muy deprisa
+      coreo.izq = { x: sujeta.x - W * 0.07, y: sujeta.y + H * 0.04, giro: 12 };
+      // no se calcula: se mira dónde está la tapa en cada fotograma. La
+      // mano va cogida de su borde de delante, que es el que se aleja de
+      // la bisagra (el borde de atrás de la caja, arriba en pantalla):
+      // primero baja un poco hacia la cámara y luego pasa por encima
+      const tapa = caja.querySelector('.caja__foto');
+      const bisagra = b.top;
+      coreo.der = () => {
+        const r = tapa.getBoundingClientRect();
+        const y = Math.abs(r.bottom - bisagra) >= Math.abs(r.top - bisagra) ? r.bottom : r.top;
+        return { x: r.left + r.width * 0.5, y, giro: 0 };
+      };
+    });
+
+    // 5 · la suelta cuando ya cae sola y se aparta; con el destello se
+    //     van las dos por abajo
+    en(T.tapa + T.quitar * 0.72, () => {
+      rapidez = 0.14;
+      coreo.der = { x: b.left + W * 1.08, y: b.top + H * 0.2, giro: 14 };
+    });
+    en(T.destello, () => { coreo = null; saliendo = true; rapidez = 0.26; });
+  });
+  // si se salta la apertura, las manos se van sin terminar
+  document.addEventListener('caja:saltar', () => {
+    coreoFuera?.(); coreo = null; saliendo = true; rapidez = 0.3; despertar();
   });
   window.addEventListener('resize', despertar, { passive: true });
 }

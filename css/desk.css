@@ -144,6 +144,9 @@
   will-change: transform;
 }
 .mano[data-visible="true"]{ opacity: 1; }
+/* la izquierda lleva la manga entera y su imagen es más ancha: con el
+   mismo ancho que la derecha, la mano saldría más pequeña */
+.mano--izq{ width: calc(clamp(110px, 11vw, 165px) * 1.25); }
 /* quietas abajo, respiran (DESIGN 15.1): una animación CSS suelta,
    así cuando no se mueven no hay ningún bucle de JS gastando batería */
 .mano[data-reposo="true"] img{ animation: respirar-mano 3.8s ease-in-out infinite; }
@@ -154,7 +157,9 @@
 }
 .mano img{
   display: block; width: 100%; height: auto;
-  filter: drop-shadow(7px 11px 10px rgba(30,30,30,.20));
+  /* la sombra, larga y marcada: las manos están por encima de la mesa
+     y se tiene que notar (Gigi, 2026-10-06: «todo muy plano») */
+  filter: drop-shadow(5px 8px 5px rgba(30,30,30,.16)) drop-shadow(18px 30px 22px rgba(30,30,30,.20));
   transition: opacity 100ms linear;
 }
 
@@ -183,6 +188,11 @@
 
 .entrada__saludo{ overflow: hidden; }
 .entrada__saludo span{ display: inline-block; }
+/* El saludo va recortado (overflow) para que suba desde detrás de una
+   máscara, y con un interlineado tan justo el recorte se comía la
+   parte de abajo de la «y», la «g» y la coma (Gigi, 2026-10-06). Se le
+   da aire por abajo y se le quita el mismo al margen. */
+.entrada__saludo{ padding-bottom: .2em; margin-bottom: calc(var(--e3) - .2em); }
 
 .entrada__saludo span{
   animation: subir-tras-mascara 760ms cubic-bezier(.19,1,.22,1) both;

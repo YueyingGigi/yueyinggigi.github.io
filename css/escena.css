@@ -32,7 +32,17 @@
 /* la pared y el suelo son más anchos que la pantalla: que no salga
    barra de desplazamiento horizontal (clip no crea contenedor de
    scroll, así que no rompe el 3D de dentro) */
+/* (Solo en el móvil. En grande no hace falta —el <body> ya lleva
+   overflow-x: hidden, css/base.css— y recortaría las cajas de los
+   extremos, que con la perspectiva se salen de la mesa. Y NUNCA en el
+   <html>: si el <html> tiene overflow propio, el del <body> deja de
+   pasar a la ventana y el <body> se pone a hacer scroll por su cuenta.) */
 @media (max-width: 767px){ .con-3d .mesa{ overflow-x: clip; } }
+/* la mesa, arriba y no centrada: debajo de las cajas tienen que caber
+   las palabras pintadas en la mesa y las manos */
+@media (min-width: 768px){
+  .con-3d .mesa{ justify-content: flex-start; padding-top: clamp(20px, 5vh, 52px); }
+}
 /* la frase de presentación no se mueve y queda por delante de la pared */
 .con-3d .entrada{ position: relative; z-index: 3; }
 .con-3d .camara{
@@ -94,6 +104,126 @@
 }
 @keyframes luz-ventana{ from{ background-position: 100% 0; } to{ background-position: 0 0; } }
 
+/* ── La luz que sigue al ratón ──
+   Sobre papel casi blanco no se puede «encender» nada: lo que se hace
+   es oscurecer un pelo la mesa lejos del ratón, y así alrededor de él
+   queda más claro. js/escena.js mueve --lx / --ly. */
+.con-3d .luz{
+  position: absolute; left: -4%; right: -4%; top: -14%; bottom: -40%;
+  pointer-events: none; opacity: 0;
+  background: radial-gradient(circle 46vmin at var(--lx, 50%) var(--ly, 40%),
+              rgba(255,251,240,.5) 0%, rgba(255,251,240,0) 45%, rgba(74,60,44,.085) 100%);
+  transition: filter 400ms var(--curva);
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.con-3d .escena[data-sin-luz] .luz{ filter: opacity(.35); }
+
+/* ── Las palabras grandes, pintadas en la mesa ──
+   De frente pasan por la pared; al subir la cámara la pared se queda
+   de canto y ya no se ve, así que las mismas palabras siguen en la
+   mesa, por delante de las cajas, más flojas (Gigi, 2026-10-06: «salen
+   un momento y desaparecen»). Como están en la mesa y las cajas tienen
+   altura, al girar la mesa con el ratón se mueven distinto. */
+.con-3d .rotulo{
+  position: absolute; left: -4%; right: -4%; top: calc(100% + clamp(10px, 2vh, 26px));
+  overflow: hidden; display: flex; align-items: center;
+  pointer-events: none; opacity: 0;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 12%, #000 88%, transparent);
+}
+.con-3d .rotulo .pared__cinta{
+  font-size: clamp(52px, 7.6vw, 118px);
+  color: color-mix(in srgb, var(--papel) 92.5%, var(--tinta));
+  animation-duration: 80s;
+}
+
+/* ── Tres cosas sueltas encima de la mesa (Gigi, 2026-10-06) ──
+   Una polaroid, una nota a mano y lo que queda de abrir cajas. Van en
+   el hueco de detrás de las cajas, a la derecha del saludo. Se dejan
+   empujar con el ratón (js/escena.js). */
+.con-3d .cosas{ position: absolute; inset: 0; pointer-events: none; transform: translateZ(.5px); }
+.con-3d .cosa{ position: absolute; margin: 0; pointer-events: auto; }
+.con-3d .cosa--polaroid{
+  right: 5%; bottom: calc(100% + 64px); width: clamp(140px, 13vw, 184px);
+  padding: 9px 9px 34px; background: #fff; rotate: 6deg;
+  box-shadow: 0 1px 2px rgba(30,30,30,.10), 6px 12px 22px rgba(30,30,30,.16);
+}
+.con-3d .cosa--polaroid img{
+  display: block; width: 100%; aspect-ratio: 1; object-fit: cover;
+  object-position: 30% 88%;      /* la foto es vertical: que salga ella, que está abajo */
+}
+/* el trozo de cinta que la sujeta */
+.con-3d .cosa--polaroid i{
+  position: absolute; left: 50%; top: -11px; width: 62px; height: 22px; translate: -50% 0; rotate: -4deg;
+  background: color-mix(in srgb, var(--amarillo, #F2D98B) 70%, transparent);
+  box-shadow: 0 1px 2px rgba(30,30,30,.08);
+}
+.con-3d .cosa--nota{
+  right: calc(5% + clamp(190px, 18vw, 250px)); bottom: calc(100% + 150px);
+  width: clamp(150px, 14vw, 190px); padding: 16px 16px 20px; rotate: -4deg;
+  background: #FFF6CF; color: var(--tinta);
+  font-family: var(--fuente-mano); font-size: clamp(21px, 1.75vw, 26px); line-height: 1.12;
+  box-shadow: 0 1px 1px rgba(30,30,30,.08), 5px 10px 18px rgba(30,30,30,.13);
+  /* la esquina de abajo, un poco levantada */
+  clip-path: polygon(0 0, 100% 0, 100% 86%, 88% 100%, 0 100%);
+}
+:lang(zh) .con-3d .cosa--nota{ font-family: "LXGW WenKai", var(--fuente-mano); font-size: clamp(17px, 1.4vw, 20px); line-height: 1.35; }
+/* el rollo de cinta, visto desde arriba: un anillo */
+.con-3d .cosa--rollo{
+  right: calc(5% + clamp(150px, 15vw, 215px)); bottom: calc(100% + 34px);
+  width: 66px; aspect-ratio: 1; border-radius: 50%;
+  /* de dentro afuera: el hueco, el canuto de cartón y la cinta enrollada */
+  background: radial-gradient(circle, transparent 0 27%, #B9A98F 28% 30%, #D8CBB4 31% 40%, #E9CF78 41% 43%,
+              var(--amarillo) 44% 67%, #E3C766 68% 70%, transparent 71%);
+  filter: drop-shadow(4px 7px 6px rgba(30,30,30,.2));
+}
+.con-3d .cosa--rollo i{
+  position: absolute; left: 80%; top: 30%; width: 34px; height: 15px; rotate: 62deg; transform-origin: 0 50%;
+  background: color-mix(in srgb, var(--amarillo) 82%, #fff);
+  clip-path: polygon(0 0, 100% 0, 92% 50%, 100% 100%, 0 100%);
+}
+/* un trozo de precinto arrancado */
+.con-3d .cosa--tira{
+  right: calc(5% + clamp(250px, 24vw, 340px)); bottom: calc(100% + 56px);
+  width: 88px; height: 17px; rotate: -17deg;
+  background:
+    repeating-linear-gradient(90deg, rgba(255,255,255,.16) 0 1px, transparent 1px 7px),
+    color-mix(in srgb, var(--lavanda, #C9B8E8) 85%, #fff);
+  clip-path: polygon(0 12%, 6% 0, 100% 0, 96% 55%, 100% 100%, 3% 100%);
+  filter: drop-shadow(2px 4px 3px rgba(30,30,30,.14));
+}
+/* pantallas medianas: el saludo ocupa media mesa, solo cabe la nota */
+@media (max-width: 1099px){
+  .con-3d .cosa--polaroid, .con-3d .cosa--rollo, .con-3d .cosa--tira{ display: none; }
+  .con-3d .cosa--nota{ right: 2%; bottom: calc(100% + 90px); }
+}
+/* móvil: la nota y el trozo de precinto, a los lados de la quinta caja */
+@media (max-width: 767px){
+  .con-3d .cosa--nota{
+    left: 0; right: auto; bottom: 9%; width: 22%; padding: 9px 8px 12px;
+    font-size: 15px; line-height: 1.08; rotate: -6deg;
+  }
+  :lang(zh) .con-3d .cosa--nota{ font-size: 12.5px; line-height: 1.3; }
+  .con-3d .cosa--tira{ display: block; right: 2%; bottom: 14%; width: 17%; height: 13px; rotate: 22deg; }
+}
+
+/* ── «Baja y asómate»: la pista de que la cámara se mueve ── */
+.asomate{
+  position: fixed; left: 50%; bottom: clamp(14px, 3vh, 30px); z-index: 4; translate: -50% 0;
+  display: flex; flex-direction: column; align-items: center; gap: 2px;
+  padding: 6px 14px; border: 0; background: none; cursor: pointer;
+  font-family: var(--fuente-mano); font-size: clamp(19px, 1.7vw, 22px); color: var(--tinta-suave);
+  white-space: nowrap;
+  opacity: 0; pointer-events: none; transition: opacity 300ms var(--curva);
+}
+:lang(zh) .asomate{ font-family: "LXGW WenKai", var(--fuente-mano); font-size: 17px; }
+.asomate[data-visible="true"]{ opacity: 1; pointer-events: auto; }
+.asomate[hidden]{ display: none; }
+.asomate svg{ animation: asomate 1.6s ease-in-out infinite; }
+@keyframes asomate{ 0%, 100%{ translate: 0 0; } 50%{ translate: 0 6px; } }
+html.enfocando .asomate{ opacity: 0; }
+
 /* ── Las cajas: un cubo cada una ── */
 .con-3d .cajas{ position: relative; transform-style: preserve-3d; }
 .con-3d .cajas > li{ transform-style: preserve-3d; }
@@ -138,7 +268,10 @@
   content: ""; position: absolute; inset: 4% -6% -10% 6%;
   background: radial-gradient(ellipse at 45% 45%, rgba(30,30,30,.30), rgba(30,30,30,.12) 50%, transparent 72%);
   filter: blur(12px);
-  transform: translate(calc(var(--ancho-cubo, 200px) * .19), calc(var(--ancho-cubo, 200px) * .24));
+  /* hacia dónde cae: lo contrario de donde está la luz (el ratón).
+     Sin ratón, abajo a la derecha, como siempre. */
+  transform: translate(calc(var(--ancho-cubo, 200px) * var(--sx, .19)), calc(var(--ancho-cubo, 200px) * var(--sy, .24)));
+  transition: transform 220ms linear;
   pointer-events: none;
 }
 
@@ -171,24 +304,56 @@
   background: linear-gradient(to right, #DCD4C6, #E3DCCF);
 }
 
-/* ── Abrir la caja en 3D: la tapa gira por su borde de atrás y se
-   levanta hacia quien mira (en plano, caja.css la hace girar hacia
-   dentro y desaparecer). ── */
+/* ── Abrir la caja en 3D ──
+   La tapa se abre igual que en plano (css/caja.css · tapa-abre): por
+   el borde de atrás, hacia quien mira y hasta quedar tumbada detrás.
+   Aquí el giro es de verdad —la tapa viene hacia la cámara y crece— y
+   la perspectiva es la de la escena, no una propia de la caja. */
 .con-3d .cajas > li .cubo > .caja{ perspective: none; }
-.con-3d .caja[data-tapa="levantada"] .caja__foto,
-.con-3d .caja[data-abierta="true"]   .caja__foto,
-.con-3d .caja[data-tapa="levantada"] .caja__tapa,
-.con-3d .caja[data-abierta="true"]   .caja__tapa{
-  transform: rotateX(108deg);
-  opacity: 1;
+.con-3d .caja__foto, .con-3d .caja__tapa{ transition: opacity 400ms var(--curva); }
+/* un pelo por delante de la foto: si no, al girar parpadean */
+.con-3d .caja__tapa{ translate: 0 0 1px; }
+/* la sombra de la tapa sobre lo de dentro: se nota al despegarse y se
+   va según la tapa se levanta */
+.con-3d .cubo > .caja::after{
+  content: ""; position: absolute; inset: 5% 4% 9% 4%; pointer-events: none;
+  background: rgba(30,30,30,.42); border-radius: 6px; filter: blur(10px);
+  opacity: 0;
 }
-.con-3d .caja__foto, .con-3d .caja__tapa{
-  transform-origin: 50% 0;
-  transition: transform 520ms cubic-bezier(.3,1.25,.5,1), opacity 180ms var(--curva);
+.con-3d .cubo > .caja[data-tapa="levantada"]::after{
+  animation: sombra-tapa var(--t-tapa, 750ms) cubic-bezier(.45,.05,.4,1) forwards;
 }
+@keyframes sombra-tapa{
+  0%  { opacity: 0; }
+  14% { opacity: .7; }
+  55% { opacity: .25; transform: translateY(-14%) scaleY(.7); }
+  75%, 100%{ opacity: 0; transform: translateY(-30%) scaleY(.4); }
+}
+
+/* ── La cámara encima de una caja (js/escena.js · enfocar) ──
+   Las otras cuatro se apagan. La opacidad va en las HOJAS y no en el
+   <li>: en un elemento con hijos en 3D, la opacidad los aplasta y la
+   caja daría un salto. */
+.con-3d .cubo__cara, .con-3d .cubo__sombra{ transition: opacity 400ms var(--curva); }
+.con-3d .cajas[data-enfocada] > li:not([data-foco]) :is(.caja__foto, .caja__tapa, .cubo__cara, .cubo__sombra){
+  opacity: .16 !important;
+}
+.con-3d .entrada{ transition: opacity 300ms var(--curva); }
+/* (en el <body>, que es de donde la ventana toma el overflow: así no
+   se pierde por dónde iba el scroll) */
+html.enfocando body{ overflow: hidden; }
+html.enfocando .entrada{ opacity: 0; }
 
 /* el foco del teclado, sobre la tapa */
 .con-3d .cubo > .caja:focus-visible{ outline: 3px solid var(--rojo-sello); outline-offset: 4px; }
+
+/* ── Móvil, de frente: la lista es alta (tres filas) ──
+   La cámara gira más arriba, que es donde se pone la fila de cajas, y
+   la pared no puede medir 2,6 listas: las letras, abajo, junto a la mesa. */
+@media (max-width: 767px){
+  .con-3d .camara{ transform-origin: 50% 36%; }
+  .con-3d .pared{ height: 90%; align-items: flex-end; padding-bottom: 6%; }
+}
 
 /* ── Móvil: la quinta, centrada debajo (como en la mesa plana) ── */
 @media (max-width: 767px){
@@ -202,6 +367,8 @@
 .con-3d .cajas.en-fila > li:nth-child(5) .cubo{ width: 100% !important; }
 
 @media (prefers-reduced-motion: reduce){
-  .con-3d .pared__cinta, .con-3d .tablero::after{ animation: none; }
+  .con-3d .pared__cinta, .con-3d .tablero::after, .asomate svg{ animation: none; }
+  .asomate{ display: none; }
   .con-3d .caja__foto, .con-3d .caja__tapa{ transition: opacity 200ms linear; }
+  .con-3d .cubo > .caja[data-tapa="levantada"]::after{ animation: none; opacity: 0; }
 }

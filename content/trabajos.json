@@ -25,9 +25,9 @@
             "zh": "课程项目 · 硕士毕业设计，2026"
           },
           "resumen": {
-            "es": "Creación integral de una marca DNVB de cajas regalo maternoinfantiles: identidad visual, manual de marca, estrategia transmedia, web, vídeo promocional y prototipo físico de la caja con recorrido QR–web. La marca sigue en fase de planificación: no está a la venta. TFM calificado con 10 y matrícula de honor.",
-            "en": "End-to-end creation of a DNVB brand of mother-and-baby gift boxes: visual identity, brand manual, transmedia strategy, website, promo video and a physical box prototype with a QR-to-web journey. The brand is still at the planning stage: it is not on sale. Master's thesis graded 10 with honours.",
-            "zh": "从零创建一个母婴礼盒 DNVB 品牌：视觉识别、品牌手册、跨媒体策略、网页、宣传视频，以及带 QR–网页动线的礼盒实物原型。品牌仍在规划阶段，尚未上市。硕士论文 10 分并获优秀表彰。"
+            "es": "Creación integral de una marca DNVB de cajas regalo maternoinfantiles: identidad visual, manual de marca, estrategia transmedia, web, vídeo promocional y prototipo físico de la caja con recorrido QR–web. La marca está en fase de planificación. La presenté como mi Trabajo Fin de Máster y obtuvo un 10.",
+            "en": "End-to-end creation of a DNVB brand of mother-and-baby gift boxes: visual identity, brand manual, transmedia strategy, website, promo video and a physical box prototype with a QR-to-web journey. The brand is at the planning stage. I presented it as my master's thesis and it was graded 10.",
+            "zh": "从零创建一个母婴礼盒 DNVB 品牌：视觉识别、品牌手册、跨媒体策略、网页、宣传视频，以及带 QR–网页动线的礼盒实物原型。品牌目前在策划阶段。这是我的硕士毕业设计，成绩 10 分。"
           },
           "media": [
             {
@@ -418,9 +418,9 @@
             "zh": "课程项目"
           },
           "resumen": {
-            "es": "Tráiler audiovisual de la novela El lector de cadáveres.",
-            "en": "An audiovisual trailer for the novel El lector de cadáveres.",
-            "zh": "小说《El lector de cadáveres》的影像预告片。"
+            "es": "Tráiler de la novela El lector de cadáveres, hecho sin rodar un solo plano. Todas las imágenes están generadas con IA. El montaje, la música y los efectos de sonido son los que construyen la tensión.",
+            "en": "A trailer for the novel El lector de cadáveres, made without shooting a single frame. Every image is AI-generated. The editing, the music and the sound effects are what build the tension.",
+            "zh": "小说《El lector de cadáveres》的预告片，没有实拍一个镜头。所有画面都由 AI 生成，紧张感靠剪辑、音乐和音效做出来。"
           },
           "media": [
             {
@@ -435,6 +435,16 @@
               }
             }
           ],
+          "contenido": {
+            "aporte": {
+              "es": "Imágenes generadas con IA, montaje, música y efectos de sonido.",
+              "en": "AI-generated images, editing, music and sound effects.",
+              "zh": "AI 生成的画面、剪辑、音乐和音效。"
+            },
+            "herramientas": [
+              "IA generativa"
+            ]
+          },
           "presentacion": "cine"
         }
       ]
