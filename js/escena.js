@@ -134,6 +134,15 @@ export function montarEscena(mesa, textos){
     const cubo = el('div', 'cubo');
     li.insertBefore(cubo, caja);
     cubo.appendChild(caja);
+    // la etiqueta de cristal: el nombre del apartado, flotando encima
+    const cristal = el('span', 'cubo__cristal');
+    cristal.setAttribute('aria-hidden', 'true');
+    cristal.style.setProperty('--color', getComputedStyle(caja).getPropertyValue('--color'));
+    const nombre = () => { cristal.textContent = caja.querySelector('.caja__etiqueta')?.textContent || ''; };
+    nombre();
+    caja.addEventListener('pointerenter', nombre);
+    caja.addEventListener('focus', nombre);
+    cubo.appendChild(cristal);
     ['frente', 'atras', 'izq', 'der'].forEach(c => cubo.appendChild(el('span', 'cubo__cara cubo__cara--' + c)));
     // la sombra va en la mesa, no en el cubo: cuando la caja sube, la
     // sombra se queda abajo y se separa — así se ve que ha subido

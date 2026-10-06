@@ -437,9 +437,9 @@
           ],
           "contenido": {
             "aporte": {
-              "es": "Imágenes generadas con IA, montaje, música y efectos de sonido.",
-              "en": "AI-generated images, editing, music and sound effects.",
-              "zh": "AI 生成的画面、剪辑、音乐和音效。"
+              "es": "Idea y realización propias, de principio a fin: imágenes generadas con IA, montaje, música y efectos de sonido.",
+              "en": "My own idea and execution, start to finish: AI-generated images, editing, music and sound effects.",
+              "zh": "从构思到成片都是我自己做的：AI 生成的画面、剪辑、音乐和音效。"
             },
             "herramientas": [
               "IA generativa"

@@ -180,14 +180,14 @@
 }
 /* en pantallas estrechas el anillo no cabe entero: se ve el arco de
    delante y los lados se funden */
-.anillo[data-cortado="true"] .anillo__ventana{ overflow: hidden; border-radius: 14px; }
+.anillo[data-cortado="true"] .anillo__ventana{ overflow: hidden; }
 .anillo__camara{
   width: 0; height: 0; transform-style: preserve-3d;
   /* se aleja lo que mide el radio (así lo de delante queda a tamaño
      real) y se mira un poco desde arriba */
   transform: scale(var(--escala, 1)) translateZ(calc(var(--radio, 300px) * -1)) rotateX(-9deg);
 }
-.anillo__rueda{ position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; }
+.anillo__rueda{ position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; will-change: transform; }
 /* la peana: un óvalo plano entre la pared y el anillo (lo coloca
    js/colabora.js · medir). Su canto y su sombra en el suelo son dos
    sombras del mismo óvalo. */
@@ -462,6 +462,8 @@
   .tienda .tienda__seccion, .tienda__entrada{ max-width: 100%; }
 }
 @media (max-width: 900px){
+  /* una sombra por tarjeta en vez de dos: menos que pintar mientras gira */
+  .anillo__cara, .anillo__dorso{ box-shadow: 0 3px 8px rgba(30,30,30,.12); }
   .tienda__entrada{ grid-template-columns: 1fr; justify-items: start; gap: var(--e6); margin-top: var(--e3); }
   .movil-mezcla{ width: min(62vw, 240px); justify-self: center; }
   /* el mueble, de lado a lado de la pantalla y sin laterales; cada

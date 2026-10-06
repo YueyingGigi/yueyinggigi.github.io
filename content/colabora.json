@@ -109,9 +109,9 @@
      },
      "marca": "Lensdy",
      "formato": {
-      "es": "Anuncio hablado",
-      "en": "Spoken ad",
-      "zh": "口播广告"
+      "es": "Talking head",
+      "en": "Talking head",
+      "zh": "口播"
      },
      "idioma": "ES",
      "plataformas": [
@@ -178,9 +178,9 @@
       "zh": "GRWM 跟我一起化妆"
      },
      "formato": {
-      "es": "GRWM · anuncio hablado",
-      "en": "GRWM · spoken ad",
-      "zh": "GRWM · 口播广告"
+      "es": "GRWM · talking head",
+      "en": "GRWM · talking head",
+      "zh": "GRWM · 口播"
      },
      "idioma": "ES",
      "plataformas": [
@@ -239,9 +239,9 @@
      },
      "marca": "AMRGOT",
      "formato": {
-      "es": "Demo · anuncio hablado",
-      "en": "Demo · spoken ad",
-      "zh": "产品展示 · 口播广告"
+      "es": "Demo · talking head",
+      "en": "Demo · talking head",
+      "zh": "产品展示 · 口播"
      },
      "idioma": "ZH",
      "plataformas": [
@@ -482,9 +482,9 @@
     "zh": "内容形式"
    },
    "valor": {
-    "es": "try-on, GRWM, unboxing, demo de producto, anuncio hablado, tutorial, lifestyle",
-    "en": "try-on, GRWM, unboxing, product demo, spoken ad, tutorial, lifestyle",
-    "zh": "穿搭试穿、GRWM、开箱、产品演示、口播广告、教程、生活方式"
+    "es": "try-on, GRWM, unboxing, demo de producto, talking head, tutorial, lifestyle",
+    "en": "try-on, GRWM, unboxing, product demo, talking head, tutorial, lifestyle",
+    "zh": "穿搭试穿、GRWM、开箱、产品演示、口播、教程、生活方式"
    }
   },
   {

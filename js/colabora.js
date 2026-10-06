@@ -346,6 +346,7 @@ function pintarAnillo(marcas, videos, textos){
   let radio = 300, escala = 1;
   let ang = 0, vel = 0, meta = null, parado = false, cogido = false, visible = false, raf = 0, antes = 0;
   const vuelta = g => ((((g + 180) % 360) + 360) % 360) - 180;
+  const velos = [], atras = [];
 
   function medir(){
     const carta = cartas[0];
@@ -377,10 +378,14 @@ function pintarAnillo(marcas, videos, textos){
   }
   function pintar(){
     rueda.style.transform = `rotateY(${ang}deg)`;
+    // el velo de cada tarjeta, a saltos de 0,04 y solo cuando cambia:
+    // escribirlo en las 15 a cada fotograma hacía ir a tirones al móvil
     for (let n = 0; n < N; n++){
       const mira = Math.cos(vuelta(n * PASO + ang) * Math.PI / 180);    // 1 de frente … −1 de espaldas
-      cartas[n].style.setProperty('--lejos', (0.62 * Math.pow((1 - mira) / 2, 1.2)).toFixed(3));
-      cartas[n].dataset.detras = String(mira < 0.05);
+      const lejos = (Math.round(0.62 * Math.pow((1 - mira) / 2, 1.2) * 25) / 25).toFixed(2);
+      const detras = mira < 0.05;
+      if (velos[n] !== lejos){ velos[n] = lejos; cartas[n].style.setProperty('--lejos', lejos); }
+      if (atras[n] !== detras){ atras[n] = detras; cartas[n].dataset.detras = String(detras); }
     }
   }
   function paso(ahora){
