@@ -8,8 +8,9 @@
      0,65 – 1,1 s   la derecha despega el precinto de punta a punta
      1,4  – 2,1 s   coge la tapa por delante y la vuelca hacia atrás,
                     hasta dejarla como en la foto de la caja abierta
-     2,1 s          DESTELLO. La mesa se apaga y la muñeca sale a lo
-                    grande en medio de la pantalla, con UNA FRASE de lo
+                    — debajo ya está la muñeca, tumbada en la caja
+     2,1 s          DESTELLO. La mesa se apaga y la muñeca SALTA de la
+                    caja hasta el medio de la pantalla, a lo grande, con UNA FRASE de lo
                     que hay dentro (no el nombre del apartado: ese ya
                     está en la etiqueta de la caja)
      + 1,3 s        se entra en la página (antes 1,9 s: «se hace largo»)
@@ -29,21 +30,10 @@
    ───────────────────────────────────────────────────────────── */
 
 import { despertarSonido, sonarPrecinto, sonarTapa, sonarSorpresa } from './sound.js';
+import { rutaFigura } from './figure.js';
 
 const sinMovimiento = () => matchMedia('(prefers-reduced-motion: reduce)').matches;
 const revelado = () => document.querySelector('.revelado');
-
-/* La muñeca está centrada por CSS. Solo hace falta saber cuánto hay
-   que apartarla de ese centro para que parezca que está en la caja.
-   Así no interviene lo ancha que sea la imagen, que era justo lo que
-   descolocaba el revelado. */
-function desvioDesdeElCentro(caja){
-  const b = caja.getBoundingClientRect();
-  return {
-    x: Math.round(b.left + b.width / 2 - window.innerWidth / 2),
-    y: Math.round(b.top + b.height * 0.55 - window.innerHeight * 0.41)
-  };
-}
 
 /* El precinto se despega de izquierda a derecha en `ms`: lo pegado se
    acorta y una tira levantada va por delante, por donde tira la mano
@@ -94,6 +84,13 @@ export function abrirCaja(caja, seccion, figura, textos, destino, { enfocar } = 
 
   despertarSonido();
   caja.dataset.abriendo = 'true';
+
+  // la muñeca ya está dentro, debajo de la tapa: al volcarse se la ve
+  caja.querySelector('.caja__muneca')?.remove();
+  const dentro = document.createElement('img');
+  dentro.className = 'caja__muneca'; dentro.alt = ''; dentro.draggable = false;
+  dentro.src = rutaFigura(seccion, 'frente');
+  caja.querySelector('.caja__dentro')?.after(dentro);
 
   /* Tres ritmos (ms desde el clic):
      · mesa con manos: las manos ABREN la caja (js/hand.js), despacio
@@ -147,21 +144,31 @@ export function abrirCaja(caja, seccion, figura, textos, destino, { enfocar } = 
     figura.el.style.viewTransitionName = 'muneca';
     try { await figura.el.decode(); } catch (e) { /* ya estaba lista */ }
 
-    const v = desvioDesdeElCentro(caja);
-
+    /* Sale de DONDE ESTÁ: la grande empieza justo encima de la que
+       hay en la caja (mismo sitio, mismo tamaño) y esa se quita. Se
+       agacha un instante, salta hacia quien mira y se asienta. */
     figura.el.style.transition = 'none';
-    figura.el.style.opacity = '0';
-    figura.el.style.transform =
-      `translate(calc(-50% + ${v.x}px), calc(-50% + ${v.y}px)) scale(.16)`;
-
-    requestAnimationFrame(() => {
-      figura.el.style.transition =
-        'transform 480ms cubic-bezier(.34,1.56,.64,1), opacity 240ms ease-out';
-      figura.el.style.opacity = '1';
-      figura.el.style.transform = 'translate(-50%, -50%) scale(1)';
-    });
+    figura.el.style.opacity = '1';
+    figura.el.style.transform = 'translate(-50%, -50%) scale(1)';
+    const f = figura.el.getBoundingClientRect();
+    const c = caja.getBoundingClientRect();
+    const m = dentro.getBoundingClientRect();
+    const hay = m.height > 4 && m.width > 4;
+    const alto = hay ? m.height : c.height * 0.7;
+    const s = alto / (f.height || 1);
+    const dx = (hay ? m.left + m.width / 2 : c.left + c.width / 2) - (f.left + f.width / 2);
+    const dy = (hay ? m.top + m.height / 2 : c.top + c.height * 0.53) - (f.top + f.height / 2);
+    dentro.dataset.fuera = 'true';
+    const en = (x, y, e) => `translate(calc(-50% + ${x.toFixed(1)}px), calc(-50% + ${y.toFixed(1)}px)) scale(${e})`;
+    figura.el.animate([
+      { transform: en(dx, dy, s), offset: 0, easing: 'ease-out' },
+      { transform: en(dx, dy + alto * 0.05, `${(s * 1.12).toFixed(4)}, ${(s * 0.86).toFixed(4)}`), offset: 0.2, easing: 'cubic-bezier(.3,0,.25,1)' },
+      { transform: en(dx * 0.12, dy * 0.12 - window.innerHeight * 0.05, '1.07, 1.11'), offset: 0.66, easing: 'ease-in-out' },
+      { transform: en(0, 6, '1.04, .96'), offset: 0.84, easing: 'ease-out' },
+      { transform: en(0, 0, 1), offset: 1 }
+    ], { duration: 700 });
     // y no se queda clavada: flota un poco hasta que se entra
-    luego(() => { figura.el.dataset.flota = 'true'; }, 480);
+    luego(() => { figura.el.dataset.flota = 'true'; }, 700);
   }
 
   /* Saltárselo. Se escucha desde un poco después del clic que abre la

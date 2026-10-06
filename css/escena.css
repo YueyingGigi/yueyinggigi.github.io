@@ -134,7 +134,8 @@
 }
 .con-3d .rotulo .pared__cinta{
   font-size: clamp(52px, 7.6vw, 118px);
-  color: color-mix(in srgb, var(--papel) 92.5%, var(--tinta));
+  /* (era 92,5 % de papel: Gigi, 2026-10-07, «se confunde con la mesa, no se lee») */
+  color: color-mix(in srgb, var(--papel) 80%, var(--tinta));
   animation-duration: 80s;
 }
 

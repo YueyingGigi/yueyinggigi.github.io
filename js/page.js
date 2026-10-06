@@ -19,6 +19,7 @@ import { enIdioma, pintarBloques, pintarMateriales,
 import { volar } from './anim.js';
 import { iniciarEstante } from './estante.js';
 import { escenario, abrirSerie, volarEnArco, miniaturaDe, precargarSerie } from './trabajos.js';
+import { pintarTienda } from './colabora.js';
 
 const ICONOS = {
   'sobre-mi':'var(--lavanda-hondo)', 'experiencia':'var(--rojo-caja-hondo)',
@@ -338,7 +339,9 @@ async function iniciar(){
   try {
     const datos = await cargarContenido(seccion);
     const dibujar = t => {
-      const r = datos.vista === 'carpetas' ? pintarCarpetas(datos, t) : pintar(datos, t);
+      const r = datos.vista === 'carpetas' ? pintarCarpetas(datos, t)
+              : datos.vista === 'tienda' ? pintarTienda(datos, t)      // Colabora conmigo
+              : pintar(datos, t);
       // las animaciones se montan DESPUÉS de pintar: antes no hay
       // nada que medir
       animarBloques(document);

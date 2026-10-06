@@ -1,0 +1,522 @@
+/* ─────────────────────────────────────────────────────────────
+   colabora.css — «Colabora conmigo», la tienda de cajas sorpresa
+   (js/colabora.js). Va después de page.css y usa sus piezas
+   (.bloque, .contenido-caja, .enlace-fuera) y la caja de css/caja.css.
+   ───────────────────────────────────────────────────────────── */
+
+/* Sitio para la muñeca, que va fija a la derecha: las secciones no
+   llegan hasta el borde en pantallas anchas. */
+.tienda .tienda__seccion{ max-width: min(100%, 880px); }
+/* la madera de los muebles de la tienda (el expositor y la hornacina) */
+.tienda{ --madera-clara: #F3ECE0; --madera: #E6DCCB; --madera-honda: #D6CAB6; --fondo-mueble: #ECE6DC; }
+.tienda__seccion + .tienda__seccion{ margin-top: var(--e8); }
+
+/* ═══════════ 1 · La entrada: el móvil con la mezcla ═══════════ */
+.tienda__entrada{
+  display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: center;
+  gap: clamp(24px, 5vw, 72px);
+  max-width: min(100%, 880px);
+  margin: var(--e5) 0 var(--e8);
+}
+.tienda__presentacion{ font-size: clamp(18px, 1.55vw, 21px); line-height: 1.6; color: var(--tinta); max-width: 34ch; }
+.tienda__bajar{
+  display: inline-flex; align-items: center; gap: 6px; margin-top: var(--e5);
+  font-family: var(--fuente-mano); font-size: 23px; color: var(--tinta-suave); text-decoration: none;
+}
+:lang(zh) .tienda__bajar{ font-family: "LXGW WenKai", var(--fuente-mano); font-size: 18px; }
+.tienda__bajar:hover{ color: var(--rojo-sello-texto, var(--rojo-sello)); }
+.tienda__bajar svg{ transition: translate 200ms var(--curva); }
+.tienda__bajar:hover svg{ translate: 0 3px; }
+
+/* el móvil: una carcasa dibujada, ni una imagen */
+.movil-mezcla{
+  position: relative; width: clamp(190px, 19vw, 248px); aspect-ratio: 9 / 18.6;
+  padding: 9px; border: 0; cursor: pointer; rotate: 3deg;
+  background: #1c1c1e; border-radius: 34px;
+  box-shadow: 0 0 0 1.5px #3a3a3c inset, 14px 26px 44px rgba(30,30,30,.24), 3px 5px 10px rgba(30,30,30,.14);
+  transition: rotate 320ms var(--curva), translate 320ms var(--curva);
+}
+.movil-mezcla:hover, .movil-mezcla:focus-visible{ rotate: 0deg; translate: 0 -6px; }
+.movil-mezcla video{ display: block; width: 100%; height: 100%; object-fit: cover; border-radius: 26px; background: #000; }
+.movil-mezcla__isla{ position: absolute; left: 50%; top: 17px; width: 30%; height: 15px; translate: -50% 0; border-radius: 10px; background: #000; }
+.movil-mezcla__ver{
+  position: absolute; left: 50%; bottom: 22px; translate: -50% 0; white-space: nowrap;
+  display: inline-flex; align-items: center; gap: 7px; padding: 8px 14px; border-radius: 999px;
+  background: rgba(255,255,255,.94); color: var(--tinta); font-size: 13.5px; font-weight: 700;
+  box-shadow: 0 4px 14px rgba(0,0,0,.25);
+}
+.movil-mezcla__ver i{ font-style: normal; }
+.movil-mezcla__ver svg path{ fill: currentColor; stroke: none; }
+
+/* ═══════════ 2 · Las estanterías: el mueble ═══════════
+   Un expositor entero, dibujado: techo, dos laterales, el fondo (un
+   punto más oscuro que el papel, con sombra por dentro) y un zócalo.
+   Cada balda es una rejilla de tres filas —vídeo / tabla / etiqueta
+   de precio— y cada producto la hereda (subgrid), así la tabla queda
+   justo bajo los vídeos y las etiquetas cuelgan de su canto. */
+.mueble{
+  --grosor: 14px;
+  position: relative; margin-top: var(--e6);
+  padding: var(--grosor) var(--grosor) 20px;
+  border-radius: 6px;
+  background: var(--fondo-mueble);
+  box-shadow: 0 26px 40px -22px rgba(30,30,30,.30), 0 2px 4px rgba(30,30,30,.08);
+}
+/* el techo, los laterales y el zócalo */
+.mueble::before{
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none; z-index: 2;
+  border-style: solid; border-color: var(--madera-clara) var(--madera) var(--madera-honda);
+  border-width: var(--grosor) var(--grosor) 20px;
+  box-shadow: 0 0 0 1px rgba(30,30,30,.05) inset;
+}
+/* la sombra que el marco echa hacia dentro, sobre el fondo */
+.mueble::after{
+  content: ""; position: absolute; inset: var(--grosor) var(--grosor) 20px; pointer-events: none;
+  box-shadow: inset 0 16px 22px -14px rgba(30,30,30,.20), inset 16px 0 20px -14px rgba(30,30,30,.13), inset -16px 0 20px -14px rgba(30,30,30,.13);
+}
+.estanteria{ position: relative; z-index: 1; padding: var(--e5) var(--e4) var(--e4); }
+.estanteria__rotulo{
+  display: inline-block; margin-bottom: var(--e4); padding: 5px 12px; rotate: -1.2deg;
+  background: var(--rosa-claro); color: var(--tinta);
+  font-family: var(--fuente-texto); font-size: 13px; font-weight: 700; letter-spacing: .08em; text-transform: uppercase;
+  box-shadow: 1px 2px 4px rgba(30,30,30,.14);
+}
+:lang(zh) .estanteria__rotulo{ letter-spacing: .04em; font-size: 14px; }
+.estanteria__fila{
+  list-style: none; margin: 0; padding: 0;
+  display: grid; grid-template-columns: repeat(var(--columnas, 5), minmax(0, 1fr)); grid-template-rows: auto auto auto;
+  column-gap: clamp(10px, 1.6vw, 16px);
+}
+/* la tabla: llega de lateral a lateral del mueble */
+.estanteria__fila::before{ content: ""; grid-row: 2; grid-column: 1 / -1; }
+.estanteria__fila::before, .estanteria__tabla{
+  height: 18px; margin: 0 calc(var(--e4) * -1);
+  background: linear-gradient(#FBF7F0 0 4px, var(--madera) 4px, var(--madera-honda));
+  box-shadow: 0 12px 16px -6px rgba(30,30,30,.22), 0 1px 0 rgba(30,30,30,.10);
+}
+.producto{ grid-row: 1 / span 3; display: grid; grid-template-rows: subgrid; min-width: 0; }
+.producto__caja{
+  grid-row: 1;                      /* el vídeo, de pie sobre la tabla */
+  position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; padding: 0; border: 0; cursor: pointer;
+  overflow: hidden; border-radius: 8px 8px 3px 3px; background: var(--gris-calido);
+  /* la sombra cae hacia atrás, sobre el fondo del mueble */
+  box-shadow: 5px -2px 14px rgba(30,30,30,.20), 0 0 0 1px rgba(30,30,30,.04);
+  transform-origin: 50% 100%;
+  transition: translate 240ms var(--curva), box-shadow 240ms var(--curva), rotate 240ms var(--curva);
+}
+.producto:nth-child(odd)  .producto__caja{ rotate: -0.6deg; }
+.producto:nth-child(even) .producto__caja{ rotate: 0.5deg; }
+.producto__caja:hover, .producto__caja:focus-visible{ translate: 0 -8px; rotate: 0deg; box-shadow: 8px 12px 24px rgba(30,30,30,.26); }
+.producto__caja img, .producto__previa{ position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.producto__previa{ opacity: 0; transition: opacity 200ms linear; }
+.producto__previa[data-va="true"]{ opacity: 1; }
+.producto__marca{
+  position: absolute; left: 8px; top: 8px; z-index: 1; max-width: calc(100% - 16px);
+  padding: 3px 8px; border-radius: 3px; background: rgba(255,255,255,.93); color: var(--tinta);
+  font-size: 11.5px; font-weight: 700; letter-spacing: .02em;
+}
+.producto__play{
+  position: absolute; right: 8px; bottom: 8px; z-index: 1; width: 32px; height: 32px; border-radius: 50%;
+  display: grid; place-items: center; background: rgba(255,255,255,.93); color: var(--tinta);
+}
+.producto__play svg path{ fill: currentColor; stroke: none; }
+/* la etiqueta de precio: cuelga del canto de la tabla */
+.producto__precio{
+  grid-row: 3; position: relative; z-index: 1; margin-top: -4px; padding: 9px 8px 8px;
+  background: #fff; border: 1px solid rgba(30,30,30,.14); border-radius: 2px 2px 4px 4px;
+  box-shadow: 0 3px 6px rgba(30,30,30,.12);
+}
+/* la pinza de plástico que la sujeta */
+.producto__precio::before{
+  content: ""; position: absolute; left: -1px; right: -1px; top: -1px; height: 5px; border-radius: 2px 2px 0 0;
+  background: linear-gradient(rgba(255,255,255,.9), rgba(214,202,182,.9));
+}
+.producto__titulo{ font-size: 12.5px; font-weight: 700; line-height: 1.28; overflow-wrap: anywhere; }
+.producto__linea{ margin-top: 3px; font-size: 11px; line-height: 1.38; color: var(--tinta-suave); }
+:lang(zh) .producto__titulo{ font-size: 13px; }
+:lang(zh) .producto__linea{ font-size: 12px; }
+/* la balda libre, abajo del todo: «Tu marca aquí», que lleva a la carta */
+.estanteria--libre{ padding-bottom: var(--e5); }
+.estanteria__rotulo--vacio{
+  width: 96px; height: 28px; padding: 0; background: rgba(255,255,255,.5); box-shadow: none;
+  border: 2px dashed color-mix(in srgb, var(--tinta) 34%, transparent); border-radius: 4px;
+}
+.estanteria__hueco{
+  display: grid; place-items: center; height: clamp(110px, 12vw, 136px); text-align: center; text-decoration: none;
+  border: 2px dashed color-mix(in srgb, var(--tinta) 34%, transparent); border-bottom: 0; border-radius: 8px 8px 0 0;
+  background: rgba(255,255,255,.38); color: var(--tinta-suave);
+  font-family: var(--fuente-mano); font-size: clamp(27px, 3vw, 36px); line-height: 1.05;
+  transition: background 240ms var(--curva), color 240ms var(--curva), border-color 240ms var(--curva);
+}
+.estanteria__hueco span{ rotate: -2.5deg; transition: translate 240ms var(--curva); }
+:lang(zh) .estanteria__hueco{ font-family: "LXGW WenKai", var(--fuente-mano); font-size: 24px; }
+.estanteria__hueco:hover, .estanteria__hueco:focus-visible{ background: var(--rosa-claro); color: var(--tinta); border-color: var(--rosa-hondo); }
+.estanteria__hueco:hover span, .estanteria__hueco:focus-visible span{ translate: 0 -4px; }
+/* cuando una marca del muro lleva hasta aquí */
+.producto[data-senalado] .producto__caja{ outline: 3px solid var(--rojo-sello); outline-offset: 4px; translate: 0 -8px; rotate: 0deg; }
+
+/* ═══════════ 3 · Las marcas: el anillo ═══════════
+   Todo cabe en el ancho de la sección (que ya deja sitio a la muñeca):
+   nada de sacarlo de lado a lado de la pantalla. */
+.anillo{ --nicho: #FADFE4; margin-top: var(--e5); --ancho-carta: clamp(108px, 12.4vw, 164px); --alto-carta: calc(var(--ancho-carta) * .68); }
+.anillo__escenario{
+  position: relative; height: calc(var(--alto-carta) * 2.3 + 150px);
+  cursor: grab; touch-action: pan-y; user-select: none; -webkit-user-select: none;
+}
+.anillo__ventana{
+  position: absolute; inset: 0; display: grid; place-items: center;
+  perspective: 1500px; perspective-origin: 50% 38%;
+}
+.anillo__escenario[data-cogido]{ cursor: grabbing; }
+/* la hornacina: una pared que se hunde un poco, con luz desde arriba,
+   y el suelo donde está la peana. No entra en el 3D. */
+.anillo__nicho{
+  position: absolute; inset: 0; border-radius: 14px; overflow: hidden; pointer-events: none;
+  background:
+    radial-gradient(ellipse 58% 78% at 50% 0%, rgba(255,255,255,.6), rgba(255,255,255,0) 72%),
+    linear-gradient(var(--nicho) 0 68%, #F0C5CE 68% calc(68% + 1px), #FCEBEE calc(68% + 1px), #FBE4E8);
+  box-shadow: inset 0 18px 26px -14px rgba(170,95,115,.26), inset 18px 0 24px -16px rgba(170,95,115,.17), inset -18px 0 24px -16px rgba(170,95,115,.17),
+              0 12px 22px -16px rgba(170,95,115,.30);
+}
+/* en pantallas estrechas el anillo no cabe entero: se ve el arco de
+   delante y los lados se funden */
+.anillo[data-cortado="true"] .anillo__ventana{
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+          mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
+}
+.anillo__camara{
+  width: 0; height: 0; transform-style: preserve-3d;
+  /* se aleja lo que mide el radio (así lo de delante queda a tamaño
+     real) y se mira un poco desde arriba */
+  transform: scale(var(--escala, 1)) translateZ(calc(var(--radio, 300px) * -1)) rotateX(-9deg);
+}
+.anillo__rueda{ position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; }
+/* la peana: un disco tumbado bajo las tarjetas; otro algo más abajo
+   hace de canto, y un tercero, difuminado, es su sombra en el suelo */
+.anillo__peana{
+  --r: calc(var(--radio, 300px) * 1.13);
+  position: absolute; left: calc(var(--r) * -1); top: calc(var(--r) * -1); width: calc(var(--r) * 2); height: calc(var(--r) * 2);
+  border-radius: 50%; pointer-events: none;
+  transform: translateY(calc(var(--alto-carta) / 2 + 7px)) rotateX(90deg);
+  background: radial-gradient(circle, #FBF8F2 0 52%, var(--madera-clara) 78%, #EFE7D9);
+  box-shadow: 0 0 0 1px rgba(30,30,30,.05) inset;
+}
+.anillo__peana--canto{ transform: translateY(calc(var(--alto-carta) / 2 + 19px)) rotateX(90deg); background: var(--madera-honda); box-shadow: none; }
+.anillo__peana--suelo{
+  transform: translateY(calc(var(--alto-carta) / 2 + 24px)) rotateX(90deg) scale(1.1);
+  background: radial-gradient(circle, rgba(160,85,105,.34) 0 78%, rgba(160,85,105,0) 98%); box-shadow: none; filter: blur(11px);
+}
+.anillo__carta{
+  position: absolute; left: calc(var(--ancho-carta) / -2); top: calc(var(--alto-carta) / -2);
+  width: var(--ancho-carta); height: var(--alto-carta); padding: 0; border: 0; background: none; cursor: pointer;
+  transform-style: preserve-3d; font: inherit; color: var(--tinta);
+}
+.anillo__escenario[data-cogido] .anillo__carta{ cursor: grabbing; }
+.anillo__cara, .anillo__dorso{
+  position: absolute; inset: 0; border-radius: 9px; backface-visibility: hidden;
+  box-shadow: 0 1px 2px rgba(30,30,30,.10), 0 8px 18px rgba(30,30,30,.10);
+}
+.anillo__cara{
+  /* la fila y la columna, acotadas: sin esto un logo cuadrado (Uniqlo)
+     no tiene contra qué medir su alto y se sale de la tarjeta */
+  display: grid; grid-template: minmax(0, 1fr) / minmax(0, 1fr); place-items: center; padding: 13% 12%; background: #fff;
+  transition: translate 200ms var(--curva);
+}
+.anillo__cara img{ width: 100%; height: 100%; object-fit: contain; pointer-events: none; }
+.anillo__nombre{ font-family: var(--fuente-titulo); font-weight: 900; font-size: clamp(13.5px, 1.45vw, 18px); line-height: 1.1; text-align: center; }
+/* por detrás, la tarjeta es cartón liso (los logos no se ven del revés) */
+.anillo__dorso{ transform: rotateY(180deg); background: #FFF7F8; }
+/* la sombra de cada tarjeta, tumbada en la peana */
+.anillo__sombra{
+  position: absolute; left: -4%; right: -4%; top: calc(100% - 15px + 6px); height: 30px; pointer-events: none;
+  transform: rotateX(90deg);
+  background: radial-gradient(ellipse closest-side, rgba(30,30,30,.30), rgba(30,30,30,0));
+}
+/* las de lejos, más apagadas: se funden con el papel */
+.anillo__cara::after, .anillo__dorso::after{
+  content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--nicho); opacity: var(--lejos, 0); pointer-events: none;
+}
+.anillo__carta[data-detras="true"]{ pointer-events: none; }
+.anillo__carta:hover .anillo__cara, .anillo__carta:focus-visible .anillo__cara{ translate: 0 -6px; }
+.anillo__carta:focus-visible{ outline: none; }
+.anillo__carta:focus-visible .anillo__cara{ box-shadow: 0 0 0 3px var(--rojo-sello), 0 8px 18px rgba(30,30,30,.12); }
+.anillo__nota{ margin-top: var(--e2); text-align: center; font-family: var(--fuente-mano); font-size: 21px; color: var(--tinta-suave); }
+:lang(zh) .anillo__nota{ font-family: "LXGW WenKai", var(--fuente-mano); font-size: 16px; }
+
+/* lo que sale al pinchar una marca: una foto tipo polaroid, en medio */
+/* (el anillo se apaga con el velo de cada tarjeta, no con `opacity` en
+   el anillo entero: la opacidad aplasta el 3D — ESTADO, tropiezo 13) */
+.anillo__cara::after, .anillo__dorso::after{ transition: opacity 240ms var(--curva); }
+.anillo[data-elegida] .anillo__cara::after,
+.anillo[data-elegida] .anillo__dorso::after{ opacity: max(var(--lejos, 0), .74); }
+.anillo__ficha{
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: 2;
+  display: grid; grid-template-columns: minmax(0, 236px) minmax(0, 1fr); gap: 16px; align-items: center;
+  width: min(500px, calc(100% - 28px)); padding: 10px; background: #fff; border-radius: 4px; cursor: auto; rotate: -1deg;
+  box-shadow: 0 1px 2px rgba(30,30,30,.10), 10px 20px 40px rgba(30,30,30,.24);
+}
+.anillo__ficha[hidden]{ display: none; }
+.anillo__foto{ display: block; width: 100%; aspect-ratio: 3 / 4; object-fit: cover; border-radius: 2px; }
+.anillo__cuerpo{ min-width: 0; padding: 6px 10px 6px 0; }
+.anillo__pie{ padding-bottom: 12px; margin-bottom: 12px; border-bottom: 1px solid var(--gris-calido); }
+.anillo__pie{ display: flex; align-items: center; gap: 12px; }
+.anillo__logo[data-sello]{ max-height: 64px; border-radius: 4px; }
+.anillo__logo{ display: block; max-height: 38px; max-width: min(150px, 100%); object-fit: contain; object-position: left center; }
+.anillo__pie .anillo__nombre{ display: block; font-size: 22px; text-align: left; }
+.anillo__tipo{ font-size: 12px; font-weight: 700; letter-spacing: .07em; text-transform: uppercase; line-height: 1.5; color: var(--tinta-tenue); }
+:lang(zh) .anillo__tipo{ letter-spacing: .03em; font-size: 13px; }
+.anillo__texto{ margin-top: 8px; font-size: 15.5px; line-height: 1.5; color: var(--tinta); }
+.anillo__ver{
+  display: inline-flex; align-items: center; justify-content: center; gap: 7px; margin-top: 14px; padding: 9px 16px;
+  border: 0; border-radius: 999px; background: var(--rojo-sello); color: #fff; cursor: pointer;
+  font-family: var(--fuente-texto); font-size: 13.5px; font-weight: 700;
+}
+.anillo__ver svg path{ fill: currentColor; stroke: none; }
+/* en estrecho: la foto arriba y lo demás debajo */
+@media (max-width: 600px){
+  .anillo__ficha{ grid-template-columns: 1fr; gap: 0; width: min(250px, 72vw); padding: 9px; }
+  .anillo__cuerpo{ padding: 10px 4px 4px; }
+  .anillo__pie{ padding-bottom: 8px; margin-bottom: 8px; }
+  .anillo__logo{ max-height: 24px; }
+  .anillo__pie .anillo__nombre{ font-size: 17px; }
+  .anillo__texto{ font-size: 14px; }
+  .anillo__ver{ width: 100%; margin-top: 10px; }
+}
+.anillo__cerrar{
+  position: absolute; right: -12px; top: -12px; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+  display: grid; place-items: center; background: var(--tinta); color: #fff;
+}
+
+/* con «menos movimiento»: sin anillo, una rejilla quieta */
+.anillo[data-quieto] .anillo__escenario{ height: auto; cursor: auto; padding: var(--e3) 0; }
+.anillo[data-quieto] .anillo__ventana{ position: static; display: block; perspective: none; }
+.anillo[data-quieto] .anillo__camara, .anillo[data-quieto] .anillo__rueda{ width: auto; height: auto; position: static; transform: none; }
+.anillo[data-quieto] .anillo__rueda{ display: flex; flex-wrap: wrap; gap: 12px; }
+.anillo[data-quieto] .anillo__carta{ position: relative; left: auto; top: auto; }
+.anillo[data-quieto] .anillo__dorso, .anillo[data-quieto] .anillo__sombra, .anillo[data-quieto] .anillo__peana{ display: none; }
+.anillo[data-quieto] .anillo__escenario{ padding: var(--e5); }
+.anillo[data-quieto] .anillo__ventana{ position: relative; }
+.anillo[data-quieto] .anillo__ficha{ position: fixed; }
+
+/* ═══════════ 4 · Las cuentas: la caja que se gira ═══════════ */
+.caja-datos{ --lado: clamp(200px, 22vw, 268px); --alto: calc(var(--lado) * .9); margin-top: var(--e6); width: max-content; max-width: 100%; }
+.caja-datos__escena{
+  position: relative; width: var(--lado); height: var(--alto); margin: calc(var(--lado) * .22) calc(var(--lado) * .28) calc(var(--lado) * .34);
+  perspective: 1100px; cursor: grab; touch-action: pan-y; outline: none;
+  user-select: none; -webkit-user-select: none;
+}
+.caja-datos__escena[data-cogida]{ cursor: grabbing; }
+.caja-datos__escena:focus-visible .caja-datos__cubo{ filter: drop-shadow(0 0 0 3px var(--rojo-sello)); }
+.caja-datos__cubo{
+  position: absolute; inset: 0; transform-style: preserve-3d;
+  /* nunca del todo de frente: un poco desde arriba y algo ladeada, para
+     que se vea que es una caja y que detrás hay otro lado */
+  transform: rotateX(-17deg) rotateY(calc(var(--giro, 0deg) - 15deg));
+}
+.caja-datos__cara{
+  position: absolute; inset: 0; display: grid; place-items: center; padding: 9%;
+  transform: rotateY(calc(var(--n) * 90deg)) translateZ(calc(var(--lado) / 2));
+  backface-visibility: hidden;
+  background: linear-gradient(#F4EFE7, #E9E2D6);
+  box-shadow: 0 0 0 1px rgba(30,30,30,.05) inset;
+}
+/* la etiqueta pegada en cada lado: como la de «Contenido de esta caja» */
+.caja-datos__etiqueta{
+  width: 100%; padding: 10px 12px 8px; background: #fff; border: 1px solid var(--tinta-tenue); border-radius: 3px;
+  font-family: ui-monospace, SFMono-Regular, Menlo, "Noto Sans SC", monospace; color: var(--tinta);
+  box-shadow: 1px 2px 3px rgba(30,30,30,.08);
+}
+.caja-datos__titulo{
+  font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  padding-bottom: 5px; margin-bottom: 7px; border-bottom: 1px solid var(--tinta-tenue);
+}
+:lang(zh) .caja-datos__titulo{ letter-spacing: .06em; font-size: 11px; }
+.caja-datos__clave{ font-size: 11px; color: var(--tinta-tenue); margin-top: 5px; }
+.caja-datos__valor{ font-size: clamp(12.5px, 1.15vw, 14.5px); line-height: 1.45; }
+.caja-datos__num{ margin-top: 8px; font-size: 10px; color: var(--tinta-tenue); text-align: right; }
+.caja-datos__tapa{
+  position: absolute; left: 0; top: calc(50% - var(--lado) / 2); width: var(--lado); height: var(--lado);
+  display: grid; place-items: center;
+  transform: rotateX(90deg) translateZ(calc(var(--alto) / 2));
+  background: linear-gradient(135deg, #FBF8F3, #EFE9E0);
+}
+.caja-datos__tapa .sello{ width: 30%; height: auto; rotate: -6deg; }
+.caja-datos__sombra{
+  position: absolute; left: -12%; right: -12%; bottom: -17%; height: 26%; z-index: -1; border-radius: 50%;
+  background: radial-gradient(ellipse, rgba(30,30,30,.22), rgba(30,30,30,0) 68%); filter: blur(6px);
+}
+.caja-datos__mandos{ display: flex; align-items: center; justify-content: center; gap: var(--e4); }
+.caja-datos__pista{ font-family: var(--fuente-mano); font-size: 24px; color: var(--tinta-suave); }
+:lang(zh) .caja-datos__pista{ font-family: "LXGW WenKai", var(--fuente-mano); font-size: 18px; }
+.caja-datos__flecha{
+  width: 38px; height: 38px; padding: 0; border: 1px solid var(--tinta-tenue); border-radius: 50%; background: none; cursor: pointer;
+  display: grid; place-items: center; color: var(--tinta);
+  transition: background 160ms var(--curva), color 160ms var(--curva);
+}
+.caja-datos__flecha:hover{ background: var(--tinta); color: var(--papel); }
+.ficha-caja__cuentas{ list-style: none; margin: var(--e6) 0 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--e3) var(--e5); }
+
+/* ═══════════ 5 · La caja vacía y la carta ═══════════ */
+.tienda__contacto{
+  display: grid; grid-template-columns: minmax(180px, 250px) minmax(0, 1fr); gap: var(--e5) clamp(24px, 4vw, 56px);
+  align-items: start;
+}
+.tienda__contacto > .bloque__titulo{ grid-column: 1 / -1; }
+.caja-vacia{
+  grid-column: 1;
+  /* la tapa, al abrirse, cae hacia atrás y ocupa otra caja por encima */
+  padding-top: 0; transition: padding-top 500ms var(--curva);
+}
+.tienda__contacto .caja[data-abriendo] { }
+.caja-vacia:has(.caja[data-abriendo="true"]){ padding-top: 96%; }
+.caja--vacia{ --giro: -2deg; display: block; }
+.caja--vacia .caja__foto, .caja--vacia .caja__tapa{ transition: transform 320ms cubic-bezier(.3,1.3,.5,1); }
+/* al acercarse, la tapa se levanta un poco por delante */
+.caja--vacia:not([data-abriendo]):hover .caja__foto,
+.caja--vacia:not([data-abriendo]):hover .caja__tapa,
+.caja--vacia:not([data-abriendo]):focus-visible .caja__foto,
+.caja--vacia:not([data-abriendo]):focus-visible .caja__tapa{ transform: rotateX(16deg); }
+/* la etiqueta, en blanco: un recuadro de puntos donde iría el nombre */
+.caja__etiqueta--vacia{
+  width: 52%; height: 13%; padding: 0;
+  background: rgba(255,255,255,.55); box-shadow: none;
+  border: 2px dashed color-mix(in srgb, var(--tinta) 38%, transparent); border-radius: 5px;
+}
+.caja-vacia__nota{
+  margin-top: var(--e4); rotate: -2deg;
+  font-family: var(--fuente-mano); font-size: clamp(23px, 2.1vw, 28px); line-height: 1.15; color: var(--tinta);
+}
+:lang(zh) .caja-vacia__nota{ font-family: "LXGW WenKai", var(--fuente-mano); font-size: 19px; line-height: 1.4; }
+
+/* la carta: una hoja */
+.carta{
+  grid-column: 2; grid-row: 2 / span 2;
+  display: grid; gap: var(--e4); padding: clamp(18px, 2.4vw, 30px);
+  background: #fff; rotate: .6deg;
+  box-shadow: 0 1px 2px rgba(30,30,30,.08), 8px 16px 34px rgba(30,30,30,.14);
+  background-image: linear-gradient(transparent 0 31px, color-mix(in srgb, var(--rosa) 45%, transparent) 31px 32px);
+  background-size: 100% 32px; background-position: 0 14px;
+}
+.carta[hidden]{ display: none; }
+.carta__campo{ display: grid; gap: 4px; }
+.carta__campo span{ font-size: 11.5px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--tinta-tenue); }
+:lang(zh) .carta__campo span{ letter-spacing: .04em; font-size: 13px; }
+.carta__campo input, .carta__campo textarea{
+  width: 100%; padding: 9px 11px; border: 1px solid var(--gris-calido); border-radius: 6px;
+  background: rgba(255,255,255,.92); color: var(--tinta);
+  font-family: var(--fuente-texto); font-size: 16px; line-height: 1.5;
+}
+.carta__campo textarea{ resize: vertical; min-height: 9em; }
+.carta__campo input:focus-visible, .carta__campo textarea:focus-visible{ outline: 2px solid var(--rojo-sello); outline-offset: 1px; border-color: transparent; }
+.carta__cebo{ position: absolute; left: -9999px; width: 1px; height: 1px; opacity: 0; }
+.carta__pie{ display: flex; align-items: center; gap: var(--e4); flex-wrap: wrap; }
+.carta__estado{ font-size: 14.5px; color: var(--tinta-suave); }
+.carta__estado[data-tipo="bien"]{ color: #23703f; font-weight: 700; }
+.carta__estado[data-tipo="mal"]{ color: var(--rojo-caja-hondo); font-weight: 700; }
+.carta__aviso{ font-size: 13px; line-height: 1.5; color: var(--tinta-tenue); }
+
+/* el correo, siempre a la vista */
+.correo-a-mano{
+  grid-column: 2; display: flex; flex-wrap: wrap; align-items: center; gap: var(--e2) var(--e4);
+  font-size: 15.5px;
+}
+.tienda__contacto[data-abierta] .correo-a-mano{ grid-row: 4; }
+.correo-a-mano__direccion{ font-weight: 700; user-select: all; }
+.correo-a-mano__boton{
+  padding: 6px 12px; border: 1px solid var(--tinta-tenue); border-radius: 999px; background: none; cursor: pointer;
+  font: inherit; font-size: 13.5px; font-weight: 700; color: var(--tinta); text-decoration: none;
+  transition: background 160ms var(--curva), color 160ms var(--curva);
+}
+.correo-a-mano__boton:hover{ background: var(--tinta); color: var(--papel); }
+
+/* ═══════════ El visor a pantalla completa ═══════════ */
+.visor{
+  position: fixed; inset: 0; z-index: 90;
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; justify-items: center; gap: clamp(12px, 2vw, 28px);
+  padding: clamp(10px, 2.5vh, 26px) clamp(10px, 3vw, 40px);
+  background: rgba(20,18,16,0); transition: background 260ms var(--curva), opacity 240ms var(--curva);
+}
+.visor[data-abierto="true"]{ background: rgba(20,18,16,.9); }
+.visor[data-abierto="false"]{ opacity: 0; }
+.visor__marco{
+  grid-column: 2; position: relative; height: min(88vh, 860px); aspect-ratio: 9 / 16; max-width: 92vw;
+  border-radius: 16px; overflow: hidden; background: #000; cursor: pointer;
+  box-shadow: 0 24px 60px rgba(0,0,0,.5);
+}
+.visor__marco video{ width: 100%; height: 100%; object-fit: cover; display: block; }
+.visor__sonido{
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%; width: 58px; height: 58px; border-radius: 50%;
+  display: grid; place-items: center; background: rgba(0,0,0,.55); color: #fff; opacity: 0; pointer-events: none;
+}
+.visor__sonido[data-pulso="true"]{ animation: pulso-sonido 900ms var(--curva); }
+@keyframes pulso-sonido{ 0%{ opacity: 0; scale: .7; } 18%{ opacity: 1; scale: 1; } 70%{ opacity: 1; } 100%{ opacity: 0; scale: 1.08; } }
+.visor__pie{ grid-column: 3; justify-self: start; align-self: end; max-width: 30ch; color: #fff; padding-bottom: 6vh; }
+.visor__marca{
+  display: inline-block; margin-bottom: 8px; padding: 3px 9px; border-radius: 3px; background: #fff; color: var(--tinta);
+  font-size: 12px; font-weight: 700;
+}
+.visor__titulo{ font-family: var(--fuente-titulo); font-weight: 600; font-size: clamp(19px, 1.8vw, 25px); line-height: 1.25; }
+.visor__linea{ margin-top: 6px; font-size: 14px; line-height: 1.5; color: rgba(255,255,255,.72); }
+.visor__enlaces{ list-style: none; margin: var(--e4) 0 0; padding: 0; display: grid; gap: 8px; }
+/* (los enlaces ya son una pastilla blanca con la letra oscura: se dejan así) */
+.visor__cuenta{ position: absolute; left: clamp(14px, 3vw, 40px); bottom: clamp(14px, 3vh, 30px); font-size: 13px; letter-spacing: .08em; color: rgba(255,255,255,.6); }
+.visor__boton{
+  width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+  display: grid; place-items: center; background: rgba(255,255,255,.14); color: #fff;
+  transition: background 160ms var(--curva), scale 160ms var(--curva);
+}
+.visor__boton:hover{ background: rgba(255,255,255,.3); scale: 1.06; }
+.visor__cerrar{ position: absolute; right: clamp(12px, 2.4vw, 30px); top: clamp(12px, 2.4vh, 26px); background: #fff; color: var(--tinta); }
+.visor__cerrar:hover{ background: #fff; }
+.visor__antes, .visor__despues{ grid-column: 1; justify-self: end; }
+.visor__antes{ grid-row: 1; align-self: center; translate: 0 -30px; }
+.visor__despues{ grid-row: 1; align-self: center; translate: 0 30px; }
+
+/* ═══════════ Pantallas medianas y móvil ═══════════ */
+@media (max-width: 1250px){
+  .tienda .tienda__seccion, .tienda__entrada{ max-width: 100%; }
+}
+@media (max-width: 900px){
+  .tienda__entrada{ grid-template-columns: 1fr; justify-items: start; gap: var(--e6); margin-top: var(--e3); }
+  .movil-mezcla{ width: min(62vw, 240px); justify-self: center; }
+  /* el mueble, de lado a lado de la pantalla y sin laterales; cada
+     balda, una fila que se desliza de lado */
+  .mueble{ margin-left: calc(var(--margen-movil) * -1); margin-right: calc(var(--margen-movil) * -1); padding-left: 0; padding-right: 0; border-radius: 0; }
+  .mueble::before{ border-left-width: 0; border-right-width: 0; }
+  .mueble::after{ left: 0; right: 0; box-shadow: inset 0 16px 22px -14px rgba(30,30,30,.20); }
+  .estanteria{ padding-left: 0; padding-right: 0; }
+  .estanteria__rotulo{ margin-left: var(--margen-movil); }
+  .estanteria__fila{
+    grid-template-columns: repeat(var(--cuantos, 5), 43%); column-gap: 14px;
+    overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none;
+    padding: 10px var(--margen-movil) 10px;
+  }
+  .estanteria__fila::-webkit-scrollbar{ display: none; }
+  .estanteria__fila::before{ margin: 0 calc(var(--margen-movil) * -1); }
+  .producto{ scroll-snap-align: center; }
+  .estanteria__tabla{ margin: 0; }
+  .estanteria__hueco{ margin: 0 var(--margen-movil); }
+  .caja-datos{ margin-left: auto; margin-right: auto; }
+  .tienda__contacto{ grid-template-columns: 1fr; }
+  .caja-vacia{ max-width: 210px; }
+  .caja-vacia, .carta, .correo-a-mano, .tienda__contacto[data-abierta] .correo-a-mano{ grid-column: 1; grid-row: auto; }
+  .carta{ rotate: 0deg; }
+
+  .visor{ grid-template-columns: 1fr; grid-template-rows: 1fr auto; padding: 0; gap: 0; }
+  .visor__marco{ grid-column: 1; grid-row: 1 / -1; width: 100%; height: 100%; max-width: none; aspect-ratio: auto; border-radius: 0; }
+  .visor__pie{
+    grid-column: 1; grid-row: 2; justify-self: stretch; max-width: none; z-index: 1; pointer-events: none;
+    padding: 60px 70px 46px 18px; background: linear-gradient(transparent, rgba(0,0,0,.72));
+  }
+  .visor__pie a{ pointer-events: auto; }
+  .visor__antes, .visor__despues{ position: absolute; right: 14px; bottom: 96px; grid-column: auto; translate: none; background: rgba(0,0,0,.45); }
+  .visor__antes{ bottom: 150px; }
+  .visor__cuenta{ left: 18px; bottom: 16px; z-index: 1; }
+  .visor__cerrar{ right: 12px; top: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .movil-mezcla, .producto__caja, .estanteria__hueco, .estanteria__hueco span, .caja-vacia, .visor, .tienda__bajar svg{ transition: none; }
+  .visor__sonido[data-pulso="true"]{ animation: none; opacity: 0; }
+}

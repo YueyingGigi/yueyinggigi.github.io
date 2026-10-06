@@ -153,6 +153,17 @@
    queda con el cuerpo y las solapas; la tapa gira igual y se funde. */
 .estante .caja__dentro{ --abierta: inset(50% 0 0 0); }
 
+/* La muñeca, tumbada dentro de la caja desde antes de abrirla (Gigi,
+   2026-10-07: «se abre vacía y la muñeca sale de la nada»). La pone
+   js/unbox.js debajo de la tapa; al volcarse esta se la ve, y de ahí
+   salta. */
+.caja__muneca{
+  position: absolute; z-index: 1; left: 50%; top: 53%; height: 70%; width: auto; max-width: none;
+  translate: -50% -50%; pointer-events: none;
+  filter: drop-shadow(0 3px 4px rgba(30,30,30,.38)) brightness(.95);
+}
+.caja__muneca[data-fuera]{ visibility: hidden; }
+
 /* LA TAPA SE ABRE COMO EN LA FOTO: sujeta por el borde de atrás, se
    levanta por delante, pasa de pie hacia quien mira y cae hacia atrás
    hasta quedar tumbada donde la foto de la caja abierta tiene la suya;

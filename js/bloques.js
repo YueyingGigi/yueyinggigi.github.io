@@ -63,7 +63,7 @@ const PLATAFORMAS = [
   [/xiaohongshu|xhslink/i,  'rednote',   'enlace.rednote']
 ];
 
-function dePlataforma(url, declarada){
+export function dePlataforma(url, declarada){
   if (declarada === 'web')      return { clave: 'web',       texto: 'enlace.web' };
   if (declarada === 'interno')  return { clave: 'interno',   texto: 'enlace.web' };
   for (const [patron, clave, texto] of PLATAFORMAS){
@@ -104,7 +104,7 @@ function icono(clave){
 /* Un enlace de los que se abren fuera. Lleva aviso para quien use
    lector de pantalla: si no, el enlace se abre en otra pestaña sin
    avisar y se pierde. */
-function enlaceFuera(url, texto, clavePlataforma, textos){
+export function enlaceFuera(url, texto, clavePlataforma, textos){
   const a = el('a', 'enlace-fuera');
   a.href = url;
   const interno = clavePlataforma === 'interno' || url.startsWith('mailto:') || !/^https?:/i.test(url);
