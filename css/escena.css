@@ -144,7 +144,6 @@
    «:lang(zh) .con-3d …» pediría un antepasado que no existe) */
 .con-3d .rotulo:lang(zh){ top: calc(100% + clamp(26px, 4.4vh, 48px)); }
 .con-3d .rotulo .pared__cinta:lang(zh){ font-size: clamp(42px, 6vw, 92px); }
-.con-3d .cubo__cristal:lang(zh){ font-family: "Noto Serif SC", var(--fuente-titulo); }
 
 /* ── Tres cosas sueltas encima de la mesa (Gigi, 2026-10-06) ──
    Una polaroid, una nota a mano y lo que queda de abrir cajas. Van en
@@ -250,35 +249,6 @@ html.enfocando .asomate{ opacity: 0; }
 .con-3d .cajas > li:nth-child(3) .cubo{ --giro:-0.4deg; }
 .con-3d .cajas > li:nth-child(4) .cubo{ --giro: 1.4deg; }
 .con-3d .cajas > li:nth-child(5) .cubo{ --giro:-0.9deg; }
-
-/* ── La etiqueta de cristal (HOME-3D § 6.3; Gigi, 2026-10-07: «hazla
-   y la veo») ── Al acercarse a una caja, una chapa translúcida flota
-   por encima, hacia atrás, y se ladea con ella. Dice lo que hay
-   DENTRO (primero decía el nombre del apartado: repetía la tapa). Solo con ratón o teclado; la crea js/escena.js. */
-.con-3d .cubo__cristal{
-  position: absolute; left: 50%; top: -6%; z-index: 3; white-space: nowrap; pointer-events: none;
-  display: inline-flex; align-items: baseline; gap: 9px; padding: 9px 18px 10px 14px; border-radius: 14px;
-  transform: translate(var(--tx, -50%), -50%) translateZ(calc(var(--h) + 54px)) scale(.9);
-  background: linear-gradient(135deg, rgba(255,255,255,.58), rgba(255,255,255,.22));
-  -webkit-backdrop-filter: blur(9px) saturate(1.5); backdrop-filter: blur(9px) saturate(1.5);
-  border: 1px solid rgba(255,255,255,.85);
-  box-shadow: 0 10px 24px rgba(30,30,30,.16), 0 1px 0 rgba(255,255,255,.9) inset;
-  font-family: var(--fuente-titulo); font-weight: 600; font-size: clamp(15px, 1.35vw, 19px); color: var(--tinta);
-  opacity: 0; transition: opacity 220ms var(--curva), transform 320ms cubic-bezier(.3,1.4,.5,1);
-}
-.con-3d .cubo__cristal[hidden]{ display: none; }
-/* en las cajas de los extremos, pegada al borde de la caja: centrada se salía de la pantalla */
-.con-3d .cajas > li:first-child .cubo__cristal{ left: 26%; --tx: 0%; }
-.con-3d .cajas > li:last-child .cubo__cristal{ left: 74%; --tx: -100%; }
-.con-3d .cubo__cristal::before{ content: ""; align-self: center; width: 9px; height: 9px; border-radius: 50%; background: var(--color-hondo, var(--color)); }
-.con-3d .cubo__cristal i{ font-style: normal; font-family: var(--fuente-texto); font-size: .62em; font-weight: 700; letter-spacing: .12em; text-transform: uppercase; color: var(--tinta-suave); }
-.con-3d .cubo__cristal b{ font-weight: 600; }
-.con-3d .cubo[data-encima] .cubo__cristal,
-.con-3d .cubo:has(> .caja:focus-visible) .cubo__cristal{
-  opacity: 1; transform: translate(var(--tx, -50%), -50%) translateZ(calc(var(--h) + 96px)) scale(1);
-}
-.con-3d .cubo:has(> .caja[data-abriendo]) .cubo__cristal, html.enfocando .con-3d .cubo__cristal{ opacity: 0; }
-@media (hover: none), (max-width: 767px), (prefers-reduced-motion: reduce){ .con-3d .cubo__cristal{ display: none; } }
 
 /* la tapa: la caja de siempre, subida a la altura del cubo */
 .con-3d .cajas > li .cubo > .caja{

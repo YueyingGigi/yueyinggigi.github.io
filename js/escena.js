@@ -134,15 +134,6 @@ export function montarEscena(mesa, textos){
     const cubo = el('div', 'cubo');
     li.insertBefore(cubo, caja);
     cubo.appendChild(caja);
-    // la etiqueta de cristal: lo que hay DENTRO, flotando encima (el
-    // nombre del apartado ya está en la tapa: repetirlo sobraba —
-    // Gigi, 2026-10-07). Los textos, en i18n: cristal.<apartado>.
-    const cristal = el('span', 'cubo__cristal');
-    cristal.setAttribute('aria-hidden', 'true');
-    cristal.dataset.seccion = caja.dataset.seccion || '';
-    cristal.style.setProperty('--color', getComputedStyle(caja).getPropertyValue('--color'));
-    cristal.append(el('i'), el('b'));
-    cubo.appendChild(cristal);
     ['frente', 'atras', 'izq', 'der'].forEach(c => cubo.appendChild(el('span', 'cubo__cara cubo__cara--' + c)));
     // la sombra va en la mesa, no en el cubo: cuando la caja sube, la
     // sombra se queda abajo y se separa — así se ve que ha subido
@@ -158,19 +149,12 @@ export function montarEscena(mesa, textos){
   });
   document.documentElement.classList.add('con-3d');
   medir();
-  const pintarCristales = tx => lista.querySelectorAll('.cubo__cristal').forEach(c => {
-    c.firstElementChild.textContent = tx['cristal.dentro'] || '';
-    c.lastElementChild.textContent = tx['cristal.' + c.dataset.seccion] || '';
-    c.hidden = !c.lastElementChild.textContent;
-  });
-  pintarCristales(textos);
 
   document.addEventListener('idioma:cambiado', e => {
     pintarCinta(cinta, e.detail.textos);
     pintarCinta(cintaMesa, e.detail.textos);
     cosas.querySelector('.cosa--nota').textContent = e.detail.textos['mesa.nota'] || '';
     pista.firstElementChild.textContent = e.detail.textos['mesa.baja'] || '';
-    pintarCristales(e.detail.textos);
   });
 
   let G = null;               // GSAP, cuando llega
