@@ -1,591 +1,604 @@
 {
- "_nota": "Colabora conmigo como una tienda de cajas sorpresa (diseño de Gigi, 2026-10-06; docs/TRASPASO-2026-10-06.md § 3.5). La pinta js/colabora.js. Hechos: docs/CONTENT.md § 7 y data/UGC作品整理/. Solo los 11 vídeos públicos. No se muestran reproducciones por vídeo. Las piezas hechas por iniciativa propia (UGC-5, 9, 7, 14, 15) NO llevan marca. En «marcas», solo las que tienen «video» se pueden pinchar; las demás son colaboraciones de foto y texto. Cada marca puede llevar «logo» (assets/marcas/), «video» (el id de su vídeo en las estanterías) y «foto» (una foto de la colaboración, que Gigi irá dando: assets/media/marcas/…); el carrusel usa lo que haya. Cada marca puede llevar además «tipo» (una línea: qué fue y dónde se publicó; si no hay y tiene vídeo, se usa la línea del vídeo) y «texto» (una frase). Lo dijo Gigi el 2026-10-07; el intercambio por producto de Wooddetail NO se escribe. «fondo»: el color de fondo del logo cuando lo trae (la tarjeta entera se pinta de ese color). «conNombre»: el logo no dice el nombre completo, así que en la ficha se escribe al lado.",
- "id": "colabora",
- "vista": "tienda",
- "presentacion": {
-  "es": "Escribo, grabo, edito y salgo a cámara: de la idea al vídeo terminado, lista para publicar en TikTok, Instagram o Xiaohongshu (RedNote).",
-  "en": "I write, film, edit and appear on camera: from the idea to the finished video, ready to post on TikTok, Instagram or Xiaohongshu (RedNote).",
-  "zh": "写脚本、拍摄、剪辑、出镜都我自己来：从想法到成片，可直接发在 TikTok、Instagram 或小红书。"
- },
- "mezcla": {
-  "archivo": "assets/media/video/ugc-mezcla.mp4",
-  "portada": "assets/media/portadas/ugc-mezcla.webp"
- },
- "estantes": [
-  {
-   "id": "moda",
-   "titulo": {
-    "es": "Moda y accesorios",
-    "en": "Fashion & accessories",
-    "zh": "时尚与配饰"
-   },
-   "videos": [
+  "_nota": "Colabora conmigo como una tienda de cajas sorpresa (diseño de Gigi, 2026-10-06; docs/TRASPASO-2026-10-06.md § 3.5). La pinta js/colabora.js. Hechos: docs/CONTENT.md § 7 y data/UGC作品整理/. Solo los 11 vídeos públicos. No se muestran reproducciones por vídeo. Las piezas hechas por iniciativa propia (UGC-5, 9, 7, 14, 15) NO llevan marca. En «marcas», solo las que tienen «video» se pueden pinchar; las demás son colaboraciones de foto y texto. Cada marca puede llevar «logo» (assets/marcas/), «video» (el id de su vídeo en las estanterías) y «foto» (una foto de la colaboración, que Gigi irá dando: assets/media/marcas/…); el carrusel usa lo que haya. Cada marca puede llevar además «tipo» (una línea: qué fue y dónde se publicó; si no hay y tiene vídeo, se usa la línea del vídeo) y «texto» (una frase). Lo dijo Gigi el 2026-10-07; el intercambio por producto de Wooddetail NO se escribe. «fondo»: el color de fondo del logo cuando lo trae (la tarjeta entera se pinta de ese color). «conNombre»: el logo no dice el nombre completo, así que en la ficha se escribe al lado.",
+  "id": "colabora",
+  "vista": "tienda",
+  "presentacion": {
+    "es": "Escribo, grabo, edito y salgo a cámara: de la idea al vídeo terminado, lista para publicar en TikTok, Instagram o Xiaohongshu (RedNote).",
+    "en": "I write, film, edit and appear on camera: from the idea to the finished video, ready to post on TikTok, Instagram or Xiaohongshu (RedNote).",
+    "zh": "写脚本、拍摄、剪辑、出镜都我自己来：从想法到成片，可直接发在 TikTok、Instagram 或小红书。"
+  },
+  "mezcla": {
+    "archivo": "assets/media/video/ugc-mezcla.mp4",
+    "portada": "assets/media/portadas/ugc-mezcla.webp"
+  },
+  "estantes": [
     {
-     "id": "UGC-5",
-     "archivo": "assets/media/video/UGC-5.mp4",
-     "portada": "assets/media/portadas/UGC-5.webp",
-     "titulo": {
-      "es": "¿Qué me pongo para una boda?",
-      "en": "What do I wear to a wedding?",
-      "zh": "参加婚礼穿什么？"
-     },
-     "formato": {
-      "es": "Try-on",
-      "en": "Try-on",
-      "zh": "穿搭试穿"
-     },
-     "idioma": {
-      "es": "ES",
-      "en": "ES",
-      "zh": "ES"
-     },
-     "plataformas": [
-      "TikTok",
-      "Instagram"
-     ],
-     "enlaces": [
-      {
-       "url": "https://www.tiktok.com/@soygigivibes/video/7639658581490486550",
-       "plataforma": "tiktok"
+      "id": "moda",
+      "titulo": {
+        "es": "Moda y accesorios",
+        "en": "Fashion & accessories",
+        "zh": "时尚与配饰"
       },
-      {
-       "url": "https://www.instagram.com/reel/DYUBCDHgyMd/",
-       "plataforma": "instagram"
-      }
-     ]
+      "videos": [
+        {
+          "id": "UGC-5",
+          "archivo": "assets/media/video/UGC-5.mp4",
+          "portada": "assets/media/portadas/UGC-5.webp",
+          "titulo": {
+            "es": "¿Qué me pongo para una boda?",
+            "en": "What do I wear to a wedding?",
+            "zh": "参加婚礼穿什么？"
+          },
+          "formato": {
+            "es": "Try-on",
+            "en": "Try-on",
+            "zh": "穿搭试穿"
+          },
+          "idioma": {
+            "es": "ES",
+            "en": "ES",
+            "zh": "ES"
+          },
+          "plataformas": [
+            "TikTok",
+            "Instagram"
+          ],
+          "enlaces": [
+            {
+              "url": "https://www.tiktok.com/@soygigivibes/video/7639658581490486550",
+              "plataforma": "tiktok"
+            },
+            {
+              "url": "https://www.instagram.com/reel/DYUBCDHgyMd/",
+              "plataforma": "instagram"
+            }
+          ]
+        },
+        {
+          "id": "UGC-2",
+          "archivo": "assets/media/video/UGC-2.mp4",
+          "portada": "assets/media/portadas/UGC-2.webp",
+          "titulo": {
+            "es": "Surfskate con Wrangler",
+            "en": "Surfskate with Wrangler",
+            "zh": "陆冲 × Wrangler"
+          },
+          "marca": "Wrangler",
+          "formato": {
+            "es": "Lifestyle",
+            "en": "Lifestyle",
+            "zh": "生活方式"
+          },
+          "idioma": {
+            "es": "Sin diálogo",
+            "en": "No dialogue",
+            "zh": "无对白"
+          },
+          "plataformas": [
+            "RedNote"
+          ]
+        },
+        {
+          "id": "UGC-4",
+          "archivo": "assets/media/video/UGC-4.mp4",
+          "portada": "assets/media/portadas/UGC-4.webp",
+          "titulo": {
+            "es": "Surfskate con MAGNLENS",
+            "en": "Surfskate with MAGNLENS",
+            "zh": "陆冲 × MAGNLENS"
+          },
+          "marca": "MAGNLENS",
+          "formato": {
+            "es": "Lifestyle",
+            "en": "Lifestyle",
+            "zh": "生活方式"
+          },
+          "idioma": {
+            "es": "Sin diálogo",
+            "en": "No dialogue",
+            "zh": "无对白"
+          },
+          "plataformas": [
+            "RedNote"
+          ]
+        },
+        {
+          "id": "UGC-6",
+          "archivo": "assets/media/video/UGC-6.mp4",
+          "portada": "assets/media/portadas/UGC-6.webp",
+          "titulo": {
+            "es": "Mi máster y unas gafas",
+            "en": "My master's and a pair of glasses",
+            "zh": "我的硕士和一副眼镜"
+          },
+          "marca": "Lensdy",
+          "formato": {
+            "es": "Talking head",
+            "en": "Talking head",
+            "zh": "口播"
+          },
+          "idioma": {
+            "es": "ES",
+            "en": "ES",
+            "zh": "ES"
+          },
+          "plataformas": [
+            "RedNote"
+          ]
+        },
+        {
+          "id": "UGC-12",
+          "archivo": "assets/media/video/UGC-12.mp4",
+          "portada": "assets/media/portadas/UGC-12.webp",
+          "titulo": {
+            "es": "Surfskate con bolso",
+            "en": "Surfskate with a bag",
+            "zh": "陆冲配包"
+          },
+          "marca": "Kiitao",
+          "formato": {
+            "es": "Demo de producto",
+            "en": "Product demo",
+            "zh": "产品展示"
+          },
+          "idioma": {
+            "es": "Sin diálogo",
+            "en": "No dialogue",
+            "zh": "无对白"
+          },
+          "plataformas": [
+            "RedNote"
+          ]
+        },
+        {
+          "id": "UGC-MOCO",
+          "archivo": "assets/media/video/UGC-MOCO.mp4",
+          "portada": "assets/media/portadas/UGC-MOCO.webp",
+          "titulo": {
+            "es": "Vídeo con Mo&Co.",
+            "en": "Video with Mo&Co.",
+            "zh": "Mo&Co. 合作视频"
+          },
+          "marca": "Mo&Co.",
+          "formato": {
+            "es": "Lookbook de producto",
+            "en": "Product lookbook",
+            "zh": "穿搭展示"
+          }
+        }
+      ]
     },
     {
-     "id": "UGC-2",
-     "archivo": "assets/media/video/UGC-2.mp4",
-     "portada": "assets/media/portadas/UGC-2.webp",
-     "titulo": {
-      "es": "Surfskate con Wrangler",
-      "en": "Surfskate with Wrangler",
-      "zh": "陆冲 × Wrangler"
-     },
-     "marca": "Wrangler",
-     "formato": {
-      "es": "Lifestyle",
-      "en": "Lifestyle",
-      "zh": "生活方式"
-     },
-     "idioma": {
-      "es": "Sin diálogo",
-      "en": "No dialogue",
-      "zh": "无对白"
-     },
-     "plataformas": [
-      "RedNote"
-     ]
-    },
-    {
-     "id": "UGC-4",
-     "archivo": "assets/media/video/UGC-4.mp4",
-     "portada": "assets/media/portadas/UGC-4.webp",
-     "titulo": {
-      "es": "Surfskate con MAGNLENS",
-      "en": "Surfskate with MAGNLENS",
-      "zh": "陆冲 × MAGNLENS"
-     },
-     "marca": "MAGNLENS",
-     "formato": {
-      "es": "Lifestyle",
-      "en": "Lifestyle",
-      "zh": "生活方式"
-     },
-     "idioma": {
-      "es": "Sin diálogo",
-      "en": "No dialogue",
-      "zh": "无对白"
-     },
-     "plataformas": [
-      "RedNote"
-     ]
-    },
-    {
-     "id": "UGC-6",
-     "archivo": "assets/media/video/UGC-6.mp4",
-     "portada": "assets/media/portadas/UGC-6.webp",
-     "titulo": {
-      "es": "Mi máster y unas gafas",
-      "en": "My master's and a pair of glasses",
-      "zh": "我的硕士和一副眼镜"
-     },
-     "marca": "Lensdy",
-     "formato": {
-      "es": "Talking head",
-      "en": "Talking head",
-      "zh": "口播"
-     },
-     "idioma": {
-      "es": "ES",
-      "en": "ES",
-      "zh": "ES"
-     },
-     "plataformas": [
-      "RedNote"
-     ]
-    },
-    {
-     "id": "UGC-12",
-     "archivo": "assets/media/video/UGC-12.mp4",
-     "portada": "assets/media/portadas/UGC-12.webp",
-     "titulo": {
-      "es": "Surfskate con bolso",
-      "en": "Surfskate with a bag",
-      "zh": "陆冲配包"
-     },
-     "marca": "Kiitao",
-     "formato": {
-      "es": "Demo de producto",
-      "en": "Product demo",
-      "zh": "产品展示"
-     },
-     "idioma": {
-      "es": "Sin diálogo",
-      "en": "No dialogue",
-      "zh": "无对白"
-     },
-     "plataformas": [
-      "RedNote"
-     ]
-    },
-    {
-     "id": "UGC-MOCO",
-     "archivo": "assets/media/video/UGC-MOCO.mp4",
-     "portada": "assets/media/portadas/UGC-MOCO.webp",
-     "titulo": {
-      "es": "Vídeo con Mo&Co.",
-      "en": "Video with Mo&Co.",
-      "zh": "Mo&Co. 合作视频"
-     },
-     "marca": "Mo&Co.",
-     "formato": {
-      "es": "Lookbook de producto",
-      "en": "Product lookbook",
-      "zh": "穿搭展示"
-     }
-    }
-   ]
-  },
-  {
-   "id": "belleza",
-   "titulo": {
-    "es": "Belleza",
-    "en": "Beauty",
-    "zh": "美妆个护"
-   },
-   "videos": [
-    {
-     "id": "UGC-9",
-     "archivo": "assets/media/video/UGC-9.mp4",
-     "portada": "assets/media/portadas/UGC-9.webp",
-     "titulo": {
-      "es": "GRWM",
-      "en": "GRWM",
-      "zh": "GRWM 跟我一起化妆"
-     },
-     "formato": {
-      "es": "GRWM · talking head",
-      "en": "GRWM · talking head",
-      "zh": "GRWM · 口播"
-     },
-     "idioma": {
-      "es": "ES",
-      "en": "ES",
-      "zh": "ES"
-     },
-     "plataformas": [
-      "TikTok",
-      "Instagram"
-     ],
-     "enlaces": [
-      {
-       "url": "https://www.tiktok.com/@soygigivibes/video/7691415076489792800",
-       "plataforma": "tiktok"
+      "id": "belleza",
+      "titulo": {
+        "es": "Belleza",
+        "en": "Beauty",
+        "zh": "美妆个护"
       },
-      {
-       "url": "https://www.instagram.com/reel/Dd7LFQIOFFI/",
-       "plataforma": "instagram"
-      }
-     ]
+      "videos": [
+        {
+          "id": "UGC-9",
+          "archivo": "assets/media/video/UGC-9.mp4",
+          "portada": "assets/media/portadas/UGC-9.webp",
+          "titulo": {
+            "es": "GRWM",
+            "en": "GRWM",
+            "zh": "GRWM 跟我一起化妆"
+          },
+          "formato": {
+            "es": "GRWM · talking head",
+            "en": "GRWM · talking head",
+            "zh": "GRWM · 口播"
+          },
+          "idioma": {
+            "es": "ES",
+            "en": "ES",
+            "zh": "ES"
+          },
+          "plataformas": [
+            "TikTok",
+            "Instagram"
+          ],
+          "enlaces": [
+            {
+              "url": "https://www.tiktok.com/@soygigivibes/video/7691415076489792800",
+              "plataforma": "tiktok"
+            },
+            {
+              "url": "https://www.instagram.com/reel/Dd7LFQIOFFI/",
+              "plataforma": "instagram"
+            }
+          ]
+        },
+        {
+          "id": "UGC-16",
+          "archivo": "assets/media/video/UGC-16.mp4",
+          "portada": "assets/media/portadas/UGC-16.webp",
+          "titulo": {
+            "es": "Cosmética y perfumería",
+            "en": "Cosmetics and perfume",
+            "zh": "美妆与香水"
+          },
+          "marca": "EVEN BCN",
+          "formato": {
+            "es": "Demo de producto",
+            "en": "Product demo",
+            "zh": "产品展示"
+          },
+          "idioma": {
+            "es": "ZH · EN · ES",
+            "en": "ZH · EN · ES",
+            "zh": "ZH · EN · ES"
+          },
+          "plataformas": [
+            "RedNote"
+          ]
+        }
+      ]
     },
     {
-     "id": "UGC-16",
-     "archivo": "assets/media/video/UGC-16.mp4",
-     "portada": "assets/media/portadas/UGC-16.webp",
-     "titulo": {
-      "es": "Cosmética y perfumería",
-      "en": "Cosmetics and perfume",
-      "zh": "美妆与香水"
-     },
-     "marca": "EVEN BCN",
-     "formato": {
-      "es": "Demo de producto",
-      "en": "Product demo",
-      "zh": "产品展示"
-     },
-     "idioma": {
-      "es": "ZH · EN · ES",
-      "en": "ZH · EN · ES",
-      "zh": "ZH · EN · ES"
-     },
-     "plataformas": [
-      "RedNote"
-     ]
+      "id": "vida",
+      "titulo": {
+        "es": "Deporte, comida y estilo de vida",
+        "en": "Sports, food and lifestyle",
+        "zh": "运动、饮食与生活方式"
+      },
+      "videos": [
+        {
+          "id": "UGC-10",
+          "archivo": "assets/media/video/UGC-10.mp4",
+          "portada": "assets/media/portadas/UGC-10.webp",
+          "titulo": {
+            "es": "Skate · anuncio en chino",
+            "en": "Skate · ad in Chinese",
+            "zh": "滑板 · 中文口播"
+          },
+          "marca": "AMRGOT",
+          "formato": {
+            "es": "Demo · talking head",
+            "en": "Demo · talking head",
+            "zh": "产品展示 · 口播"
+          },
+          "idioma": {
+            "es": "ZH",
+            "en": "ZH",
+            "zh": "ZH"
+          },
+          "plataformas": [
+            "RedNote"
+          ]
+        },
+        {
+          "id": "UGC-7",
+          "archivo": "assets/media/video/UGC-7.mp4",
+          "portada": "assets/media/portadas/UGC-7.webp",
+          "titulo": {
+            "es": "Recetas DIY de verano",
+            "en": "Summer DIY recipes",
+            "zh": "夏天的 DIY 食谱"
+          },
+          "formato": {
+            "es": "Tutorial · lifestyle",
+            "en": "Tutorial · lifestyle",
+            "zh": "教程 · 生活方式"
+          },
+          "idioma": {
+            "es": "ES",
+            "en": "ES",
+            "zh": "ES"
+          },
+          "plataformas": [
+            "TikTok"
+          ],
+          "enlaces": [
+            {
+              "url": "https://www.tiktok.com/@upv/video/7660118343399116054",
+              "plataforma": "tiktok"
+            }
+          ]
+        },
+        {
+          "id": "UGC-14",
+          "archivo": "assets/media/video/UGC-14.mp4",
+          "portada": "assets/media/portadas/UGC-14.webp",
+          "titulo": {
+            "es": "Caja sorpresa en la playa",
+            "en": "Surprise box on the beach",
+            "zh": "海边的惊喜盒子"
+          },
+          "formato": {
+            "es": "Unboxing",
+            "en": "Unboxing",
+            "zh": "开箱"
+          },
+          "idioma": {
+            "es": "ES",
+            "en": "ES",
+            "zh": "ES"
+          },
+          "plataformas": [
+            "TikTok"
+          ],
+          "enlaces": [
+            {
+              "url": "https://www.tiktok.com/@upv/video/7669404901130112278",
+              "plataforma": "tiktok"
+            }
+          ]
+        },
+        {
+          "id": "UGC-15",
+          "archivo": "assets/media/video/UGC-15.mp4",
+          "portada": "assets/media/portadas/UGC-15.webp",
+          "titulo": {
+            "es": "El nuevo campus de la UPV (efecto clon)",
+            "en": "The UPV's new campus (clone effect)",
+            "zh": "UPV 的新校区（分身效果）"
+          },
+          "formato": {
+            "es": "Explicativo",
+            "en": "Explainer",
+            "zh": "讲解"
+          },
+          "idioma": {
+            "es": "ES",
+            "en": "ES",
+            "zh": "ES"
+          },
+          "plataformas": [
+            "TikTok"
+          ]
+        }
+      ]
     }
-   ]
-  },
-  {
-   "id": "vida",
-   "titulo": {
-    "es": "Deporte, comida y estilo de vida",
-    "en": "Sports, food and lifestyle",
-    "zh": "运动、饮食与生活方式"
-   },
-   "videos": [
+  ],
+  "marcas": [
     {
-     "id": "UGC-10",
-     "archivo": "assets/media/video/UGC-10.mp4",
-     "portada": "assets/media/portadas/UGC-10.webp",
-     "titulo": {
-      "es": "Skate · anuncio en chino",
-      "en": "Skate · ad in Chinese",
-      "zh": "滑板 · 中文口播"
-     },
-     "marca": "AMRGOT",
-     "formato": {
-      "es": "Demo · talking head",
-      "en": "Demo · talking head",
-      "zh": "产品展示 · 口播"
-     },
-     "idioma": {
-      "es": "ZH",
-      "en": "ZH",
-      "zh": "ZH"
-     },
-     "plataformas": [
-      "RedNote"
-     ]
-    },
-    {
-     "id": "UGC-7",
-     "archivo": "assets/media/video/UGC-7.mp4",
-     "portada": "assets/media/portadas/UGC-7.webp",
-     "titulo": {
-      "es": "Recetas DIY de verano",
-      "en": "Summer DIY recipes",
-      "zh": "夏天的 DIY 食谱"
-     },
-     "formato": {
-      "es": "Tutorial · lifestyle",
-      "en": "Tutorial · lifestyle",
-      "zh": "教程 · 生活方式"
-     },
-     "idioma": {
-      "es": "ES",
-      "en": "ES",
-      "zh": "ES"
-     },
-     "plataformas": [
-      "TikTok"
-     ],
-     "enlaces": [
-      {
-       "url": "https://www.tiktok.com/@upv/video/7660118343399116054",
-       "plataforma": "tiktok"
+      "nombre": "Red Bull",
+      "logo": "assets/marcas/red-bull.svg",
+      "conNombre": false,
+      "foto": "assets/media/marcas/red-bull.webp",
+      "tipo": {
+        "es": "Evento de marca",
+        "en": "Brand event",
+        "zh": "品牌活动"
       }
-     ]
     },
     {
-     "id": "UGC-14",
-     "archivo": "assets/media/video/UGC-14.mp4",
-     "portada": "assets/media/portadas/UGC-14.webp",
-     "titulo": {
-      "es": "Caja sorpresa en la playa",
-      "en": "Surprise box on the beach",
-      "zh": "海边的惊喜盒子"
-     },
-     "formato": {
-      "es": "Unboxing",
-      "en": "Unboxing",
-      "zh": "开箱"
-     },
-     "idioma": {
-      "es": "ES",
-      "en": "ES",
-      "zh": "ES"
-     },
-     "plataformas": [
-      "TikTok"
-     ],
-     "enlaces": [
-      {
-       "url": "https://www.tiktok.com/@upv/video/7669404901130112278",
-       "plataforma": "tiktok"
+      "nombre": "Converse",
+      "logo": "assets/marcas/converse.svg",
+      "conNombre": false,
+      "foto": "assets/media/marcas/converse.webp",
+      "tipo": {
+        "es": "Evento de marca · foto y vídeo",
+        "en": "Brand event · photo and video",
+        "zh": "品牌活动 · 图片与视频"
       }
-     ]
     },
     {
-     "id": "UGC-15",
-     "archivo": "assets/media/video/UGC-15.mp4",
-     "portada": "assets/media/portadas/UGC-15.webp",
-     "titulo": {
-      "es": "El nuevo campus de la UPV (efecto clon)",
-      "en": "The UPV's new campus (clone effect)",
-      "zh": "UPV 的新校区（分身效果）"
-     },
-     "formato": {
-      "es": "Explicativo",
-      "en": "Explainer",
-      "zh": "讲解"
-     },
-     "idioma": {
-      "es": "ES",
-      "en": "ES",
-      "zh": "ES"
-     },
-     "plataformas": [
-      "TikTok"
-     ]
+      "nombre": "Hollister",
+      "logo": "assets/marcas/hollister.webp",
+      "conNombre": false,
+      "foto": "assets/media/marcas/hollister.webp",
+      "tipo": {
+        "es": "UGC de foto y texto · RedNote",
+        "en": "UGC photo and text · RedNote",
+        "zh": "UGC 图文 · 小红书"
+      }
+    },
+    {
+      "nombre": "Uniqlo",
+      "logo": "assets/marcas/uniqlo.svg",
+      "conNombre": false,
+      "foto": "assets/media/marcas/uniqlo.webp",
+      "tipo": {
+        "es": "UGC de foto y texto · RedNote",
+        "en": "UGC photo and text · RedNote",
+        "zh": "UGC 图文 · 小红书"
+      }
+    },
+    {
+      "nombre": "Under Armour",
+      "logo": "assets/marcas/under-armour.svg",
+      "conNombre": false,
+      "foto": "assets/media/marcas/under-armour.webp",
+      "tipo": {
+        "es": "UGC de foto y texto · RedNote",
+        "en": "UGC photo and text · RedNote",
+        "zh": "UGC 图文 · 小红书"
+      }
+    },
+    {
+      "nombre": "Miss Sixty",
+      "logo": "assets/marcas/miss-sixty.svg",
+      "conNombre": false,
+      "foto": "assets/media/marcas/miss-sixty.webp",
+      "tipo": {
+        "es": "UGC de foto y texto · RedNote",
+        "en": "UGC photo and text · RedNote",
+        "zh": "UGC 图文 · 小红书"
+      }
+    },
+    {
+      "nombre": "Wooddetail",
+      "logo": "assets/marcas/wooddetail.webp",
+      "fondo": "#232323",
+      "conNombre": false,
+      "foto": "assets/media/marcas/wood-detail.webp",
+      "tipo": {
+        "es": "UGC de foto y vídeo",
+        "en": "UGC photo and video",
+        "zh": "UGC 图片与视频"
+      },
+      "texto": {
+        "es": "El producto en distintos escenarios, en foto y en vídeo.",
+        "en": "The product in different settings, in photo and video.",
+        "zh": "产品在多个场景中的图片与视频。"
+      }
+    },
+    {
+      "nombre": "CAT Workwear",
+      "logo": "assets/marcas/cat-workwear.webp",
+      "fondo": "#FEC72D",
+      "conNombre": false,
+      "foto": "assets/media/marcas/cat-workwear.webp",
+      "tipo": {
+        "es": "UGC de foto y texto · RedNote",
+        "en": "UGC photo and text · RedNote",
+        "zh": "UGC 图文 · 小红书"
+      }
+    },
+    {
+      "nombre": "Wrangler",
+      "logo": "assets/marcas/wrangler.svg",
+      "conNombre": false,
+      "video": "UGC-2"
+    },
+    {
+      "nombre": "Mo&Co.",
+      "logo": "assets/marcas/mo-co.webp",
+      "conNombre": false,
+      "video": "UGC-MOCO",
+      "texto": {
+        "es": "Colaboración continuada, con varios vídeos UGC; este es uno de ellos.",
+        "en": "An ongoing collaboration with several UGC videos; this is one of them.",
+        "zh": "长期合作，拍过多条 UGC 视频，这是其中一条。"
+      }
+    },
+    {
+      "nombre": "EVEN BCN",
+      "logo": "assets/marcas/even-bcn.webp",
+      "fondo": "#FFFBF2",
+      "conNombre": true,
+      "video": "UGC-16"
+    },
+    {
+      "nombre": "MAGNLENS",
+      "logo": "assets/marcas/magnlens.webp",
+      "conNombre": true,
+      "video": "UGC-4"
+    },
+    {
+      "nombre": "Kiitao",
+      "conNombre": false,
+      "video": "UGC-12"
+    },
+    {
+      "nombre": "Lensdy",
+      "logo": "assets/marcas/lensdy.webp",
+      "conNombre": false,
+      "video": "UGC-6"
+    },
+    {
+      "nombre": "AMRGOT",
+      "conNombre": false,
+      "video": "UGC-10"
     }
-   ]
+  ],
+  "ficha": [
+    {
+      "clave": {
+        "es": "Idiomas",
+        "en": "Languages",
+        "zh": "语言"
+      },
+      "valor": {
+        "es": "español, chino, inglés",
+        "en": "Spanish, Chinese, English",
+        "zh": "西班牙语、中文、英语"
+      }
+    },
+    {
+      "clave": {
+        "es": "Plataformas",
+        "en": "Platforms",
+        "zh": "平台"
+      },
+      "valor": {
+        "es": "Instagram, TikTok, RedNote, WeChat",
+        "en": "Instagram, TikTok, RedNote, WeChat",
+        "zh": "Instagram、TikTok、小红书、微信"
+      }
+    },
+    {
+      "clave": {
+        "es": "Formatos",
+        "en": "Formats",
+        "zh": "内容形式"
+      },
+      "valor": {
+        "es": "try-on, GRWM, unboxing, demo de producto, talking head, tutorial, lifestyle",
+        "en": "try-on, GRWM, unboxing, product demo, talking head, tutorial, lifestyle",
+        "zh": "穿搭试穿、GRWM、开箱、产品演示、口播、教程、生活方式"
+      }
+    },
+    {
+      "clave": {
+        "es": "Comunidad",
+        "en": "Community",
+        "zh": "粉丝"
+      },
+      "valor": {
+        "es": "más de 9.000 seguidores",
+        "en": "over 9,000 followers",
+        "zh": "9000 +粉丝"
+      }
+    },
+    {
+      "clave": {
+        "es": "Serie Fallera",
+        "en": "Fallera series",
+        "zh": "Fallera 系列"
+      },
+      "valor": {
+        "es": "más de 1 millón de visualizaciones",
+        "en": "over 1 million views",
+        "zh": "播放量超过 100 万"
+      }
+    }
+  ],
+  "cuentas": [
+    {
+      "texto": {
+        "es": "TikTok · @soygigivibes",
+        "en": "TikTok · @soygigivibes",
+        "zh": "TikTok · @soygigivibes"
+      },
+      "url": "https://www.tiktok.com/@soygigivibes",
+      "icono": "tiktok"
+    },
+    {
+      "texto": {
+        "es": "Instagram · @soygigivibes",
+        "en": "Instagram · @soygigivibes",
+        "zh": "Instagram · @soygigivibes"
+      },
+      "url": "https://www.instagram.com/soygigivibes/",
+      "icono": "instagram"
+    }
+  ],
+  "contacto": {
+    "texto": {
+      "es": "¿Tienes una marca y una idea? Escríbeme.",
+      "en": "Got a brand and an idea? Write to me.",
+      "zh": "有品牌、有想法？给我写信。"
+    },
+    "nota": {
+      "es": "La próxima serie puede ser tu marca.",
+      "en": "The next series could be your brand.",
+      "zh": "下一个系列，可以是你的品牌。"
+    },
+    "email": "yueying.g1997@gmail.com",
+    "web3forms": "1fd918a5-bf7d-444e-8e02-ae0e0907da98",
+    "asunto": {
+      "es": "Colaboración · desde tu web",
+      "en": "Collaboration · from your website",
+      "zh": "合作 · 来自你的网站"
+    },
+    "plantilla": {
+      "es": "Hola, Gigi:\n\nHe visto tu contenido y me gustaría hablar contigo de una colaboración.\n\nLo que tengo en mente: \n\nUn saludo,",
+      "en": "Hi Gigi,\n\nI've seen your content and I'd like to talk about a collaboration.\n\nWhat I have in mind: \n\nBest,",
+      "zh": "Gigi 你好：\n\n我看了你的内容，想和你聊聊合作。\n\n我的想法是：\n\n祝好，"
+    }
   }
- ],
- "marcas": [
-  {
-   "nombre": "Red Bull",
-   "logo": "assets/marcas/red-bull.svg",
-   "foto": "assets/media/marcas/red-bull.webp",
-   "tipo": {
-    "es": "Evento de marca",
-    "en": "Brand event",
-    "zh": "品牌活动"
-   }
-  },
-  {
-   "nombre": "Converse",
-   "logo": "assets/marcas/converse.svg",
-   "foto": "assets/media/marcas/converse.webp",
-   "tipo": {
-    "es": "Evento de marca · foto y vídeo",
-    "en": "Brand event · photo and video",
-    "zh": "品牌活动 · 图片与视频"
-   }
-  },
-  {
-   "nombre": "Hollister",
-   "logo": "assets/marcas/hollister.webp",
-   "foto": "assets/media/marcas/hollister.webp",
-   "tipo": {
-    "es": "UGC de foto y texto · RedNote",
-    "en": "UGC photo and text · RedNote",
-    "zh": "UGC 图文 · 小红书"
-   }
-  },
-  {
-   "nombre": "Uniqlo",
-   "logo": "assets/marcas/uniqlo.svg",
-   "foto": "assets/media/marcas/uniqlo.webp",
-   "tipo": {
-    "es": "UGC de foto y texto · RedNote",
-    "en": "UGC photo and text · RedNote",
-    "zh": "UGC 图文 · 小红书"
-   }
-  },
-  {
-   "nombre": "Under Armour",
-   "logo": "assets/marcas/under-armour.svg",
-   "foto": "assets/media/marcas/under-armour.webp",
-   "tipo": {
-    "es": "UGC de foto y texto · RedNote",
-    "en": "UGC photo and text · RedNote",
-    "zh": "UGC 图文 · 小红书"
-   }
-  },
-  {
-   "nombre": "Miss Sixty",
-   "logo": "assets/marcas/miss-sixty.svg",
-   "foto": "assets/media/marcas/miss-sixty.webp",
-   "tipo": {
-    "es": "UGC de foto y texto · RedNote",
-    "en": "UGC photo and text · RedNote",
-    "zh": "UGC 图文 · 小红书"
-   }
-  },
-  {
-   "nombre": "Wooddetail",
-   "foto": "assets/media/marcas/wood-detail.webp",
-   "tipo": {
-    "es": "UGC de foto y vídeo",
-    "en": "UGC photo and video",
-    "zh": "UGC 图片与视频"
-   },
-   "texto": {
-    "es": "El producto en distintos escenarios, en foto y en vídeo.",
-    "en": "The product in different settings, in photo and video.",
-    "zh": "产品在多个场景中的图片与视频。"
-   },
-   "logo": "assets/marcas/wooddetail.webp",
-   "fondo": "#232323"
-  },
-  {
-   "nombre": "CAT Workwear",
-   "foto": "assets/media/marcas/cat-workwear.webp",
-   "tipo": {
-    "es": "UGC de foto y texto · RedNote",
-    "en": "UGC photo and text · RedNote",
-    "zh": "UGC 图文 · 小红书"
-   },
-   "logo": "assets/marcas/cat-workwear.webp",
-   "fondo": "#FEC72D"
-  },
-  {
-   "nombre": "Wrangler",
-   "video": "UGC-2",
-   "logo": "assets/marcas/wrangler.svg"
-  },
-  {
-   "nombre": "Mo&Co.",
-   "video": "UGC-MOCO",
-   "texto": {
-    "es": "Colaboración continuada, con varios vídeos UGC; este es uno de ellos.",
-    "en": "An ongoing collaboration with several UGC videos; this is one of them.",
-    "zh": "长期合作，拍过多条 UGC 视频，这是其中一条。"
-   },
-   "logo": "assets/marcas/mo-co.webp"
-  },
-  {
-   "nombre": "EVEN BCN",
-   "video": "UGC-16",
-   "logo": "assets/marcas/even-bcn.webp",
-   "fondo": "#FFFBF2",
-   "conNombre": true
-  },
-  {
-   "nombre": "MAGNLENS",
-   "video": "UGC-4",
-   "logo": "assets/marcas/magnlens.webp",
-   "conNombre": true
-  },
-  {
-   "nombre": "Kiitao",
-   "video": "UGC-12"
-  },
-  {
-   "nombre": "Lensdy",
-   "video": "UGC-6",
-   "logo": "assets/marcas/lensdy.webp"
-  },
-  {
-   "nombre": "AMRGOT",
-   "video": "UGC-10"
-  }
- ],
- "ficha": [
-  {
-   "clave": {
-    "es": "Idiomas",
-    "en": "Languages",
-    "zh": "语言"
-   },
-   "valor": {
-    "es": "español, chino, inglés",
-    "en": "Spanish, Chinese, English",
-    "zh": "西班牙语、中文、英语"
-   }
-  },
-  {
-   "clave": {
-    "es": "Plataformas",
-    "en": "Platforms",
-    "zh": "平台"
-   },
-   "valor": {
-    "es": "Instagram, TikTok, RedNote, WeChat",
-    "en": "Instagram, TikTok, RedNote, WeChat",
-    "zh": "Instagram、TikTok、小红书、微信"
-   }
-  },
-  {
-   "clave": {
-    "es": "Formatos",
-    "en": "Formats",
-    "zh": "内容形式"
-   },
-   "valor": {
-    "es": "try-on, GRWM, unboxing, demo de producto, talking head, tutorial, lifestyle",
-    "en": "try-on, GRWM, unboxing, product demo, talking head, tutorial, lifestyle",
-    "zh": "穿搭试穿、GRWM、开箱、产品演示、口播、教程、生活方式"
-   }
-  },
-  {
-   "clave": {
-    "es": "Comunidad",
-    "en": "Community",
-    "zh": "粉丝"
-   },
-   "valor": {
-    "es": "más de 9.000 seguidores",
-    "en": "over 9,000 followers",
-    "zh": "9000 多位粉丝"
-   }
-  },
-  {
-   "clave": {
-    "es": "Serie Fallera",
-    "en": "Fallera series",
-    "zh": "Fallera 系列"
-   },
-   "valor": {
-    "es": "más de 1 millón de visualizaciones",
-    "en": "over 1 million views",
-    "zh": "播放量超过 100 万"
-   }
-  }
- ],
- "cuentas": [
-  {
-   "texto": {
-    "es": "TikTok · @soygigivibes",
-    "en": "TikTok · @soygigivibes",
-    "zh": "TikTok · @soygigivibes"
-   },
-   "url": "https://www.tiktok.com/@soygigivibes",
-   "icono": "tiktok"
-  },
-  {
-   "texto": {
-    "es": "Instagram · @soygigivibes",
-    "en": "Instagram · @soygigivibes",
-    "zh": "Instagram · @soygigivibes"
-   },
-   "url": "https://www.instagram.com/soygigivibes/",
-   "icono": "instagram"
-  }
- ],
- "contacto": {
-  "texto": {
-   "es": "¿Tienes una marca y una idea? Escríbeme.",
-   "en": "Got a brand and an idea? Write to me.",
-   "zh": "有品牌、有想法？给我写信。"
-  },
-  "nota": {
-   "es": "La próxima serie puede ser tu marca.",
-   "en": "The next series could be your brand.",
-   "zh": "下一个系列，可以是你的品牌。"
-  },
-  "email": "yueying.g1997@gmail.com",
-  "web3forms": "1fd918a5-bf7d-444e-8e02-ae0e0907da98",
-  "asunto": {
-   "es": "Colaboración · desde tu web",
-   "en": "Collaboration · from your website",
-   "zh": "合作 · 来自你的网站"
-  },
-  "plantilla": {
-   "es": "Hola, Gigi:\n\nHe visto tu contenido y me gustaría hablar contigo de una colaboración.\n\nLo que tengo en mente: \n\nUn saludo,",
-   "en": "Hi Gigi,\n\nI've seen your content and I'd like to talk about a collaboration.\n\nWhat I have in mind: \n\nBest,",
-   "zh": "Gigi 你好：\n\n我看了你的内容，想和你聊聊合作。\n\n我的想法是：\n\n祝好，"
-  }
- }
 }
