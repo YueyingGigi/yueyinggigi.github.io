@@ -102,8 +102,10 @@ export function abrirCaja(caja, seccion, figura, textos, destino, { enfocar } = 
   const conManos = !!document.querySelector('.mano[data-visible="true"]');
   const T = foco
     ? (conManos ? { precinto: 650, pelar: 450, tapa: 1400, quitar: 700, destello: 2100 }
-                : { precinto: 450, pelar: 300, tapa: 800,  quitar: 600, destello: 1400 })
-    :             { precinto: 0,   pelar: 220, tapa: 250,  quitar: 500, destello: 750 };
+                : { precinto: 450, pelar: 300, tapa: 800,  quitar: 600, destello: 1800 })
+    :             { precinto: 0,   pelar: 220, tapa: 250,  quitar: 500, destello: 1100 };
+  // (sin manos, el destello espera 0,4 s con la tapa ya abierta: en el
+  //  móvil la muñeca se veía un instante dentro y parecía salir de la nada)
   caja.style.setProperty('--t-tapa', T.quitar + 'ms');
   document.dispatchEvent(new CustomEvent('caja:abriendo', { detail: { caja, tiempos: T, rect: foco?.rect || null } }));
 

@@ -206,7 +206,10 @@
     font-size: 15px; line-height: 1.08; rotate: -6deg;
   }
   :lang(zh) .con-3d .cosa--nota{ font-size: 12.5px; line-height: 1.3; }
-  .con-3d .cosa--tira{ display: block; right: 2%; bottom: 14%; width: 17%; height: 13px; rotate: 22deg; }
+  .con-3d .cosa--tira{ display: none; }
+  /* la polaroid, al otro lado de la quinta caja (antes no salía en el móvil) */
+  .con-3d .cosa--polaroid{ display: block; right: 0; bottom: 6%; width: 23%; padding: 4px 4px 14px; rotate: 7deg; }
+  .con-3d .cosa--polaroid i{ width: 34px; height: 13px; top: -7px; }
 }
 
 /* ── «Baja y asómate»: la pista de que la cámara se mueve ── */
@@ -354,6 +357,10 @@ html.enfocando .entrada{ opacity: 0; }
 @media (max-width: 767px){
   .con-3d .camara{ transform-origin: 50% 36%; }
   .con-3d .pared{ height: 90%; align-items: flex-end; padding-bottom: 6%; }
+  /* y de lado a lado de la pantalla, sin fundido: en una pantalla tan
+     estrecha el fundido se comía las letras y parecían cortadas (Gigi,
+     2026-10-07). No hay barra horizontal: .mesa recorta en el móvil. */
+  .con-3d .pared, .con-3d .rotulo{ left: -40%; right: -40%; -webkit-mask-image: none; mask-image: none; }
 }
 
 /* ── Móvil: la quinta, centrada debajo (como en la mesa plana) ── */

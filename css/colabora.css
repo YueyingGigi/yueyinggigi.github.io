@@ -180,11 +180,7 @@
 }
 /* en pantallas estrechas el anillo no cabe entero: se ve el arco de
    delante y los lados se funden */
-.anillo[data-cortado="true"] .anillo__ventana{
-  overflow: hidden;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
-          mask-image: linear-gradient(to right, transparent, #000 14%, #000 86%, transparent);
-}
+.anillo[data-cortado="true"] .anillo__ventana{ overflow: hidden; border-radius: 14px; }
 .anillo__camara{
   width: 0; height: 0; transform-style: preserve-3d;
   /* se aleja lo que mide el radio (así lo de delante queda a tamaño
@@ -192,21 +188,17 @@
   transform: scale(var(--escala, 1)) translateZ(calc(var(--radio, 300px) * -1)) rotateX(-9deg);
 }
 .anillo__rueda{ position: absolute; left: 0; top: 0; width: 0; height: 0; transform-style: preserve-3d; }
-/* la peana: un disco tumbado bajo las tarjetas; otro algo más abajo
-   hace de canto, y un tercero, difuminado, es su sombra en el suelo */
+/* la peana: un óvalo plano entre la pared y el anillo (lo coloca
+   js/colabora.js · medir). Su canto y su sombra en el suelo son dos
+   sombras del mismo óvalo. */
 .anillo__peana{
-  --r: calc(var(--radio, 300px) * 1.13);
-  position: absolute; left: calc(var(--r) * -1); top: calc(var(--r) * -1); width: calc(var(--r) * 2); height: calc(var(--r) * 2);
-  border-radius: 50%; pointer-events: none;
-  transform: translateY(calc(var(--alto-carta) / 2 + 7px)) rotateX(90deg);
-  background: radial-gradient(circle, #FBF8F2 0 52%, var(--madera-clara) 78%, #EFE7D9);
-  box-shadow: 0 0 0 1px rgba(30,30,30,.05) inset;
+  position: absolute; border-radius: 50%; pointer-events: none;
+  background: radial-gradient(ellipse, #FBF8F2 0 52%, var(--madera-clara) 78%, #EFE7D9);
+  box-shadow: 0 0 0 1px rgba(30,30,30,.05) inset, 0 11px 0 var(--madera-honda), 0 24px 26px 4px rgba(160,85,105,.30);
 }
-.anillo__peana--canto{ transform: translateY(calc(var(--alto-carta) / 2 + 19px)) rotateX(90deg); background: var(--madera-honda); box-shadow: none; }
-.anillo__peana--suelo{
-  transform: translateY(calc(var(--alto-carta) / 2 + 24px)) rotateX(90deg) scale(1.1);
-  background: radial-gradient(circle, rgba(160,85,105,.34) 0 78%, rgba(160,85,105,0) 98%); box-shadow: none; filter: blur(11px);
-}
+.anillo__bordes{ display: none; position: absolute; inset: 0; border-radius: 14px; pointer-events: none;
+  background: linear-gradient(to right, var(--nicho), transparent 15%, transparent 85%, var(--nicho)); }
+.anillo[data-cortado="true"] .anillo__bordes{ display: block; }
 .anillo__carta{
   position: absolute; left: calc(var(--ancho-carta) / -2); top: calc(var(--alto-carta) / -2);
   width: var(--ancho-carta); height: var(--alto-carta); padding: 0; border: 0; background: none; cursor: pointer;
@@ -227,12 +219,6 @@
 .anillo__nombre{ font-family: var(--fuente-titulo); font-weight: 900; font-size: clamp(13.5px, 1.45vw, 18px); line-height: 1.1; text-align: center; }
 /* por detrás, la tarjeta es cartón liso (los logos no se ven del revés) */
 .anillo__dorso{ transform: rotateY(180deg); background: #FFF7F8; }
-/* la sombra de cada tarjeta, tumbada en la peana */
-.anillo__sombra{
-  position: absolute; left: -4%; right: -4%; top: calc(100% - 15px + 6px); height: 30px; pointer-events: none;
-  transform: rotateX(90deg);
-  background: radial-gradient(ellipse closest-side, rgba(30,30,30,.30), rgba(30,30,30,0));
-}
 /* las de lejos, más apagadas: se funden con el papel */
 .anillo__cara::after, .anillo__dorso::after{
   content: ""; position: absolute; inset: 0; border-radius: inherit; background: var(--nicho); opacity: var(--lejos, 0); pointer-events: none;
@@ -247,9 +233,11 @@
 /* lo que sale al pinchar una marca: una foto tipo polaroid, en medio */
 /* (el anillo se apaga con el velo de cada tarjeta, no con `opacity` en
    el anillo entero: la opacidad aplasta el 3D — ESTADO, tropiezo 13) */
-.anillo__cara::after, .anillo__dorso::after{ transition: opacity 240ms var(--curva); }
+/* (la transición, solo al elegir: puesta siempre, se reiniciaba a cada
+   paso del giro —el velo cambia en cada fotograma— y en el móvil la
+   luz parpadeaba) */
 .anillo[data-elegida] .anillo__cara::after,
-.anillo[data-elegida] .anillo__dorso::after{ opacity: max(var(--lejos, 0), .74); }
+.anillo[data-elegida] .anillo__dorso::after{ opacity: max(var(--lejos, 0), .74); transition: opacity 240ms var(--curva); }
 .anillo__ficha{
   position: absolute; left: 50%; top: 50%; translate: -50% -50%; z-index: 2;
   display: grid; grid-template-columns: minmax(0, 236px) minmax(0, 1fr); gap: 16px; align-items: center;
@@ -294,7 +282,7 @@
 .anillo[data-quieto] .anillo__camara, .anillo[data-quieto] .anillo__rueda{ width: auto; height: auto; position: static; transform: none; }
 .anillo[data-quieto] .anillo__rueda{ display: flex; flex-wrap: wrap; gap: 12px; }
 .anillo[data-quieto] .anillo__carta{ position: relative; left: auto; top: auto; }
-.anillo[data-quieto] .anillo__dorso, .anillo[data-quieto] .anillo__sombra, .anillo[data-quieto] .anillo__peana{ display: none; }
+.anillo[data-quieto] .anillo__dorso, .anillo[data-quieto] .anillo__peana, .anillo[data-quieto] .anillo__bordes{ display: none; }
 .anillo[data-quieto] .anillo__escenario{ padding: var(--e5); }
 .anillo[data-quieto] .anillo__ventana{ position: relative; }
 .anillo[data-quieto] .anillo__ficha{ position: fixed; }
@@ -327,13 +315,9 @@
   font-family: ui-monospace, SFMono-Regular, Menlo, "Noto Sans SC", monospace; color: var(--tinta);
   box-shadow: 1px 2px 3px rgba(30,30,30,.08);
 }
-.caja-datos__titulo{
-  font-size: 9.5px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
-  padding-bottom: 5px; margin-bottom: 7px; border-bottom: 1px solid var(--tinta-tenue);
-}
-:lang(zh) .caja-datos__titulo{ letter-spacing: .06em; font-size: 11px; }
-.caja-datos__clave{ font-size: 11px; color: var(--tinta-tenue); margin-top: 5px; }
-.caja-datos__valor{ font-size: clamp(12.5px, 1.15vw, 14.5px); line-height: 1.45; }
+.caja-datos__clave{ font-size: calc(11px * var(--letra, 1)); color: var(--tinta-tenue); margin-top: 5px; }
+.caja-datos__clave:first-child{ margin-top: 0; }
+.caja-datos__valor{ font-size: calc(clamp(12.5px, 1.15vw, 14.5px) * var(--letra, 1)); line-height: 1.45; }
 .caja-datos__num{ margin-top: 8px; font-size: 10px; color: var(--tinta-tenue); text-align: right; }
 .caja-datos__tapa{
   position: absolute; left: 0; top: calc(50% - var(--lado) / 2); width: var(--lado); height: var(--lado);
@@ -497,7 +481,8 @@
   .producto{ scroll-snap-align: center; }
   .estanteria__tabla{ margin: 0; }
   .estanteria__hueco{ margin: 0 var(--margen-movil); }
-  .caja-datos{ margin-left: auto; margin-right: auto; }
+  .caja-datos{ --lado: min(62vw, 250px); margin-left: auto; margin-right: auto; }
+  .caja-datos__escena{ margin-left: calc(var(--lado) * .19); margin-right: calc(var(--lado) * .19); }
   .tienda__contacto{ grid-template-columns: 1fr; }
   .caja-vacia{ max-width: 210px; }
   .caja-vacia, .carta, .correo-a-mano, .tienda__contacto[data-abierta] .correo-a-mano{ grid-column: 1; grid-row: auto; }
@@ -513,7 +498,15 @@
   .visor__antes, .visor__despues{ position: absolute; right: 14px; bottom: 96px; grid-column: auto; translate: none; background: rgba(0,0,0,.45); }
   .visor__antes{ bottom: 150px; }
   .visor__cuenta{ left: 18px; bottom: 16px; z-index: 1; }
-  .visor__cerrar{ right: 12px; top: 12px; }
+  /* cerrar, que se vea sobre cualquier vídeo y diga lo que es */
+  .visor__cerrar{
+    right: 12px; top: calc(12px + env(safe-area-inset-top, 0px)); z-index: 2;
+    width: auto; height: 42px; padding: 0 16px 0 12px; gap: 6px; display: flex; align-items: center; border-radius: 999px;
+    background: rgba(20,18,16,.78); color: #fff; box-shadow: 0 0 0 1.5px rgba(255,255,255,.55), 0 4px 14px rgba(0,0,0,.35);
+    font-family: var(--fuente-texto); font-size: 15px; font-weight: 700;
+  }
+  .visor__cerrar:hover{ background: rgba(20,18,16,.78); }
+  .visor__cerrar::after{ content: attr(aria-label); }
 }
 
 @media (prefers-reduced-motion: reduce){

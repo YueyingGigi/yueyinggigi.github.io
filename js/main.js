@@ -7,7 +7,7 @@
    ───────────────────────────────────────────────────────────── */
 
 import { iniciarIdioma } from './i18n.js';
-import { Figura } from './figure.js';
+import { Figura, rutaFigura } from './figure.js';
 import { abrirCaja } from './unbox.js';
 import { iniciarBarra } from './chrome.js';
 import { iniciarMano } from './hand.js';
@@ -46,3 +46,9 @@ async function iniciar(){
 document.readyState === 'loading'
   ? document.addEventListener('DOMContentLoaded', iniciar)
   : iniciar();
+
+/* Las cinco muñecas de frente, ya descargadas: al abrir una caja tiene
+   que estar DENTRO desde el primer momento (js/unbox.js). */
+const precargarMunecas = () => ['sobre-mi', 'experiencia', 'trabajos', 'vida', 'colabora']
+  .forEach(s => { new Image().src = rutaFigura(s, 'frente'); });
+('requestIdleCallback' in window) ? requestIdleCallback(precargarMunecas, { timeout: 2500 }) : setTimeout(precargarMunecas, 1200);

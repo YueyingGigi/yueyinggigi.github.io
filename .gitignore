@@ -12,6 +12,10 @@ assets/media/fotos/新增图片/
 # 保险：就算文件放错位置，这些格式也绝不上传
 *.MOV
 *.mov
+# excepción: los tres vídeos con transparencia que usa Safari en «Mis trabajos»
+!assets/media/video/trabajos-movil-subir.mov
+!assets/media/video/trabajos-movil-quedar.mov
+!assets/media/video/trabajos-movil-bajar.mov
 *.HEIC
 *.heic
 *.docx
@@ -38,5 +42,6 @@ movil.html
 comprobar.html
 anim.html
 sonda.html
+test-fuentes.html
 desplazar.html
 herramientas/

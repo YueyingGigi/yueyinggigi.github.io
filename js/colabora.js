@@ -224,17 +224,23 @@ function pintarAnillo(marcas, videos, textos){
   const escenario = el('div', 'anillo__escenario');
   const camara = el('div', 'anillo__camara');
   const rueda = el('div', 'anillo__rueda');
-  // la peana sobre la que gira: un disco (y otro debajo, que es su
-  // canto) y la sombra que deja en el suelo de la hornacina
-  camara.append(el('div', 'anillo__peana anillo__peana--suelo'), el('div', 'anillo__peana anillo__peana--canto'), el('div', 'anillo__peana'));
   camara.appendChild(rueda);
   // la ventana recorta el anillo cuando no cabe (móvil); la foto que
   // sale al pinchar va fuera de ella, para que no la recorte también
   const ventana = el('div', 'anillo__ventana');
   ventana.appendChild(camara);
   // la hornacina: la pared y el suelo donde está puesto el expositor
-  escenario.appendChild(el('div', 'anillo__nicho'));
+  const nicho = el('div', 'anillo__nicho');
+  escenario.appendChild(nicho);
+  // la peana sobre la que gira. Es un óvalo PLANO, colocado con las
+  // cuentas de la perspectiva (medir): cuando era un disco dentro del
+  // 3D, en el móvil parpadeaba contra las tarjetas (Gigi, 2026-10-07)
+  const peana = el('div', 'anillo__peana');
+  nicho.appendChild(peana);          // dentro de la hornacina: lo que no cabe, recortado
   escenario.appendChild(ventana);
+  // en estrecho, los lados se funden con la pared (antes una máscara
+  // sobre todo el 3D: otra cosa que el móvil repintaba a cada paso)
+  escenario.appendChild(el('div', 'anillo__bordes'));
   raiz.appendChild(escenario);
 
   const cartas = marcas.map(m => {
@@ -250,7 +256,7 @@ function pintarAnillo(marcas, videos, textos){
     } else {
       cara.appendChild(el('span', 'anillo__nombre', m.nombre));
     }
-    b.append(cara, el('span', 'anillo__dorso'), el('span', 'anillo__sombra'));
+    b.append(cara, el('span', 'anillo__dorso'));
     rueda.appendChild(b);
     return b;
   });
@@ -355,6 +361,18 @@ function pintarAnillo(marcas, videos, textos){
     camara.style.setProperty('--radio', radio + 'px');
     camara.style.setProperty('--escala', String(escala));
     cartas.forEach((b, n) => { b.style.transform = `rotateY(${n * PASO}deg) translateZ(${radio}px)`; });
+    // dónde cae en la pantalla un punto del anillo (las mismas cuentas
+    // que hace el CSS: girar 9°, alejar el radio, escalar, perspectiva)
+    const W = escenario.clientWidth, H = escenario.clientHeight, D = 1500, a = -9 * Math.PI / 180;
+    const cae = (x, y, z) => {
+      const Y = (y * Math.cos(a) - z * Math.sin(a)) * escala, Z = y * Math.sin(a) + z * Math.cos(a) - radio;
+      const f = D / (D - Z);
+      return [W / 2 + x * escala * f, 0.38 * H + (0.5 * H + Y - 0.38 * H) * f];
+    };
+    const R = radio * 1.13, y0 = carta.offsetHeight / 2 + 7;
+    const izq = cae(-R, y0, 0), der = cae(R, y0, 0), detras = cae(0, y0, -R), delante = cae(0, y0, R);
+    peana.style.left = izq[0] + 'px'; peana.style.width = (der[0] - izq[0]) + 'px';
+    peana.style.top = detras[1] + 'px'; peana.style.height = (delante[1] - detras[1]) + 'px';
     pintar();
   }
   function pintar(){
@@ -478,14 +496,13 @@ function pintarCajaDeDatos(ficha, textos){
   const escena = el('div', 'caja-datos__escena');
   escena.tabIndex = 0;
   escena.setAttribute('role', 'group');
-  escena.setAttribute('aria-label', t('contenido.titulo'));
+  escena.setAttribute('aria-label', t('colabora.ficha'));
   const cubo = el('div', 'caja-datos__cubo');
   lados.forEach((lado, n) => {
     const cara = el('div', 'caja-datos__cara');
     cara.style.setProperty('--n', String(n));
     cara.setAttribute('aria-hidden', 'true');
     const etiqueta = el('div', 'caja-datos__etiqueta');
-    etiqueta.appendChild(el('p', 'caja-datos__titulo', t('contenido.titulo')));
     lado.forEach(f => {
       etiqueta.appendChild(el('p', 'caja-datos__clave', enIdioma(f.clave)));
       etiqueta.appendChild(el('p', 'caja-datos__valor', enIdioma(f.valor)));
@@ -512,6 +529,17 @@ function pintarCajaDeDatos(ficha, textos){
   const der = flecha('colabora.gira.derecha', 'M9 6l6 6-6 6');
   mandos.append(izq, el('span', 'caja-datos__pista', t('colabora.gira')), der);
   raiz.appendChild(mandos);
+
+  // que ninguna etiqueta se salga de su lado: si el texto es largo
+  // para el tamaño de la caja (móvil), la letra encoge hasta que quepa
+  const ajustar = () => cubo.querySelectorAll('.caja-datos__etiqueta').forEach(e => {
+    const sitio = e.parentElement.clientHeight * 0.84;
+    let k = 1; e.style.removeProperty('--letra');
+    while (e.offsetHeight > sitio && k > 0.72){ k -= 0.04; e.style.setProperty('--letra', k.toFixed(2)); }
+  });
+  requestAnimationFrame(ajustar);
+  document.fonts?.ready?.then(ajustar);
+  new ResizeObserver(ajustar).observe(escena);
 
   // lo mismo, para leer sin girar
   const lista = el('dl', 'solo-lectores');
