@@ -146,7 +146,132 @@ function escenarioWeb(t, textos){
     const enPortatil = vista && !m.vertical;
     mesa.appendChild(botonVideo(m, t, textos, enPortatil ? b => verEnPortatil(m, vista, textos, b) : null));
   });
+  (t.media || []).filter(m => m.tipo === 'cuaderno').forEach(m => mesa.appendChild(pilaDeHojas(m, textos)));
   return { pantalla, mesa };
+}
+
+/* ═══════════ Un cuaderno: unas hojas sueltas que se abren ═══════════
+   (Gigi, 2026-10-07: enseñar parte del manual de identidad de Niu&Nos
+   y decir que es solo una parte.) En la mesa, un montón de tres hojas
+   con la portada encima; al pinchar se abren a pantalla completa y se
+   pasan de una en una. La última no es una página: es el aviso. */
+function pilaDeHojas(m, textos){
+  const caja = el('figure', 'pila-hojas');
+  const b = el('button', 'pila-hojas__boton');
+  b.type = 'button';
+  b.setAttribute('aria-label', (textos['cuaderno.abrir'] || '') || enIdioma(m.titulo));
+  const minis = m.minis || m.paginas || [];
+  [2, 1, 0].forEach(k => {
+    if (!minis[k]) return;
+    const i = document.createElement('img');
+    i.src = minis[k]; i.alt = ''; i.loading = 'lazy'; i.decoding = 'async'; i.draggable = false;
+    i.className = 'pila-hojas__hoja'; i.style.setProperty('--k', String(k));
+    b.appendChild(i);
+  });
+  b.addEventListener('click', () => abrirCuaderno(m, textos, b));
+  caja.appendChild(b);
+  if (m.pie) caja.appendChild(el('figcaption', 'pila-hojas__pie', enIdioma(m.pie)));
+  return caja;
+}
+
+let cerrarCuaderno = null;
+function abrirCuaderno(m, textos, origen){
+  if (cerrarCuaderno) return;
+  const calma = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const paginas = m.paginas || [];
+  const total = paginas.length + (m.aviso ? 1 : 0);
+  let n = 0;
+  const flecha = d => `<svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${d}"/></svg>`;
+
+  const capa = el('div', 'cuaderno');
+  capa.setAttribute('role', 'dialog'); capa.setAttribute('aria-modal', 'true');
+  capa.setAttribute('aria-label', enIdioma(m.titulo));
+  const hoja = el('div', 'cuaderno__hoja');
+  const boton = (clase, clave, d) => {
+    const b = el('button', 'cuaderno__boton ' + clase);
+    b.type = 'button'; b.setAttribute('aria-label', textos[clave] || ''); b.innerHTML = flecha(d);
+    return b;
+  };
+  const antes = boton('cuaderno__antes', 'cuaderno.anterior', 'M15 6l-6 6 6 6');
+  const despues = boton('cuaderno__despues', 'cuaderno.siguiente', 'M9 6l6 6-6 6');
+  const cerrar = el('button', 'cuaderno__cerrar');
+  cerrar.type = 'button';
+  cerrar.innerHTML = flecha('M6 6l12 12M18 6L6 18');
+  cerrar.appendChild(el('span', null, textos['ventana.cerrar'] || ''));
+  const cuenta = el('p', 'cuaderno__cuenta');
+  capa.append(hoja, antes, despues, cuenta, cerrar);
+
+  function poner(k, sentido = 0){
+    n = Math.max(0, Math.min(total - 1, k));
+    hoja.innerHTML = '';
+    if (n < paginas.length){
+      const i = document.createElement('img');
+      i.src = paginas[n]; i.alt = enIdioma(m.titulo) + ' · ' + (n + 1); i.draggable = false;
+      hoja.appendChild(i);
+    } else {
+      const fin = el('div', 'cuaderno__aviso');
+      fin.appendChild(el('p', null, enIdioma(m.aviso)));
+      hoja.appendChild(fin);
+    }
+    cuenta.textContent = `${n + 1} / ${total}`;
+    antes.disabled = n === 0; despues.disabled = n === total - 1;
+    if (sentido && !calma) hoja.animate([{ transform: `translateX(${sentido * 5}%)`, opacity: 0.3 }, { transform: 'none', opacity: 1 }],
+      { duration: 260, easing: 'cubic-bezier(.2,.8,.3,1)' });
+    // la siguiente, ya pedida
+    if (paginas[n + 1]) new Image().src = paginas[n + 1];
+  }
+
+  document.body.appendChild(capa);
+  document.body.style.overflow = 'hidden';      // en el <body>, no en el <html> (ESTADO, tropiezo 18)
+  const desde = origen?.getBoundingClientRect();
+  poner(0);
+  requestAnimationFrame(() => {
+    capa.dataset.abierto = 'true';
+    if (desde && desde.width && !calma){
+      const a = hoja.getBoundingClientRect();
+      hoja.animate([
+        { transform: `translate(${desde.left + desde.width / 2 - (a.left + a.width / 2)}px, ${desde.top + desde.height / 2 - (a.top + a.height / 2)}px) scale(${desde.width / a.width})` },
+        { transform: 'none' }
+      ], { duration: 420, easing: 'cubic-bezier(.2,.85,.25,1)' });
+    }
+  });
+  cerrar.focus({ preventScroll: true });
+
+  const pasar = s => { if (n + s >= 0 && n + s < total) poner(n + s, s); };
+  antes.addEventListener('click', () => pasar(-1));
+  despues.addEventListener('click', () => pasar(1));
+  hoja.addEventListener('click', e => { const r = hoja.getBoundingClientRect(); pasar(e.clientX < r.left + r.width / 2 ? -1 : 1); });
+  let dedo = null;
+  capa.addEventListener('touchstart', e => { dedo = e.touches[0].clientX; }, { passive: true });
+  capa.addEventListener('touchend', e => {
+    if (dedo == null) return;
+    const d = dedo - e.changedTouches[0].clientX; dedo = null;
+    if (Math.abs(d) > 48) pasar(d > 0 ? 1 : -1);
+  });
+  const tecla = e => {
+    if (e.key === 'Escape') fuera();
+    else if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown'){ e.preventDefault(); pasar(1); }
+    else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp'){ e.preventDefault(); pasar(-1); }
+    else if (e.key === 'Tab'){
+      const f = [...capa.querySelectorAll('button:not(:disabled)')];
+      const i = f.indexOf(document.activeElement);
+      e.preventDefault();
+      f[(i + (e.shiftKey ? -1 : 1) + f.length) % f.length]?.focus();
+    }
+  };
+  document.addEventListener('keydown', tecla);
+  capa.addEventListener('click', e => { if (e.target === capa) fuera(); });
+  cerrar.addEventListener('click', () => fuera());
+  function fuera(){
+    if (!cerrarCuaderno) return;
+    cerrarCuaderno = null;
+    document.removeEventListener('keydown', tecla);
+    document.body.style.overflow = '';
+    capa.dataset.abierto = 'false';
+    setTimeout(() => capa.remove(), calma ? 0 : 220);
+    origen?.focus?.({ preventScroll: true });
+  }
+  cerrarCuaderno = fuera;
 }
 
 /* El vídeo horizontal de una web se ve EN la pantalla del portátil,

@@ -1470,6 +1470,65 @@ body:has(.serie) .escena-movil{ z-index: 84; }
 .mesa-trabajo__cosas .material-foto{ margin: 0; width: 190px; }
 .mesa-trabajo__cosas .material-foto .polaroid{ --giro: -3deg; }
 
+/* ── Un cuaderno en la mesa: tres hojas, la portada encima ── */
+.pila-hojas{ margin: 0; width: 230px; }
+.pila-hojas__boton{
+  position: relative; display: block; width: 100%; aspect-ratio: 16 / 9; padding: 0; border: 0; background: none; cursor: pointer;
+  margin: 10px 0 14px;
+}
+.pila-hojas__hoja{
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; background: #FFFDF5; border-radius: 2px;
+  box-shadow: 0 1px 2px rgba(30,30,30,.14), 3px 6px 14px rgba(30,30,30,.14);
+  rotate: calc(var(--k) * 3.2deg - 2deg); translate: calc(var(--k) * 7px) calc(var(--k) * -5px);
+  transition: rotate 260ms var(--curva), translate 260ms var(--curva);
+}
+.pila-hojas__boton:hover .pila-hojas__hoja, .pila-hojas__boton:focus-visible .pila-hojas__hoja{
+  rotate: calc(var(--k) * 6deg - 3deg); translate: calc(var(--k) * 16px) calc(var(--k) * -9px);
+}
+.pila-hojas__boton:focus-visible{ outline: 3px solid var(--rojo-sello); outline-offset: 10px; }
+.pila-hojas__pie{ font-family: var(--fuente-mano); font-size: 21px; line-height: 1.15; color: var(--tinta-suave); rotate: -1.5deg; }
+:lang(zh) .pila-hojas__pie{ font-family: "LXGW WenKai", var(--fuente-mano); font-size: 16px; line-height: 1.4; }
+
+/* abierto, a pantalla completa */
+.cuaderno{
+  position: fixed; inset: 0; z-index: 90; display: grid; place-items: center;
+  padding: clamp(56px, 8vh, 80px) clamp(12px, 7vw, 96px);
+  background: rgba(20,18,16,0); transition: background 240ms var(--curva), opacity 220ms var(--curva);
+}
+.cuaderno[data-abierto="true"]{ background: rgba(20,18,16,.9); }
+.cuaderno[data-abierto="false"]{ opacity: 0; }
+.cuaderno__hoja{
+  width: min(100%, calc((100vh - 150px) * 16 / 9)); aspect-ratio: 16 / 9; cursor: pointer;
+  background: #FFFDF5; border-radius: 4px; overflow: hidden; box-shadow: 0 24px 60px rgba(0,0,0,.5);
+}
+.cuaderno__hoja img{ display: block; width: 100%; height: 100%; object-fit: contain; }
+.cuaderno__aviso{ display: grid; place-items: center; width: 100%; height: 100%; padding: 8%; text-align: center; }
+.cuaderno__aviso p{ font-family: var(--fuente-mano); font-size: clamp(26px, 4.2vw, 54px); line-height: 1.15; color: var(--tinta); max-width: 18ch; rotate: -2deg; }
+:lang(zh) .cuaderno__aviso p{ font-family: "LXGW WenKai", var(--fuente-mano); font-size: clamp(20px, 3vw, 38px); line-height: 1.5; }
+.cuaderno__boton{
+  position: absolute; top: 50%; translate: 0 -50%; width: 46px; height: 46px; padding: 0; border: 0; border-radius: 50%; cursor: pointer;
+  display: grid; place-items: center; background: rgba(255,255,255,.16); color: #fff;
+  transition: background 160ms var(--curva), opacity 160ms var(--curva);
+}
+.cuaderno__boton:hover{ background: rgba(255,255,255,.32); }
+.cuaderno__boton:disabled{ opacity: .25; cursor: default; }
+.cuaderno__antes{ left: clamp(8px, 2vw, 28px); }
+.cuaderno__despues{ right: clamp(8px, 2vw, 28px); }
+.cuaderno__cuenta{ position: absolute; left: 50%; bottom: clamp(14px, 3vh, 28px); translate: -50% 0; font-size: 13px; letter-spacing: .1em; color: rgba(255,255,255,.7); }
+.cuaderno__cerrar{
+  position: absolute; right: clamp(12px, 2.4vw, 30px); top: calc(clamp(12px, 2.4vh, 24px) + env(safe-area-inset-top, 0px));
+  display: flex; align-items: center; gap: 6px; height: 42px; padding: 0 16px 0 12px; border: 0; border-radius: 999px; cursor: pointer;
+  background: rgba(20,18,16,.78); color: #fff; box-shadow: 0 0 0 1.5px rgba(255,255,255,.55);
+  font-family: var(--fuente-texto); font-size: 15px; font-weight: 700;
+}
+@media (max-width: 767px){
+  .pila-hojas{ width: 200px; }
+  .cuaderno{ padding: 64px 0 56px; }
+  .cuaderno__hoja{ width: 100%; border-radius: 0; }
+  .cuaderno__boton{ top: auto; bottom: 8px; translate: none; }
+}
+@media (prefers-reduced-motion: reduce){ .pila-hojas__hoja, .cuaderno{ transition: none; } }
+
 /* el botón de un vídeo, con su miniatura */
 .boton-video{
   display: flex; flex-direction: column; align-items: flex-start; gap: 8px;

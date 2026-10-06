@@ -235,7 +235,13 @@
                 "zh": "脚本"
               },
               "herramientas": [
-                "Office"
+                "Office",
+                "Notion",
+                {
+                  "es": "IA generativa",
+                  "en": "Generative AI",
+                  "zh": "生成式 AI"
+                }
               ]
             },
             {
@@ -245,8 +251,21 @@
                 "zh": "拍摄"
               },
               "herramientas": [
-                "Móvil",
-                "Estabilizador"
+                {
+                  "es": "Móvil",
+                  "en": "Phone",
+                  "zh": "手机"
+                },
+                {
+                  "es": "Trípode",
+                  "en": "Tripod",
+                  "zh": "三脚架"
+                },
+                {
+                  "es": "Micrófono",
+                  "en": "Microphone",
+                  "zh": "麦克风"
+                }
               ]
             },
             {
@@ -270,7 +289,11 @@
                 "Canva",
                 "Photoshop",
                 "Illustrator",
-                "IA generativa"
+                {
+                  "es": "IA generativa",
+                  "en": "Generative AI",
+                  "zh": "生成式 AI"
+                }
               ]
             },
             {

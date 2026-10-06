@@ -720,7 +720,7 @@ const PINTORES = {
       const li = el('li', 'b-proceso__paso');
       li.appendChild(el('p', 'b-proceso__que', enIdioma(p.paso)));
       if (p.herramientas && p.herramientas.length){
-        li.appendChild(el('p', 'b-proceso__con', p.herramientas.join(' · ')));
+        li.appendChild(el('p', 'b-proceso__con', p.herramientas.map(h => typeof h === 'string' ? h : enIdioma(h)).join(' · ')));
       }
       ol.appendChild(li);
     });

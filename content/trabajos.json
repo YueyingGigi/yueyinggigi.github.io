@@ -52,6 +52,40 @@
               }
             },
             {
+              "tipo": "cuaderno",
+              "titulo": {
+                "es": "Manual de identidad",
+                "en": "Brand identity manual",
+                "zh": "品牌识别手册"
+              },
+              "pie": {
+                "es": "Mi primer intento de crear un manual de identidad de marca.",
+                "en": "My first attempt at creating a brand identity manual.",
+                "zh": "我第一次尝试做的品牌识别手册。"
+              },
+              "aviso": {
+                "es": "Esto es solo una parte: el manual completo tiene 22 páginas.",
+                "en": "This is only a selection: the full manual has 22 pages.",
+                "zh": "这里只是节选，完整手册共 22 页。"
+              },
+              "paginas": [
+                "assets/media/niunos-manual/01.webp",
+                "assets/media/niunos-manual/02.webp",
+                "assets/media/niunos-manual/03.webp",
+                "assets/media/niunos-manual/04.webp",
+                "assets/media/niunos-manual/05.webp",
+                "assets/media/niunos-manual/06.webp"
+              ],
+              "minis": [
+                "assets/media/niunos-manual/01-480.webp",
+                "assets/media/niunos-manual/02-480.webp",
+                "assets/media/niunos-manual/03-480.webp",
+                "assets/media/niunos-manual/04-480.webp",
+                "assets/media/niunos-manual/05-480.webp",
+                "assets/media/niunos-manual/06-480.webp"
+              ]
+            },
+            {
               "tipo": "enlace",
               "url": "https://yueyinggigi.github.io/niuynos-web/",
               "plataforma": "web",
