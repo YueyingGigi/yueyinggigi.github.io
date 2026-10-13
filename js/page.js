@@ -65,7 +65,7 @@ function pintar(datos, textos){
     if (indice){
       const a = document.createElement('a');
       a.href = '#b-' + ap.id;
-      a.textContent = enIdioma(ap.titulo);
+      a.textContent = enIdioma(ap.corto) || enIdioma(ap.titulo);     // «corto»: un nombre breve para la pestaña
       indice.appendChild(a);
     }
   });
@@ -182,7 +182,24 @@ function pintarCarpetas(datos, textos){
 
     sobreLaMesa.innerHTML = '';
     const resumen = enIdioma(t.resumen);
-    if (resumen){
+    if (t.caso){
+      // tres líneas: punto de partida / cómo lo hice / resultado
+      const dl = document.createElement('dl');
+      dl.className = 'mesa-trabajo__caso';
+      ['punto', 'como', 'resultado'].forEach(k => {
+        const texto = enIdioma(t.caso[k]);
+        if (!texto) return;
+        const fila = document.createElement('div');
+        fila.className = 'caso__fila caso__fila--' + k;
+        const dt = document.createElement('dt');
+        dt.textContent = textos['caso.' + k] || k;
+        const dd = document.createElement('dd');
+        dd.textContent = texto;
+        fila.append(dt, dd);
+        dl.appendChild(fila);
+      });
+      sobreLaMesa.appendChild(dl);
+    } else if (resumen){
       const p = document.createElement('p');
       p.className = 'mesa-trabajo__resumen';
       p.textContent = resumen;

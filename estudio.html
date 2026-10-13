@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>雾镜 · 录制台</title>
+<!-- Atajo de Gigi a su estudio de grabación, que vive en SU ordenador
+     (http://localhost:3000/). Desde cualquier otro ordenador esta
+     página no lleva a ningún sitio: allí no hay nada en esa dirección. -->
+<style>
+  body{ margin:0; min-height:100vh; display:grid; place-items:center; background:#F7F5F2; color:#1E1E1E;
+        font:17px/1.6 -apple-system, "PingFang SC", "Helvetica Neue", sans-serif; }
+  main{ max-width:30em; padding:24px; text-align:center; }
+  a.boton{ display:inline-block; margin-top:16px; padding:12px 24px; border-radius:999px; background:#D9412B; color:#fff; text-decoration:none; font-weight:600; }
+  p{ color:#5B5650; }
+</style>
+</head>
+<body>
+<main>
+  <h1>雾镜</h1>
+  <p id="texto">正在打开录制台…</p>
+  <a class="boton" href="http://localhost:3000/">打开录制台</a>
+  <p><a href="./">← 回到网站</a></p>
+</main>
+<script>
+  // Si el estudio está encendido en este ordenador, se entra solo
+  fetch('http://localhost:3000/api/estado', { mode: 'no-cors' })
+    .then(() => location.replace('http://localhost:3000/'))
+    .catch(() => {
+      document.getElementById('texto').textContent =
+        '这是 Gigi 自己电脑上的工具，只有在她的电脑上才能打开。如果你就是 Gigi：录制台好像没开着，点下面的按钮试试；还不行就重新登录电脑一次。';
+    });
+</script>
+</body>
+</html>

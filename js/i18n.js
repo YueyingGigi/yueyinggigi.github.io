@@ -80,9 +80,13 @@ function aplicar(textos){
 
   // Cabecera del documento
   document.documentElement.lang = textos['html.lang'];
-  document.title = textos['doc.titulo'];
+  // (cada apartado, su título y su descripción; la portada, los generales)
+  const pagina = document.body.dataset.pagina;
+  document.title = pagina && textos['nav.' + pagina]
+    ? `${textos['nav.' + pagina]} · Gigi — Yueying Guan`
+    : textos['doc.titulo'];
   const meta = document.querySelector('meta[name="description"]');
-  if (meta) meta.content = textos['doc.descripcion'];
+  if (meta) meta.content = (pagina && textos['doc.descripcion.' + pagina]) || textos['doc.descripcion'];
 
   // Botón del CV: cada idioma descarga su PDF
   document.querySelectorAll('[data-cv]').forEach(a => { a.href = textos['cv.archivo']; });

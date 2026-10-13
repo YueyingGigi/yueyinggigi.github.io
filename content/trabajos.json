@@ -1,5 +1,5 @@
 {
-  "_nota": "Hechos: docs/CONTENT.md § 5. Cada trabajo lleva título + etiqueta + una frase + materiales; sin las cuatro secciones de ficha (Gigi, 2026-10-05). Las reproducciones de los vídeos externos son las de TikTok, leídas el 2026-10-05; en la serie Fallera, a los tres vídeos que también están en Instagram se les suma lo de Instagram (cifras de Gigi, 2026-10-07: 286.000, 35.100 y 25.800). Xiaomi España y Ecoalf fuera: no quiere subir esos archivos. Las etiquetas «contenido de esta caja» solo dicen lo que consta en docs/CONTENT.md; donde no se sabe con qué herramientas se hizo ESE encargo, se deja sin herramientas (2026-10-05). 2026-10-05 (2ª ronda): «presentacion» dice cómo sale cada trabajo de la pantalla (web / cine / serie, ver js/trabajos.js); «total» es la cifra de la serie entera que va arriba de los cuatro móviles.",
+  "_nota": "Hechos: docs/CONTENT.md § 5. Cada trabajo lleva título + etiqueta + una frase + materiales; sin las cuatro secciones de ficha (Gigi, 2026-10-05). Las reproducciones de los vídeos externos son las de TikTok, leídas el 2026-10-05; en la serie Fallera, a los tres vídeos que también están en Instagram se les suma lo de Instagram (cifras de Gigi, 2026-10-07: 286.000, 35.100 y 25.800). Xiaomi España y Ecoalf fuera: no quiere subir esos archivos. Las etiquetas «contenido de esta caja» solo dicen lo que consta en docs/CONTENT.md; donde no se sabe con qué herramientas se hizo ESE encargo, se deja sin herramientas (2026-10-05). 2026-10-05 (2ª ronda): «presentacion» dice cómo sale cada trabajo de la pantalla (web / cine / serie, ver js/trabajos.js); «total» es la cifra de la serie entera que va arriba de los cuatro móviles. 2026-10-13: cada trabajo lleva «caso» en tres líneas (punto de partida / cómo lo hice / resultado), con lo que Gigi contestó a otra conversación (carpeta portfolio-casos), acortado a una frase por línea; cuando hay «caso», la web lo pinta en lugar de «resumen». En la UPV no tenía acceso a la analítica: solo cifras públicas.",
   "id": "trabajos",
   "vista": "carpetas",
   "carpetas": [
@@ -28,6 +28,23 @@
             "es": "Creación integral de una marca DNVB de cajas regalo maternoinfantiles: identidad visual, manual de marca, estrategia transmedia, web, vídeo promocional y prototipo físico de la caja con recorrido QR–web. La marca está en fase de planificación. La presenté como mi Trabajo Fin de Máster y obtuvo un 10.",
             "en": "End-to-end creation of a DNVB brand of mother-and-baby gift boxes: visual identity, brand manual, transmedia strategy, website, promo video and a physical box prototype with a QR-to-web journey. The brand is at the planning stage. I presented it as my master's thesis and it was graded 10.",
             "zh": "从零创建一个母婴礼盒 DNVB 品牌：视觉识别、品牌手册、跨媒体策略、网页、宣传视频，以及带 QR–网页动线的礼盒实物原型。品牌目前在策划阶段。这是我的硕士毕业设计，成绩 10 分。"
+          },
+          "caso": {
+            "punto": {
+              "es": "Cuando nace un bebé, los regalos suelen pensar en él, y la madre a menudo queda en segundo plano.",
+              "en": "When a baby is born, gifts tend to be about the baby, and the mother often takes second place.",
+              "zh": "宝宝出生时，礼物大多围着宝宝转，妈妈常常被放在第二位。"
+            },
+            "como": {
+              "es": "Hice encuestas y entrevistas a quien regala y a quien recibe, y estudié a la competencia. Con eso decidí contar la marca desde la madre y unir la caja con el mundo digital mediante QRs.",
+              "en": "I ran surveys and interviews with people who give and people who receive, and studied the competition. From that I decided to tell the brand story from the mother's side and to link the box to the digital world through QR codes.",
+              "zh": "我对送礼的人和收礼的人做了问卷和访谈，也研究了竞品。由此决定：品牌故事从妈妈讲起，并用二维码把礼盒和数字世界连起来。"
+            },
+            "resultado": {
+              "es": "Un 10 con matrícula de honor en el TFM. La marca sigue en fase de planificación.",
+              "en": "10/10 with distinction (matrícula de honor) for my master's thesis. The brand is still at the planning stage.",
+              "zh": "毕业设计（TFM）满分 10 分并获荣誉评级。品牌目前仍在筹备阶段。"
+            }
           },
           "media": [
             {
@@ -123,6 +140,23 @@
             "es": "Guion, grabación, edición y presentación a cámara para las cuentas oficiales de la UPV: 24 vídeos y más de 180.000 visualizaciones. El núcleo del trabajo es esta serie de cuatro capítulos, una guía de supervivencia en China para extranjeros, con 63.600 visualizaciones en TikTok.",
             "en": "Scripting, filming, editing and presenting for the UPV's official accounts: 24 videos and over 180,000 views. The core of the work is this four-part series, a survival guide to China for foreigners, with 63,600 views on TikTok.",
             "zh": "为 UPV 官方账号做脚本、拍摄、剪辑和出镜：24 条视频，18 万以上播放。核心是这个四集系列——给外国人的中国生存指南，TikTok 合计 63,600 播放。"
+          },
+          "caso": {
+            "punto": {
+              "es": "La UPV quería acercar su campus de Hangzhou a futuros estudiantes. Y quien viaja a China por primera vez quiere saber cómo moverse en su ecosistema digital.",
+              "en": "The UPV wanted to bring its Hangzhou campus closer to future students. And anyone travelling to China for the first time wants to know how to get around its digital ecosystem.",
+              "zh": "UPV 想让未来的学生更了解它的杭州校区；而第一次去中国的人，都想知道怎么用好那里的数字生态。"
+            },
+            "como": {
+              "es": "Leí los comentarios de vídeos parecidos, pregunté a personas de otros países y probé yo misma los trucos que circulaban. Me quedé con los que funcionaban y los conté en cuatro capítulos cortos, cada uno con una pregunta como gancho.",
+              "en": "I read the comments on similar videos, asked people from other countries and tried the tips going around myself. I kept the ones that worked and told them in four short episodes, each opening with a question.",
+              "zh": "我看了同类视频的评论，问了其他国家的人，再把流传的各种办法自己试了一遍，留下管用的，讲成四集短视频，每集用一个问题开头。"
+            },
+            "resultado": {
+              "es": "63.600 visualizaciones en TikTok con la serie. En las prácticas, 24 vídeos y más de 180.000.",
+              "en": "63,600 views on TikTok for the series. Across the internship, 24 videos and over 180,000.",
+              "zh": "这个系列在 TikTok 上有 6.36 万次播放；实习期间共 24 条视频，播放超过 18 万。"
+            }
           },
           "media": [
             {
@@ -242,6 +276,23 @@
             "en": "Four videos about experiencing Las Fallas as a fallera, published on my own account and filmed with the UPV. Over 1 million views across Instagram and TikTok; the most watched reached 649,000. They are not part of the 24 internship videos.",
             "zh": "四条关于「作为 fallera 过法雅节」的视频，发在我自己的账号上，和 UPV 合作出镜。Instagram 和 TikTok 合计超过 100 万播放，单条最高 64.9 万。这四条不属于实习期间的 24 条。"
           },
+          "caso": {
+            "punto": {
+              "es": "Una china vestida de fallera no se ve todos los días. Y en Fallas todo el mundo habla de lo mismo.",
+              "en": "A Chinese woman dressed as a fallera isn't something you see every day. And during Fallas, everyone is talking about the same thing.",
+              "zh": "中国女生穿上 fallera 的衣服并不常见；而法雅节期间，所有人都在聊同一件事。"
+            },
+            "como": {
+              "es": "Lo grabé como serie desde el primer día. La idea, la grabación y la edición son mías; está en mi cuenta y la hice en colaboración con la UPV.",
+              "en": "I filmed it as a series from day one. The concept, filming and editing are mine; it's on my own account and I made it in collaboration with the UPV.",
+              "zh": "从第一天起我就把它拍成系列。创意、拍摄、剪辑都是我做的，发在我自己的账号上，与 UPV 合作完成。"
+            },
+            "resultado": {
+              "es": "Más de 1 millón de visualizaciones entre Instagram y TikTok. El más visto llegó a 649.000.",
+              "en": "Over 1 million views across Instagram and TikTok. The most watched reached 649,000.",
+              "zh": "Instagram 和 TikTok 合计播放超过 100 万，最高的一条 64.9 万。"
+            }
+          },
           "media": [
             {
               "tipo": "video-enlace",
@@ -352,6 +403,23 @@
             "en": "Production of a case video and a brand video using generative AI tools, plus a social media strategy proposal.",
             "zh": "用生成式 AI 工具制作一支案例视频和一支品牌视频，并提出社交媒体策略方案。"
           },
+          "caso": {
+            "punto": {
+              "es": "La inmobiliaria quería una comunicación más clara y más cercana, en su web y en sus redes.",
+              "en": "The real estate agency wanted clearer, warmer communication on its website and social media.",
+              "zh": "这家房地产公司希望网站和社媒上的沟通更清晰、更有温度。"
+            },
+            "como": {
+              "es": "Participé en el diseño de la nueva forma de contar la marca, ideé la estrategia de comunidad e impulsé su puesta en marcha. Los vídeos, un teaser y varias piezas cortas para redes, los hice yo con IA generativa.",
+              "en": "I took part in designing the new way of telling the brand story, came up with the community strategy and pushed for it to be put into practice. I made the videos myself, a teaser and several short social pieces, with generative AI.",
+              "zh": "我参与设计了新的品牌讲法，构思了社区策略并推动落地。视频（一支 teaser 和几条社媒短片）由我用生成式 AI 制作。"
+            },
+            "resultado": {
+              "es": "Entregamos el diagnóstico de la web, la nueva narrativa, la estrategia de comunidad y los vídeos.",
+              "en": "We delivered the website audit, the new narrative, the community strategy and the videos.",
+              "zh": "交付了网站诊断、新的品牌叙事、社区策略和视频。"
+            }
+          },
           "media": [
             {
               "tipo": "video",
@@ -416,27 +484,74 @@
             "en": "A transmedia wellbeing intervention for the campus, with online and on-site actions, and the design of a demo website.",
             "zh": "为校园设计的跨媒体身心健康干预方案，包含线上和线下行动，并做了一个网页 demo。"
           },
+          "caso": {
+            "punto": {
+              "es": "Una propuesta de bienestar para estudiantes y personal de la UPV: aprender a soltar el estrés con la meditación.",
+              "en": "A wellbeing project for UPV students and staff: learning to let go of stress through meditation.",
+              "zh": "给 UPV 学生和教职员工的身心健康方案：用冥想学会放下压力。"
+            },
+            "como": {
+              "es": "La meditación convertida en juego, online y en el campus. Los participantes reúnen palabras clave y, al completarlas, llegan a la recompensa: ponerlo en práctica en un estudio holístico, con sesiones de meditación. Con las respuestas de todos se forma un mapa de palabras.",
+              "en": "Meditation turned into a game, online and on campus. Participants collect keywords and, once they have them all, reach the reward: putting it into practice at a holistic studio, with meditation sessions. Everyone's answers build a shared word map.",
+              "zh": "把冥想做成线上线下结合的游戏。参与者收集关键词，集齐后得到奖励：到一家身心整合工作室亲身实践，参加冥想课程。所有人的回答汇成一张词语地图。"
+            },
+            "resultado": {
+              "es": "Concepto completo, con el logo y la web demo hechos por mí.",
+              "en": "A complete concept, with the logo and the demo website made by me.",
+              "zh": "完整的方案，logo 和演示网站都由我制作。"
+            }
+          },
           "media": [
             {
               "tipo": "enlace",
-              "url": "https://upvrespiraaudio.netlify.app/",
+              "url": "assets/media/respira/prototipo.html",
               "plataforma": "web",
               "texto": {
                 "es": "Ver la web demo",
                 "en": "Open the demo site",
                 "zh": "打开网页 demo"
               }
+            },
+            {
+              "tipo": "foto",
+              "archivo": "assets/media/respira/logo.webp",
+              "mini": "assets/media/respira/logo-640.webp",
+              "alt": {
+                "es": "Logo de UPV respira,: el nombre sobre cuatro círculos verdes",
+                "en": "The UPV respira, logo: the name over four green circles",
+                "zh": "UPV respira, 的 logo：四个绿色同心圆上的名字"
+              }
+            },
+            {
+              "tipo": "foto",
+              "archivo": "assets/media/respira/cartel.webp",
+              "mini": "assets/media/respira/cartel-640.webp",
+              "alt": {
+                "es": "Cartel de UPV respira, con un código QR",
+                "en": "UPV respira, poster with a QR code",
+                "zh": "带二维码的 UPV respira, 海报"
+              }
+            },
+            {
+              "tipo": "enlace",
+              "url": "https://upvrespiraaudio.netlify.app/",
+              "plataforma": "web",
+              "texto": {
+                "es": "Escuchar la cápsula sonora",
+                "en": "Listen to the audio capsule",
+                "zh": "听声音胶囊"
+              }
             }
           ],
           "contenido": {
             "aporte": {
-              "es": "Concepto de la intervención, acciones online y presenciales, y diseño de una web demo.",
-              "en": "The intervention concept, online and on-site actions, and the design of a demo website.",
-              "zh": "干预方案的概念、线上与线下行动，以及一个网页 demo 的设计。"
+              "es": "Concepto de la intervención, acciones online y presenciales, logo y diseño de la web demo.",
+              "en": "The intervention concept, online and on-site actions, the logo and the design of the demo website.",
+              "zh": "干预方案的概念、线上与线下行动、logo，以及网页 demo 的设计。"
             }
           },
           "presentacion": "web",
-          "web": "https://upvrespiraaudio.netlify.app/"
+          "web": "assets/media/respira/prototipo.html"
         },
         {
           "id": "booktrailer",
@@ -455,6 +570,18 @@
             "es": "Tráiler de la novela El lector de cadáveres, hecho sin rodar un solo plano. Todas las imágenes están generadas con IA. El montaje, la música y los efectos de sonido son los que construyen la tensión.",
             "en": "A trailer for the novel El lector de cadáveres, made without shooting a single frame. Every image is AI-generated. The editing, the music and the sound effects are what build the tension.",
             "zh": "小说《El lector de cadáveres》的预告片，没有实拍一个镜头。所有画面都由 AI 生成，紧张感靠剪辑、音乐和音效做出来。"
+          },
+          "caso": {
+            "punto": {
+              "es": "Un tráiler para la novela El lector de cadáveres.",
+              "en": "A trailer for the novel El lector de cadáveres.",
+              "zh": "为小说《El lector de cadáveres》做的预告片。"
+            },
+            "como": {
+              "es": "Todas las imágenes están generadas con IA. La tensión la ponen el sonido y la forma de narrar.",
+              "en": "Every image is AI-generated. The tension comes from the sound and the way the story is told.",
+              "zh": "所有画面都由 AI 生成，紧张感来自声音和叙述方式。"
+            }
           },
           "media": [
             {

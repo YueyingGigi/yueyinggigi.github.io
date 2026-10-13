@@ -681,6 +681,7 @@ a.b-bento__celda:hover{
 }
 :lang(zh) .b-proceso__nota{ font-family: "LXGW WenKai", var(--fuente-mano); font-weight: 500; font-size: clamp(20px, 2vw, 25px); }
 .b-proceso__con{ margin-top: 5px; font-size: 12.5px; color: var(--tinta-tenue); line-height: 1.45; }
+.b-proceso__detalle{ margin-top: 7px; font-size: 13px; color: var(--tinta-suave); line-height: 1.45; }
 
 /* ═══════════════════════════════════════════════════════════════
    LA ETIQUETA DEL LATERAL DE LA CAJA
@@ -1580,4 +1581,17 @@ body:has(.serie) .escena-movil{ z-index: 84; }
   .mesa-trabajo__cosas, .mesa-trabajo .contenido-caja, .mesa-trabajo__resumen{ grid-column: 1; grid-row: auto; justify-content: flex-start; }
   .boton-video{ width: 170px; }
   .mesa-trabajo__cosas .material-foto{ width: 160px; }
+}
+
+/* ── El caso en tres líneas (Mis trabajos, debajo del portátil) ── */
+.mesa-trabajo__caso{ grid-column: 1; margin: 0; display: grid; gap: var(--e5); max-width: 58ch; }
+.caso__fila dt{
+  font-size: 11px; font-weight: 700; letter-spacing: .16em; text-transform: uppercase;
+  color: var(--amarillo-hondo); margin-bottom: var(--e1);
+}
+:lang(zh) .caso__fila dt{ letter-spacing: .06em; font-size: 12.5px; }
+.caso__fila dd{ margin: 0; font-size: 16px; line-height: 1.65; color: var(--tinta-suave); }
+.caso__fila--resultado dd{ color: var(--tinta); font-weight: 600; }
+@media (max-width: 900px){
+  .mesa-trabajo__caso{ grid-column: 1; grid-row: auto; }
 }

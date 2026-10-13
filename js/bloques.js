@@ -765,6 +765,9 @@ const PINTORES = {
       if (p.herramientas && p.herramientas.length){
         li.appendChild(el('p', 'b-proceso__con', p.herramientas.map(h => typeof h === 'string' ? h : enIdioma(h)).join(' · ')));
       }
+      // una frase suelta debajo de un paso (Gigi, 2026-10-13: lo que hace con los datos)
+      const detalle = enIdioma(p.detalle);
+      if (detalle) li.appendChild(el('p', 'b-proceso__detalle', detalle));
       ol.appendChild(li);
     });
     caja.appendChild(ol);

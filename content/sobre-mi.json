@@ -213,9 +213,14 @@
     {
       "id": "proceso",
       "titulo": {
-        "es": "Por ejemplo, así sale un vídeo mío",
-        "en": "For example, here's how one of my videos gets made",
-        "zh": "举个例子，我的一条视频是这样做出来的"
+        "es": "Mi proceso: de la idea a los datos",
+        "en": "My process: from idea to data",
+        "zh": "我的流程：从想法到数据"
+      },
+      "corto": {
+        "es": "Mi proceso",
+        "en": "My process",
+        "zh": "我的流程"
       },
       "bloques": [
         {
@@ -223,10 +228,17 @@
           "pasos": [
             {
               "paso": {
-                "es": "La idea",
-                "en": "The idea",
-                "zh": "想法"
-              }
+                "es": "Idea y tendencias",
+                "en": "Idea and trends",
+                "zh": "想法与趋势"
+              },
+              "herramientas": [
+                {
+                  "es": "Tendencias de RedNote, TikTok e Instagram",
+                  "en": "Trends on RedNote, TikTok and Instagram",
+                  "zh": "小红书、TikTok、Instagram 的趋势页"
+                }
+              ]
             },
             {
               "paso": {
@@ -235,7 +247,6 @@
                 "zh": "脚本"
               },
               "herramientas": [
-                "Office",
                 "Notion",
                 {
                   "es": "IA generativa",
@@ -246,27 +257,10 @@
             },
             {
               "paso": {
-                "es": "Rodaje",
-                "en": "Shooting",
-                "zh": "拍摄"
-              },
-              "herramientas": [
-                {
-                  "es": "Móvil",
-                  "en": "Phone",
-                  "zh": "手机"
-                },
-                {
-                  "es": "Trípode",
-                  "en": "Tripod",
-                  "zh": "三脚架"
-                },
-                {
-                  "es": "Micrófono",
-                  "en": "Microphone",
-                  "zh": "麦克风"
-                }
-              ]
+                "es": "Rodaje y presentación a cámara",
+                "en": "Filming and presenting on camera",
+                "zh": "拍摄与出镜"
+              }
             },
             {
               "paso": {
@@ -298,13 +292,21 @@
             },
             {
               "paso": {
-                "es": "Publicar y seguir",
-                "en": "Publish and follow up",
-                "zh": "发布与跟进"
+                "es": "Publicar y analizar",
+                "en": "Publish and analyse",
+                "zh": "发布与分析"
               },
               "herramientas": [
-                "Trello"
-              ]
+                "TikTok Analytics",
+                "Instagram Insights",
+                "Metricool",
+                "Notion"
+              ],
+              "detalle": {
+                "es": "Reviso la retención y el origen del tráfico de cada vídeo para decidir los siguientes.",
+                "en": "I check each video's retention and where its traffic comes from to decide the next ones.",
+                "zh": "我会看每条视频的留存和流量来源，再决定接下来做什么。"
+              }
             }
           ],
           "nota": {
