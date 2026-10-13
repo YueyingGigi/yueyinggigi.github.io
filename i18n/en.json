@@ -2,7 +2,7 @@
   "_nota": "Interface text in English. Section content lives in content/*.json.",
   "html.lang": "en",
   "doc.titulo": "Gigi · Yueying Guan — Brand communication and content creation",
-  "doc.descripcion": "Portfolio of Yueying Guan (Gigi): transmedia communication, content creation and marketing between China and Spain.",
+  "doc.descripcion": "Portfolio of Yueying Guan (Gigi): transmedia communication, content creation and marketing between China and the world.",
   "saltar": "Skip to content",
   "marca.nombre": "Yueying Guan",
   "marca.sello.alt": "Seal with the name Yueying",
@@ -22,7 +22,7 @@
   "cv.descargar": "Download CV",
   "cv.archivo": "assets/cv/CV-Gigi-EN.pdf",
   "entrada.saludo": "Hi, I'm Gigi.",
-  "entrada.linea": "Content creator and brand communicator, between China and Spain.",
+  "entrada.linea": "Content creator and brand communicator, between China and the world.",
   "entrada.pista": "Pick a box and open it.",
   "mesa.baja": "Scroll down to look over the table",
   "mesa.nota": "Welcome! Here you look and you touch ;)",
@@ -115,6 +115,11 @@
   "web.abrir-fuera": "Open in a new tab ↗",
   "web.abrir": "Open the site",
   "serie.ver": "Watch the series",
+  "espejo.intro": "Content creator and brand communicator between China and the world.",
+  "espejo.bienvenida": [
+    "Welcome,",
+    "look and touch"
+  ],
   "pared.cinta": [
     "CONTENT",
     "BRAND COMMUNICATION"

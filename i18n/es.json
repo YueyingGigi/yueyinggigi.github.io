@@ -2,7 +2,7 @@
   "_nota": "Textos de interfaz en español. El contenido de cada apartado va en content/*.json.",
   "html.lang": "es",
   "doc.titulo": "Gigi · Yueying Guan — Comunicación de marca y creación de contenido",
-  "doc.descripcion": "Portfolio de Yueying Guan (Gigi): comunicación transmedia, creación de contenido y marketing entre China y España.",
+  "doc.descripcion": "Portfolio de Yueying Guan (Gigi): comunicación transmedia, creación de contenido y marketing entre China y el mundo.",
   "saltar": "Saltar al contenido",
   "marca.nombre": "Yueying Guan",
   "marca.sello.alt": "Sello con el nombre Yueying",
@@ -22,7 +22,7 @@
   "cv.descargar": "Descargar CV",
   "cv.archivo": "assets/cv/CV-Gigi-ES.pdf",
   "entrada.saludo": "Hola, soy Gigi.",
-  "entrada.linea": "Creadora de contenido y comunicación de marca, entre China y España.",
+  "entrada.linea": "Creadora de contenido y comunicación de marca, entre China y el mundo.",
   "entrada.pista": "Elige una caja y ábrela.",
   "mesa.baja": "Baja y asómate a la mesa",
   "mesa.nota": "Bienvenid@, aquí se mira y se toca ;)",
@@ -115,6 +115,11 @@
   "web.abrir-fuera": "Abrir en otra pestaña ↗",
   "web.abrir": "Abrir la web",
   "serie.ver": "Ver la serie",
+  "espejo.intro": "Creadora de contenido y comunicación de marca entre China y el mundo.",
+  "espejo.bienvenida": [
+    "Bienvenid@,",
+    "aquí se mira y se toca"
+  ],
   "pared.cinta": [
     "CONTENIDO",
     "COMUNICACIÓN DE MARCA"

@@ -1,0 +1,685 @@
+/* ─────────────────────────────────────────────────────────────
+   espejo.css — la portada del espejo (js/espejo/montar.js). En la
+   versión clásica este archivo ni se descarga.
+
+   Un escritorio visto en oblicuo, con la cámara quieta:
+     · el portátil del espejo empañado, en el centro, lo más grande
+     · las cinco cajas, más pequeñas, en fila delante de él
+     · alrededor, lo justo para que la mesa no esté vacía: libros,
+       una taza, el móvil, un boli, la nota de «elige una caja»
+     · en la pared, una ventana y tres fotos; y el sol de la ventana
+       cruzando la mesa en cuatro cuadros
+
+   Todo cuelga de `html.con-espejo` y se mide en --u, una unidad que
+   sale del ancho Y del alto de la ventana: así la mesa entera cabe
+   siempre en una pantalla, sin barra de desplazamiento.
+
+   Lo de la mesa está en la cámara de js/escena.js y gira con ella.
+   ───────────────────────────────────────────────────────────── */
+
+.con-espejo{
+  --u: min(1vw, 1.5vh);
+  --madera: #D9BF9A;
+  --madera-honda: #BE9F78;
+  --muro: #F2EADC;
+  --sol: rgba(255, 246, 216, .92);
+  --sombra: rgba(66, 44, 24, .44);
+}
+
+/* ── La página: una sola pantalla, sin el saludo a la vista ── */
+.con-espejo .mesa{
+  max-width: none; margin: 0; padding: 0;
+  height: calc(100vh - var(--alto-barra)); min-height: 0;
+  display: flow-root; overflow: clip;      /* flow-root: que el margen de la escena no empuje la mesa */
+  background: var(--muro);
+}
+/* el saludo y la frase se quedan para lectores de pantalla y
+   buscadores; a la vista ya está el nombre, escrito en el espejo */
+.con-espejo .entrada{
+  position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0;
+  overflow: hidden; clip-path: inset(50%); white-space: nowrap;
+}
+.con-espejo .asomate{ display: none; }
+
+/* donde irá la ilustración de fondo, cuando la haya */
+.fondo-espejo{ position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+
+/* las esquinas, un poco más oscuras: la vista se va al centro */
+.con-espejo .mesa::after{
+  content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
+  background: radial-gradient(ellipse 78% 74% at 50% 46%, transparent 52%, rgba(64, 44, 24, .26) 100%);
+}
+
+/* ── La escena ── */
+.con-espejo.con-3d .escena{
+  width: calc(var(--u) * 82);
+  margin: calc(var(--u) * 19.6) auto 0;
+  perspective-origin: 50% 40%;
+}
+.con-espejo.con-3d .camara{
+  padding-top: calc(var(--u) * 27.5);      /* el sitio del portátil, detrás de las cajas */
+  transform-origin: 50% 46%;
+}
+
+/* ── La pared ── */
+.con-espejo.con-3d .pared{
+  left: calc(var(--u) * -59); right: calc(var(--u) * -59);
+  height: calc(var(--u) * 60);
+  transform: rotateX(-90deg);
+  align-items: flex-end; padding-bottom: calc(var(--u) * .6);
+  -webkit-mask-image: none; mask-image: none;
+  background:
+    /* el resplandor de la ventana */
+    radial-gradient(ellipse 34% 62% at 31% 68%, rgba(255, 247, 222, .95), rgba(255, 247, 222, 0) 70%),
+    /* el zócalo */
+    linear-gradient(to top, #D9C7AC 0, #D9C7AC calc(var(--u) * .9), rgba(60, 40, 20, .16) calc(var(--u) * .9), transparent calc(var(--u) * 4)),
+    /* lejos de la ventana, más en sombra */
+    linear-gradient(to right, transparent 46%, rgba(96, 70, 44, .16) 100%),
+    var(--muro);
+}
+.con-espejo.con-3d .pared__cinta{
+  font-size: calc(var(--u) * 7.4);
+  color: color-mix(in srgb, var(--muro) 84%, #7A5A3A);
+}
+.con-espejo.con-3d .pared__cinta:lang(zh){ font-size: calc(var(--u) * 6.4); }
+
+/* la ventana */
+.ventana{
+  position: absolute; left: calc(var(--u) * 48); bottom: calc(var(--u) * 9.5);
+  width: calc(var(--u) * 19); height: calc(var(--u) * 19);
+  background: #FBF6EC;
+  box-shadow: 0 0 0 1px rgba(90, 66, 40, .14), calc(var(--u) * .4) calc(var(--u) * .5) calc(var(--u) * 1) rgba(74, 52, 30, .18),
+              0 0 calc(var(--u) * 9) calc(var(--u) * 1.5) rgba(255, 246, 216, .9);
+}
+.ventana__cielo{
+  position: absolute; inset: calc(var(--u) * .7);
+  background:
+    radial-gradient(circle at 24% 26%, #FFFDF0 0, rgba(255, 250, 220, .9) 9%, rgba(255, 244, 200, 0) 34%),
+    radial-gradient(ellipse 30% 9% at 70% 44%, rgba(255, 255, 255, .92), rgba(255, 255, 255, 0) 72%),
+    radial-gradient(ellipse 22% 7% at 36% 62%, rgba(255, 255, 255, .85), rgba(255, 255, 255, 0) 72%),
+    linear-gradient(#9CCBEA, #CFE6F2 58%, #F6EBD2);
+  box-shadow: inset calc(var(--u) * .25) calc(var(--u) * .3) calc(var(--u) * .6) rgba(74, 52, 30, .28);
+}
+.ventana__cruz{
+  position: absolute; inset: calc(var(--u) * .7);
+  background:
+    linear-gradient(#FBF6EC, #FBF6EC) 50% 0 / calc(var(--u) * .7) 100% no-repeat,
+    linear-gradient(#FBF6EC, #FBF6EC) 0 50% / 100% calc(var(--u) * .7) no-repeat;
+}
+.ventana__repisa{
+  position: absolute; left: calc(var(--u) * -1); right: calc(var(--u) * -1); bottom: calc(var(--u) * -1);
+  height: calc(var(--u) * 1); background: #F1E7D4;
+  box-shadow: 0 calc(var(--u) * .5) calc(var(--u) * .7) rgba(74, 52, 30, .22);
+}
+
+/* las fotos, pegadas con cinta */
+.foto{
+  position: absolute; margin: 0; background: #fff;
+  width: calc(var(--u) * 9.6); padding: calc(var(--u) * .5) calc(var(--u) * .5) calc(var(--u) * 1.8);
+  box-shadow: calc(var(--u) * .25) calc(var(--u) * .45) calc(var(--u) * .9) rgba(74, 52, 30, .26);
+}
+.foto img{ display: block; width: 100%; aspect-ratio: 1; object-fit: cover; }
+.foto::before{
+  content: ""; position: absolute; left: 50%; top: calc(var(--u) * -.6); translate: -50% 0; rotate: -4deg;
+  width: 38%; height: calc(var(--u) * 1.2);
+  background: color-mix(in srgb, var(--amarillo) 78%, transparent);
+}
+.foto--1{ left: calc(var(--u) * 124); bottom: calc(var(--u) * 16); rotate: -5deg; }
+.foto--2{ left: calc(var(--u) * 134.5); bottom: calc(var(--u) * 10.5); rotate: 4deg; }
+.foto--2 img{ object-position: 30% 88%; }
+.foto--2::before{ background: color-mix(in srgb, var(--rosa) 80%, transparent); rotate: 5deg; }
+.foto--3{ left: calc(var(--u) * 145); bottom: calc(var(--u) * 16.5); rotate: -2deg; }
+.foto--3::before{ background: color-mix(in srgb, var(--lavanda) 80%, transparent); }
+
+/* ── El tablero: madera clara ── */
+.con-espejo.con-3d .tablero{
+  left: calc(var(--u) * -59); right: calc(var(--u) * -59); top: 0; bottom: calc(var(--u) * -40);
+  -webkit-mask-image: none; mask-image: none;
+  background:
+    /* junto a la pared, la sombra del rincón */
+    linear-gradient(rgba(74, 52, 30, .22), transparent calc(var(--u) * 5)),
+    /* las vetas */
+    repeating-linear-gradient(91deg, transparent 0 calc(var(--u) * 3.1), rgba(120, 84, 48, .06) calc(var(--u) * 3.1) calc(var(--u) * 3.3),
+                              transparent calc(var(--u) * 3.3) calc(var(--u) * 7.7), rgba(255, 244, 222, .16) calc(var(--u) * 7.7) calc(var(--u) * 8)),
+    /* a la izquierda da el sol; a la derecha y delante, sombra */
+    linear-gradient(115deg, transparent 38%, rgba(84, 58, 32, .20) 78%),
+    linear-gradient(100deg, var(--madera) 30%, var(--madera-honda));
+}
+/* RENDIMIENTO (2026-10-13, medido): aquí el tablero y la luz ocupan la
+   pantalla entera. La luz de ventana de la mesa clásica (tablero::after,
+   que anima un fondo con mezcla) y la luz que sigue al ratón (.luz, que
+   se repinta en cada movimiento) obligaban a repintarlo todo en cada
+   fotograma: de 59 a 9 por segundo. Aquí no van: el sol de la ventana
+   ya lo hace .sol, que solo se mueve (no se repinta). */
+.con-espejo.con-3d .luz{ display: none; }
+.con-espejo.con-3d .tablero::after{ display: none; }
+/* y las sombras de las cajas, quietas: no siguen al ratón */
+.con-espejo .cubo__sombra::before{ transform: translate(calc(var(--ancho-cubo, 200px) * .19), calc(var(--ancho-cubo, 200px) * .24)); transition: none; }
+.con-espejo.con-3d .rotulo{ display: none; }
+
+/* ── El sol de la ventana, en la mesa ──
+   Cuatro cuadros (los de la ventana), alargados hacia delante y a la
+   derecha, y más flojos según se alejan de la pared. */
+.sol{
+  position: absolute; left: calc(var(--u) * -14); top: calc(var(--u) * .4);
+  width: calc(var(--u) * 27); height: calc(var(--u) * 50);
+  display: grid; grid-template: 1fr 1fr / 1fr 1fr; gap: calc(var(--u) * 1.3);
+  transform-origin: 50% 0; transform: translateZ(.3px) skewX(31deg);
+  pointer-events: none;
+  -webkit-mask-image: linear-gradient(#000 40%, rgba(0, 0, 0, .6) 85%, transparent);
+          mask-image: linear-gradient(#000 40%, rgba(0, 0, 0, .6) 85%, transparent);
+  animation: sol 38s ease-in-out infinite alternate;
+}
+.sol i{ background: var(--sol); filter: blur(calc(var(--u) * .22)); box-shadow: 0 0 calc(var(--u) * 2.5) rgba(255, 240, 200, .5); }
+@keyframes sol{ to{ transform: translateZ(.3px) translateX(calc(var(--u) * 3)) skewX(35deg); } }
+
+/* ── El polvo que flota en esa luz (por fuera del 3D) ── */
+.polvo{ position: absolute; inset: 0; z-index: 2; pointer-events: none; }
+.polvo i{
+  position: absolute; width: 4px; height: 4px; border-radius: 50%;
+  background: #FFF8E0; filter: blur(.6px); opacity: 0;
+  animation: polvo 15s linear infinite;
+}
+@keyframes polvo{
+  0%  { opacity: 0;  transform: translate(0, 0); }
+  18% { opacity: .85; }
+  80% { opacity: .6; }
+  100%{ opacity: 0;  transform: translate(58px, 96px); }
+}
+
+/* ── El portátil ──
+   De verdad en 3D: la base tumbada en la mesa y la tapa de pie sobre
+   su bisagra, echada un poco hacia atrás. Al girar la mesa con el
+   ratón se ve cambiar su ángulo.
+   La opacidad va en las piezas y no en .espejo, que tiene hijos en 3D
+   (ESTADO, tropiezo 13). */
+.espejo{
+  --ancho: calc(var(--u) * 42);
+  --alto-tapa: calc(var(--ancho) * .664);
+  --grosor: calc(var(--u) * .55);
+  position: absolute; left: calc(50% - var(--ancho) / 2); top: calc(var(--u) * 7.5);
+  width: var(--ancho); height: calc(var(--u) * 16);
+  transform-style: preserve-3d; pointer-events: none;
+}
+.espejo > *{ transition: opacity 400ms var(--curva); }
+html.enfocando .espejo > *{ opacity: 0 !important; transition-duration: 250ms; }
+
+.espejo__base{
+  position: absolute; inset: 0; transform: translateZ(var(--grosor));
+  border-radius: calc(var(--u) * .35) calc(var(--u) * .35) calc(var(--u) * 1) calc(var(--u) * 1);
+  background:
+    /* lo que alumbra la pantalla */
+    linear-gradient(rgba(190, 214, 232, .30), rgba(190, 214, 232, 0) 46%),
+    linear-gradient(100deg, #5A5A62, #45454C);
+}
+/* el teclado: un hueco oscuro con las teclas marcadas */
+.espejo__teclas{
+  position: absolute; left: 5%; right: 5%; top: 9%; height: 50%; border-radius: calc(var(--u) * .25);
+  background:
+    repeating-linear-gradient(90deg, transparent 0 6.2%, #2A2A2F 6.2% 7.14%),
+    repeating-linear-gradient(0deg, transparent 0 17%, #2A2A2F 17% 20%),
+    #3B3B42;
+  box-shadow: inset 0 0 0 calc(var(--u) * .12) #2A2A2F;
+}
+.espejo__panel{
+  position: absolute; left: 34%; right: 34%; top: 66%; bottom: 7%; border-radius: calc(var(--u) * .3);
+  background: rgba(255, 255, 255, .07); box-shadow: inset 0 0 0 1px rgba(0, 0, 0, .18);
+}
+/* el canto de delante */
+.espejo__canto{
+  position: absolute; left: calc(var(--u) * .6); right: calc(var(--u) * .6); top: calc(100% - var(--grosor)); height: var(--grosor);
+  transform-origin: 50% 100%; transform: rotateX(-90deg);
+  background: linear-gradient(#3A3A40, #26262B);
+}
+.espejo__tapa{
+  position: absolute; left: 0; width: 100%; bottom: 100%; height: var(--alto-tapa);
+  transform-origin: 50% 100%; transform: translateZ(var(--grosor)) rotateX(-74deg);
+  padding: 2.4% 2.4% 3.4%;
+  background: #1F1F23; border-radius: calc(var(--u) * .9) calc(var(--u) * .9) calc(var(--u) * .25) calc(var(--u) * .25);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .10);
+}
+.espejo__tapa::after{                       /* la cámara */
+  content: ""; position: absolute; top: 1%; left: 50%; translate: -50% 0;
+  width: calc(var(--u) * .28); height: calc(var(--u) * .28); border-radius: 50%; background: #4a4a4f;
+}
+.espejo__pantalla{
+  height: 100%; overflow: hidden; border-radius: calc(var(--u) * .2);
+  background: #CBD3D8;                    /* el color del vaho, mientras llega el vídeo */
+}
+.espejo__pantalla :is(canvas, img){ display: block; width: 100%; height: 100%; object-fit: cover; opacity: 0; transition: opacity 600ms var(--curva); }
+.espejo[data-listo] .espejo__pantalla :is(canvas, img){ opacity: 1; }
+/* la sombra en la mesa: la de la base y, más larga, la de la tapa */
+.espejo__sombra{
+  position: absolute; left: -4%; right: -6%; top: -4%; bottom: -30%;
+  transform: translateZ(.4px) skewX(20deg);
+  background: linear-gradient(105deg, transparent 4%, var(--sombra) 30%, var(--sombra) 82%, transparent 98%);
+  filter: blur(calc(var(--u) * 1.1));
+}
+
+/* ── Las cajas: más pequeñas, en fila delante del portátil ── */
+.con-espejo .cajas{
+  width: calc(var(--u) * 50); margin: 0 auto;
+  grid-template-columns: repeat(5, 1fr); gap: calc(var(--u) * 1.6);
+}
+.con-espejo .caja__etiqueta{ font-size: calc(var(--u) * .6); }
+/* el nombre, también en la cara de delante */
+.cubo__nombre{
+  position: absolute; left: 9%; top: 16%; max-width: 82%;
+  padding: .42em .66em; border-radius: calc(var(--u) * .22); rotate: -2deg;
+  background: var(--color-etiqueta, var(--color)); color: var(--tinta-etiqueta, var(--tinta));
+  font-family: var(--fuente-texto); font-weight: 700; font-size: calc(var(--u) * .8); line-height: 1.2;
+  box-shadow: 1px 2px 4px rgba(30, 30, 30, .16);
+}
+.cubo__nombre:lang(zh){ font-family: "Noto Sans SC", var(--fuente-texto); }
+.con-espejo .cubo__sombra::before{ background: radial-gradient(ellipse at 45% 45%, rgba(74, 52, 30, .46), rgba(74, 52, 30, .18) 50%, transparent 72%); }
+
+/* ── Las cosas de la mesa ── */
+.con-espejo.con-3d .cosas{ transform-style: preserve-3d; }
+.con-espejo.con-3d .cosa{ transform-style: preserve-3d; }
+.cosa__sombra{
+  position: absolute; inset: 10% -8% -22% 4%; transform: translateZ(.2px) skewX(20deg);
+  background: var(--sombra); filter: blur(calc(var(--u) * .8)); border-radius: 12%;
+}
+
+/* la nota: «elige una caja y ábrela», con su flecha hacia las cajas */
+.con-espejo.con-3d .cosa--pista{
+  left: calc(var(--u) * 4); top: calc(var(--u) * 28.5); right: auto; bottom: auto;
+  width: calc(var(--u) * 9.2); margin: 0; padding: calc(var(--u) * .9) calc(var(--u) * .9) calc(var(--u) * .6);
+  rotate: -6deg; background: #FFF3BD; color: var(--tinta);
+  font-family: var(--fuente-mano); font-size: calc(var(--u) * 1.72); line-height: 1.05;
+  box-shadow: calc(var(--u) * .3) calc(var(--u) * .5) calc(var(--u) * .9) var(--sombra);
+}
+.con-espejo.con-3d .cosa--pista:lang(zh){ font-family: "LXGW WenKai", var(--fuente-mano); font-size: calc(var(--u) * 1.3); line-height: 1.3; }
+.cosa--pista svg{ display: block; width: 62%; margin: calc(var(--u) * .3) 0 0 auto; color: var(--rojo-sello); }
+
+/* los libros: tres, apilados y algo torcidos */
+.cosa--libros{ left: calc(var(--u) * 1.5); top: calc(var(--u) * 6.5); width: calc(var(--u) * 13.5); height: calc(var(--u) * 9.5); rotate: -9deg; }
+.libro{
+  --alto: calc(var(--u) * 1.7);
+  position: absolute; inset: 0; transform-style: preserve-3d;
+  transform: translateZ(var(--z)) rotate(var(--giro, 0deg));
+}
+.libro__tapa{ position: absolute; inset: 0; transform: translateZ(var(--alto)); background: var(--tapa); border-radius: calc(var(--u) * .15);
+  box-shadow: inset calc(var(--u) * 1.1) 0 0 rgba(0, 0, 0, .07); }
+.libro__lomo{
+  position: absolute; left: 0; width: 100%; top: calc(100% - var(--alto)); height: var(--alto);
+  transform-origin: 50% 100%; transform: rotateX(-90deg);
+  background: linear-gradient(rgba(255, 255, 255, .12), rgba(0, 0, 0, .14)), var(--tapa);
+  display: grid; place-items: center; overflow: hidden;
+}
+.libro__lomo b{
+  font: 900 calc(var(--u) * .74) / 1 var(--fuente-titulo); letter-spacing: .04em; white-space: nowrap;
+  color: var(--letra, rgba(255, 255, 255, .9));
+}
+.libro__lomo b:lang(zh){ font-family: "Noto Sans SC", var(--fuente-titulo); letter-spacing: .3em; }
+.libro__hojas{
+  position: absolute; top: 3%; height: 94%; left: calc(100% - var(--alto)); width: var(--alto);
+  transform-origin: 100% 50%; transform: rotateY(90deg);
+  background: repeating-linear-gradient(90deg, #F4EEE2 0 2px, #DDD3C2 2px 3px);
+}
+.libro--1{ --z: 0px; --tapa: var(--azul-mar); }
+.libro--2{ --z: calc(var(--u) * 1.7); --giro: 5deg; --tapa: var(--rojo-caja); inset: 4% 5% 3% 2%; }
+.libro--3{ --z: calc(var(--u) * 3.4); --giro: -4deg; --tapa: #F1E8D8; inset: 9% 12% 10% 6%; --alto: calc(var(--u) * 1.2); }
+
+/* el rollo de cinta y el trozo de precinto, los de siempre */
+.con-espejo.con-3d .cosa--rollo{ display: block; left: calc(var(--u) * 11); top: calc(var(--u) * 19.5); right: auto; bottom: auto; width: calc(var(--u) * 4.4); }
+.con-espejo.con-3d .cosa--rollo i{ width: calc(var(--u) * 2.2); height: calc(var(--u) * 1); }
+.con-espejo.con-3d .cosa--tira{ display: block; left: calc(var(--u) * 3); top: calc(var(--u) * 22); right: auto; bottom: auto; width: calc(var(--u) * 5.6); height: calc(var(--u) * 1.1); }
+
+/* la taza: el fondo, el cuerpo (de pie, de cara) y la boca, arriba */
+.cosa--taza{ --alto: calc(var(--u) * 5.6); left: calc(var(--u) * 67); top: calc(var(--u) * 9.5); width: calc(var(--u) * 5.8); aspect-ratio: 1; }
+.taza__posavasos{ position: absolute; inset: -20%; border-radius: 50%; transform: translateZ(.3px);
+  background: radial-gradient(circle, #B98F62 0 62%, #A67C50 63% 100%); box-shadow: calc(var(--u) * .2) calc(var(--u) * .3) calc(var(--u) * .5) var(--sombra); }
+.cosa--taza .cosa__sombra{ inset: 30% -40% -30% 10%; border-radius: 50%; transform: translateZ(.6px) skewX(20deg); }
+.taza__pie{ position: absolute; inset: 0; border-radius: 50%; transform: translateZ(.8px); background: #EDE4D6; }
+.taza__cuerpo{
+  position: absolute; left: 0; width: 100%; top: calc(50% - var(--alto)); height: var(--alto);
+  transform-origin: 50% 100%; transform: rotateX(-90deg);
+  background: linear-gradient(90deg, #E2D7C5, #FBF7EF 34%, #F3ECE0 62%, #CFC2AD);
+}
+.taza__asa{
+  position: absolute; left: 86%; width: 46%; top: calc(50% - var(--alto) * .8); height: calc(var(--alto) * .62);
+  transform-origin: 50% 100%; transform: translateZ(calc(var(--alto) * .2)) rotateX(-90deg);
+  border: calc(var(--u) * .62) solid #E9E0D0; border-left: 0; border-radius: 0 50% 50% 0;
+}
+.taza__boca{
+  position: absolute; inset: 0; border-radius: 50%; transform: translateZ(var(--alto));
+  background: radial-gradient(circle at 46% 44%, #5A3A22 0, #3E2615 60%, #2E1B0E 66%, #F7F2E8 67%, #F7F2E8 100%);
+  box-shadow: inset 0 0 0 calc(var(--u) * .12) #E2D7C5;
+}
+
+/* el boli */
+.cosa--boli{
+  left: calc(var(--u) * 66); top: calc(var(--u) * 20.5); width: calc(var(--u) * 10.5); height: calc(var(--u) * .7);
+  rotate: 17deg; border-radius: calc(var(--u) * .35);
+  background: linear-gradient(90deg, #C9A45A 0 5%, #2E2E33 5% 78%, #D43C26 78% 96%, #2E2E33 96%);
+  box-shadow: calc(var(--u) * .3) calc(var(--u) * .45) calc(var(--u) * .45) var(--sombra);
+}
+
+/* el móvil, boca abajo */
+.cosa--movil{
+  left: calc(var(--u) * 70); top: calc(var(--u) * 26); width: calc(var(--u) * 6.4); height: calc(var(--u) * 12.6);
+  rotate: 13deg; border-radius: calc(var(--u) * 1.1);
+  background: linear-gradient(135deg, #6A6672, #4B4853 60%, #3E3B45);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, .14), calc(var(--u) * .45) calc(var(--u) * .7) calc(var(--u) * .9) var(--sombra);
+}
+.cosa--movil i{
+  position: absolute; left: 9%; top: 5%; width: 42%; aspect-ratio: 1; border-radius: 28%;
+  background:
+    radial-gradient(circle at 30% 30%, #1B1A20 0 17%, #6E6A78 18% 22%, transparent 23%),
+    radial-gradient(circle at 70% 30%, #1B1A20 0 17%, #6E6A78 18% 22%, transparent 23%),
+    radial-gradient(circle at 30% 70%, #1B1A20 0 17%, #6E6A78 18% 22%, transparent 23%),
+    #55525E;
+}
+
+/* ── Móvil ──
+   La mesa se mira más desde arriba (js/escena.js · FIJA_MOVIL): el
+   portátil de lado a lado y, delante, las cajas en dos filas (3 + 2),
+   con el nombre en la tapa, que aquí sí se lee. De lo demás solo
+   quedan la nota y el móvil, a los lados de la segunda fila. */
+@media (max-width: 767px){
+  .con-espejo{ --u: min(1.18vw, .68vh); }
+  .con-espejo.con-3d .escena{ margin-top: calc(var(--u) * 29); }
+  .con-espejo.con-3d .camara{ padding-top: calc(var(--u) * 63); transform-origin: 50% 40%; }
+  .con-espejo.con-3d .pared{ height: calc(var(--u) * 110); padding-bottom: calc(var(--u) * .6); left: calc(var(--u) * -59); right: calc(var(--u) * -59); }
+  .con-espejo.con-3d .pared__cinta{ font-size: calc(var(--u) * 12); }
+  .ventana{ left: calc(var(--u) * 60); bottom: calc(var(--u) * 14); width: calc(var(--u) * 26); height: calc(var(--u) * 50); }
+  .foto{ width: calc(var(--u) * 17); padding-bottom: calc(var(--u) * 8); }
+  .foto img{ aspect-ratio: 1 / 2; }
+  .foto--1{ left: calc(var(--u) * 92); bottom: calc(var(--u) * 17); }
+  .foto--2{ left: calc(var(--u) * 111); bottom: calc(var(--u) * 13); }
+  .foto--3{ left: calc(var(--u) * 127); bottom: calc(var(--u) * 19); }
+
+  /* la tapa se echa mucho hacia atrás: el portátil, lejos de la pared, o la atravesaría */
+  .espejo{ --ancho: calc(var(--u) * 70); top: calc(var(--u) * 30); height: calc(var(--u) * 27); }
+  .espejo__tapa{ transform: translateZ(var(--grosor)) rotateX(-56deg); }
+
+  .con-espejo .cajas{ width: calc(var(--u) * 80); grid-template-columns: repeat(6, 1fr); gap: calc(var(--u) * 9) calc(var(--u) * 3); }
+  .con-espejo .cajas > li{ grid-column: span 2; }
+  .con-espejo .cajas > li:nth-child(4){ grid-column: 2 / span 2; }
+  .con-espejo .cajas > li:nth-child(5){ grid-column: 4 / span 2; justify-content: normal; }
+  .con-espejo.con-3d .cajas > li:nth-child(5) :is(.cubo, .cubo__sombra){ width: 100%; left: 0; translate: none; }
+  .con-espejo .caja__etiqueta{ font-size: calc(var(--u) * 2.25); }
+  .cubo__nombre{ display: none; }
+
+  .cosa--libros, .cosa--taza, .cosa--boli, .con-espejo.con-3d .cosa--rollo, .con-espejo.con-3d .cosa--tira{ display: none; }
+  .con-espejo.con-3d .cosa--pista{
+    left: calc(var(--u) * .5); top: calc(var(--u) * 99); width: calc(var(--u) * 15.5); bottom: auto;
+    padding: calc(var(--u) * 1.4) calc(var(--u) * 1.2) calc(var(--u) * 1); font-size: calc(var(--u) * 3.5); rotate: -7deg;
+  }
+  .con-espejo.con-3d .cosa--pista:lang(zh){ font-size: calc(var(--u) * 2.9); }
+  .cosa--movil{ left: calc(var(--u) * 69.5); top: calc(var(--u) * 98); width: calc(var(--u) * 11); height: calc(var(--u) * 22); }
+  .sol{ left: calc(var(--u) * -22); width: calc(var(--u) * 40); height: calc(var(--u) * 120); }
+}
+
+/* ── Girar y colocar ──
+   La mesa gira solo mientras se arrastra, y las cosas se cogen y se
+   ponen donde se quiera (js/escena.js). */
+.con-espejo .mesa{ cursor: grab; touch-action: none; user-select: none; -webkit-user-select: none; }
+.con-espejo .mesa[data-girando]{ cursor: grabbing; }
+.con-espejo.con-3d .cosa{ cursor: grab; touch-action: none; }
+.con-espejo.con-3d .cosa[data-cogida]{ cursor: grabbing; }
+.con-espejo .caja{ cursor: pointer; }
+
+/* ═════════════════════════════════════════════════════════════
+   FONDO «FOTO»: la mesa de madera en la playa (Gigi, 2026-10-13).
+   Todo lo de arriba (la habitación dibujada) sigue ahí y vuelve con
+   solo poner el fondo «dibujado» en content/portada.json.
+
+   La foto mide 100 u de ancho × 55,81 u de alto y va pegada abajo.
+   La escena ocupa exactamente lo mismo, así que las medidas de aquí
+   son las de la foto: la mesa de la foto va de 7 u a 97 u por delante
+   (a 5,8 u del borde de abajo) y sus lados fugan hacia (61,8 u ; un
+   poco por encima de la foto). Quien hizo la foto no estaba centrado
+   ni la mesa está vacía: entre el cuaderno y el café quedan libres el
+   centro y la izquierda, y ahí van el portátil y las cajas. Por eso
+   la foto se desplaza: su 45 u cae en el centro de la pantalla.
+
+   --u: la foto llena la pantalla, pero sin pasarse de alta, que la
+   tapa del portátil (a 42 u del borde de abajo) tiene que caber. Si
+   por eso la foto no llega a los lados (pantallas muy anchas), detrás
+   está el mismo paisaje como fondo de la mesa.
+   ═════════════════════════════════════════════════════════════ */
+.fondo-foto{
+  --u: min(max(1.12vw, (100vh - var(--alto-barra)) * .017917), (100vh - var(--alto-barra)) / 43);
+  --sombra: rgba(52, 32, 14, .5);
+}
+.fondo-foto .mesa{ background: #C59A6B url("../assets/espejo/fondo-playa.webp") 50% 100% / cover; }
+html.enfocando.fondo-foto .mesa{ background-image: none; }   /* al abrir una caja: madera lisa */
+.fondo-foto .mesa::after{ display: none; }      /* la foto ya trae su luz */
+.fondo-foto .fondo-espejo{
+  inset: auto; left: calc(50% - var(--u) * 45); bottom: 0;
+  width: calc(var(--u) * 100); height: calc(var(--u) * 55.81);
+}
+.fondo-espejo img{
+  position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover;
+  transform: scale(1.05); transform-origin: 45% 100%;
+  transition: opacity 300ms var(--curva);
+}
+html.enfocando .fondo-espejo img{ opacity: 0; }
+/* en pantallas muy anchas el paisaje no llega a los lados: sus bordes
+   se funden con el mismo paisaje que hay detrás, sin costura */
+.fondo-espejo img:first-child:not(:only-child){
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+          mask-image: linear-gradient(90deg, transparent, #000 7%, #000 93%, transparent);
+}
+
+.fondo-foto.con-3d .escena{
+  position: absolute; left: calc(50% - var(--u) * 45); bottom: 0; margin: 0;
+  width: calc(var(--u) * 100); height: calc(var(--u) * 55.81);
+  perspective-origin: calc(var(--u) * 61.8) calc(var(--u) * -3.8);
+}
+.fondo-foto.con-3d .camara{
+  position: absolute; left: calc(var(--u) * 7); bottom: calc(var(--u) * 5.8);
+  width: calc(var(--u) * 90);
+  padding: calc(var(--u) * 49.5) 0 calc(var(--u) * 2);
+  transform-origin: 50% 100%;
+}
+/* de la habitación dibujada no queda nada: está la foto */
+.fondo-foto.con-3d :is(.pared, .luz, .sol), .fondo-foto .polvo,
+.fondo-foto :is(.cosa--taza, .cosa--boli), .fondo-foto.con-3d :is(.cosa--rollo, .cosa--tira){ display: none; }
+.fondo-foto.con-3d .tablero{ background: none; }
+.fondo-foto.con-3d .tablero::after{ display: none; }
+
+.fondo-foto .espejo{
+  --ancho: calc(var(--u) * 44);
+  left: calc(var(--u) * 13); top: calc(var(--u) * 28); height: calc(var(--u) * 15);
+}
+.fondo-foto .espejo__tapa{ transform: translateZ(var(--grosor)) rotateX(-85deg); }
+.fondo-foto .espejo__sombra{ left: -2%; right: -10%; top: 20%; bottom: -12%; }
+
+.fondo-foto .cajas{ width: calc(var(--u) * 44); margin: 0 0 0 calc(var(--u) * 13); gap: calc(var(--u) * 1.2); }
+.fondo-foto .cubo__nombre{ font-size: calc(var(--u) * .74); }
+.fondo-foto .cubo__sombra::before{ background: radial-gradient(ellipse at 45% 45%, rgba(52, 32, 14, .62), rgba(52, 32, 14, .26) 50%, transparent 72%); }
+
+.fondo-foto.con-3d .cosa--pista{ left: calc(var(--u) * 1.5); top: calc(var(--u) * 41); width: calc(var(--u) * 9); font-size: calc(var(--u) * 1.6); }
+.fondo-foto .cosa--libros{ left: calc(var(--u) * -2); top: calc(var(--u) * 26); width: calc(var(--u) * 12); height: calc(var(--u) * 9); }
+.fondo-foto .cosa--movil{ left: calc(var(--u) * -3); top: calc(var(--u) * 47); width: calc(var(--u) * 5.6); height: calc(var(--u) * 11); }
+
+/* Móvil con foto: la foto vertical (100 u × 179,3 u). La mesa cruza
+   toda la pantalla; el portátil al fondo y las cinco cajas en una
+   fila delante (en dos filas, tan a ras de mesa, se taparían). */
+@media (max-width: 767px){
+  .fondo-foto{ --u: max(1vw, (100vh - var(--alto-barra)) / 179.3); }
+  .fondo-foto .mesa{ background-image: url("../assets/espejo/fondo-playa-movil.webp"); }
+  .fondo-foto .fondo-espejo, .fondo-foto.con-3d .escena{ left: calc(50% - var(--u) * 50); height: calc(var(--u) * 179.3); }
+  .fondo-espejo img{ transform-origin: 50% 100%; }
+  .fondo-foto.con-3d .escena{ perspective-origin: calc(var(--u) * 50) calc(var(--u) * 52.3); }
+  .fondo-foto.con-3d .camara{ left: 0; bottom: calc(var(--u) * 33.9); width: calc(var(--u) * 100); padding: calc(var(--u) * 43) 0 calc(var(--u) * 2); }
+  .fondo-foto .espejo{ --ancho: calc(var(--u) * 80); left: calc(var(--u) * 10); top: calc(var(--u) * 12); height: calc(var(--u) * 26); }
+  .fondo-foto .espejo__tapa{ transform: translateZ(var(--grosor)) rotateX(-85deg); }
+  .fondo-foto .cajas{ width: calc(var(--u) * 84); margin: 0 0 0 calc(var(--u) * 8); grid-template-columns: repeat(5, 1fr); gap: calc(var(--u) * 2); }
+  .fondo-foto .cajas > li, .fondo-foto .cajas > li:nth-child(4), .fondo-foto .cajas > li:nth-child(5){ grid-column: auto; }
+  .fondo-foto .cubo__nombre{ display: block; left: 4%; top: 12%; max-width: 92%; font-size: calc(var(--u) * 2); padding: .3em .35em; }
+  .fondo-foto .caja__etiqueta{ font-size: calc(var(--u) * 1.3); }
+  .fondo-foto :is(.cosa--libros, .cosa--movil){ display: none; }
+  .fondo-foto.con-3d .cosa--pista{ left: calc(var(--u) * 7); top: calc(var(--u) * 28); width: calc(var(--u) * 17); font-size: calc(var(--u) * 3.4); }
+}
+
+/* ═════════════════════════════════════════════════════════════
+   FONDO «PLAYA»: la habitación dibujada, con un ventanal al mar
+   (Gigi, 2026-10-13: prefiere el dibujo a la foto, pero con el mar y
+   las plantas de la foto). <html> lleva fondo-dibujado Y fondo-playa:
+   todo lo de aquí se AÑADE a la habitación de siempre. Con el fondo
+   «dibujado» nada de esto existe y la habitación es la de antes.
+   Las hojas son SVG que pinta js/espejo/montar.js.
+   ═════════════════════════════════════════════════════════════ */
+.fondo-playa{ --muro: #F3EDE2; --sol: rgba(255, 247, 220, .94); }
+
+/* el ventanal: más ancho, de tres hojas */
+.fondo-playa .ventana{
+  left: calc(var(--u) * 47.9); bottom: calc(var(--u) * 8.4);
+  width: calc(var(--u) * 29.8); height: calc(var(--u) * 22.4);
+}
+.fondo-playa .ventana__cruz{
+  background:
+    linear-gradient(#FBF6EC, #FBF6EC) 33.3% 0 / calc(var(--u) * .7) 100% no-repeat,
+    linear-gradient(#FBF6EC, #FBF6EC) 66.6% 0 / calc(var(--u) * .7) 100% no-repeat,
+    linear-gradient(#FBF6EC, #FBF6EC) 0 30% / 100% calc(var(--u) * .6) no-repeat;
+}
+/* lo que se ve: cielo, el horizonte a media altura, el mar con sus
+   olas, unas rocas a la derecha y la arena abajo. De arriba abajo en
+   la lista = de delante atrás. */
+.fondo-playa .ventana__cielo{
+  background:
+    /* la espuma, en la orilla */
+    radial-gradient(ellipse 60% 5% at 34% 88%, rgba(255, 255, 255, .95) 0 60%, rgba(255, 255, 255, 0) 100%),
+    /* la arena */
+    radial-gradient(ellipse 90% 26% at 30% 108%, #EBD7AE 0 98%, rgba(235, 215, 174, 0) 100%),
+    /* las rocas */
+    radial-gradient(ellipse 15% 12% at 97% 80%, #C9A777 0 97%, rgba(201, 167, 119, 0) 100%),
+    radial-gradient(ellipse 19% 17% at 86% 90%, #DDBE8E 0 97%, rgba(221, 190, 142, 0) 100%),
+    radial-gradient(ellipse 14% 9% at 70% 97%, #D2B080 0 97%, rgba(210, 176, 128, 0) 100%),
+    /* las olas: rayas claras, cada vez más largas hacia la orilla */
+    linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.55) 30%, rgba(255,255,255,.55) 70%, rgba(255,255,255,0)) 62% 50% / 30% 1.5px no-repeat,
+    linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.6) 30%, rgba(255,255,255,.6) 70%, rgba(255,255,255,0)) 22% 57% / 38% 2px no-repeat,
+    linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.6) 30%, rgba(255,255,255,.6) 70%, rgba(255,255,255,0)) 78% 64% / 44% 2px no-repeat,
+    linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.7) 30%, rgba(255,255,255,.7) 70%, rgba(255,255,255,0)) 30% 72% / 52% 2.5px no-repeat,
+    linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.75) 30%, rgba(255,255,255,.75) 70%, rgba(255,255,255,0)) 60% 80% / 58% 3px no-repeat,
+    /* el sol, bajo y a la izquierda */
+    radial-gradient(circle at 20% 22%, #FFFDF2 0, rgba(255, 250, 224, .9) 7%, rgba(255, 244, 200, 0) 30%),
+    /* dos nubes */
+    radial-gradient(ellipse 24% 5% at 72% 16%, rgba(255, 255, 255, .9), rgba(255, 255, 255, 0) 72%),
+    radial-gradient(ellipse 16% 4% at 46% 27%, rgba(255, 255, 255, .8), rgba(255, 255, 255, 0) 72%),
+    /* cielo · horizonte · mar */
+    linear-gradient(#8FC4E8 0, #CBE6F1 34%, #F5EEDC 42.5%, #2C8CA6 43%, #3FA9B8 62%, #7CCFC9 82%, #BFE9DD 92%);
+}
+.ventana__vista{ position: absolute; inset: calc(var(--u) * .7); overflow: hidden; }
+/* el sol en el agua: puntos de luz que van y vienen */
+.ventana__brillos{
+  position: absolute; left: 4%; top: 46%; width: 44%; height: 38%;
+  background:
+    radial-gradient(ellipse, #fff 0 .9px, transparent 1.5px) 0 0 / 19px 7px,
+    radial-gradient(ellipse, #fff 0 .8px, transparent 1.3px) 7px 4px / 31px 11px,
+    radial-gradient(ellipse, #fff 0 .8px, transparent 1.3px) 13px 2px / 43px 17px;
+  -webkit-mask-image: radial-gradient(ellipse at 40% 40%, #000 20%, transparent 72%);
+          mask-image: radial-gradient(ellipse at 40% 40%, #000 20%, transparent 72%);
+  animation: brillos 3.6s ease-in-out infinite alternate;
+}
+@keyframes brillos{ from{ opacity: .3; } to{ opacity: .85; } }
+
+/* la palmera de fuera: el tronco por la izquierda y las hojas colgando */
+.ventana__tronco{ position: absolute; left: -1%; top: 0; width: 9%; height: 104%; }
+.palmera{ display: block; overflow: visible; }
+.palmera--ventana{
+  position: absolute; left: -31%; top: -58%; width: 96%;
+  transform-origin: 50% 50%; will-change: transform; animation: mecer 9s ease-in-out infinite alternate;
+}
+@keyframes mecer{ from{ rotate: -2.2deg; } to{ rotate: 2.6deg; } }
+
+/* una maceta pequeña en la repisa (está en la pared: se ve de frente) */
+.ventana__maceta{ position: absolute; right: 6%; bottom: calc(var(--u) * -.75); width: 15%; }
+.ventana__maceta i{
+  display: block; width: 62%; margin: 0 auto; aspect-ratio: 1 / .82;
+  background: linear-gradient(90deg, #B5764E, #D69A6E 40%, #C5855A 70%, #A2683F);
+  border-radius: 12% 12% 34% 34% / 10% 10% 46% 46%;
+  box-shadow: inset 0 calc(var(--u) * .25) 0 #A2683F;
+}
+.ventana__maceta .ramitas{ position: absolute; left: 0; bottom: 78%; width: 100%; }
+.ramitas{ display: block; overflow: visible; }
+
+/* la maceta de la mesa: como la taza, pero de barro y con su planta */
+.cosa--maceta{ --alto: calc(var(--u) * 5); left: calc(var(--u) * 74.5); top: calc(var(--u) * 3.5); width: calc(var(--u) * 6.4); aspect-ratio: 1; }
+.cosa--maceta .taza__pie{ background: #A2683F; }
+.cosa--maceta .cosa__sombra{ inset: 30% -40% -30% 10%; border-radius: 50%; }
+.maceta__cuerpo{
+  position: absolute; left: -6%; width: 112%; top: calc(50% - var(--alto)); height: var(--alto);
+  transform-origin: 50% 100%; transform: rotateX(-90deg);
+  background: linear-gradient(90deg, #A9693F, #D89C70 34%, #C98A5E 62%, #9A5F38);
+  border-radius: 22% 22% 44% 44% / 14% 14% 50% 50%;
+}
+.maceta__boca{
+  position: absolute; inset: 4%; border-radius: 50%; transform: translateZ(var(--alto));
+  background: radial-gradient(circle, #4A3A28 0 62%, #B5764E 64% 100%);
+}
+.maceta__planta{
+  position: absolute; left: -45%; width: 190%; top: calc(50% - var(--u) * 13); height: calc(var(--u) * 13);
+  transform-origin: 50% 100%; transform: translateZ(calc(var(--alto) * .92)) rotateX(-90deg);
+  pointer-events: none;
+}
+.maceta__planta .ramitas{ position: absolute; left: 0; bottom: 0; width: 100%; }
+
+/* el sol en la mesa: tres hojas de ventana = tres columnas */
+.fondo-playa .sol{ grid-template: 1fr 1fr / repeat(3, 1fr); left: calc(var(--u) * -19); width: calc(var(--u) * 36); }
+/* y encima, la sombra de la palmera, que se mece con ella */
+.sombra-hojas{
+  position: absolute; left: calc(var(--u) * -36); top: calc(var(--u) * -13); width: calc(var(--u) * 36);
+  transform-origin: 50% 0; transform: translateZ(.35px) skewX(31deg) scaleY(1.5);
+  opacity: .36; filter: blur(calc(var(--u) * .2)); pointer-events: none;
+  will-change: transform; animation: mecer 9s ease-in-out infinite alternate;
+}
+
+/* hojas que asoman por la derecha, por delante de todo (a la
+   izquierda taparían la nota de «elige una caja») */
+.hojas-delante{
+  position: absolute; z-index: 2; right: calc(var(--u) * -17); top: 30%; width: calc(var(--u) * 32); scale: -1 1;
+  pointer-events: none; filter: blur(1.2px) drop-shadow(calc(var(--u) * .5) calc(var(--u) * .9) calc(var(--u) * .9) rgba(52, 40, 20, .28));
+  will-change: transform; animation: mecer 11s ease-in-out infinite alternate-reverse;
+}
+
+/* ── Los nombres de las cajas, que se lean (Gigi, 2026-10-13: «no se
+      ven») ── Cajas algo más grandes y la pegatina de delante bastante
+      más: ocupa casi todo el ancho de la cara. Fondos dibujados, en
+      pantalla grande; con foto, la letra también sube. */
+@media (min-width: 768px){
+  .fondo-dibujado .cajas{ width: calc(var(--u) * 56); gap: calc(var(--u) * 1.5); }
+  .fondo-dibujado .cubo__nombre{
+    left: 6%; top: 13%; max-width: 90%; rotate: -1.5deg;
+    font-size: calc(var(--u) * 1.22); line-height: 1.15; padding: .4em .55em;
+  }
+  .fondo-dibujado .cubo__nombre:lang(zh){ font-size: calc(var(--u) * 1.3); }
+  .fondo-foto .cubo__nombre{ left: 6%; max-width: 90%; font-size: calc(var(--u) * .95); line-height: 1.15; }
+}
+
+/* ── La nota de «elige una caja», a la vista ──
+   Las manos descansan abajo, a los lados, y la izquierda la tapaba
+   (Gigi, 2026-10-13). Sube al lado del portátil, más grande, y el
+   precinto baja al sitio que deja. Vale para los dos fondos dibujados. */
+@media (min-width: 768px){
+  .fondo-dibujado.con-3d .cosa--pista{
+    left: calc(var(--u) * 0); top: calc(var(--u) * 17.5); width: calc(var(--u) * 11.5);
+    padding: calc(var(--u) * 1.1) calc(var(--u) * 1.1) calc(var(--u) * .8);
+    font-size: calc(var(--u) * 2.15); rotate: -5deg; background: #FFEFA6;
+    box-shadow: calc(var(--u) * .4) calc(var(--u) * .7) calc(var(--u) * 1.2) var(--sombra);
+  }
+  .fondo-dibujado.con-3d .cosa--pista:lang(zh){ font-size: calc(var(--u) * 1.6); }
+  .fondo-dibujado .cosa--movil{ left: calc(var(--u) * 73); }
+  .fondo-dibujado.con-3d .cosa--rollo{ left: calc(var(--u) * -6); top: calc(var(--u) * 21); }
+  .fondo-dibujado.con-3d .cosa--tira{ left: calc(var(--u) * -1); top: calc(var(--u) * 31.5); }
+  /* con foto: también más arriba, lejos de la mano */
+  .fondo-foto.con-3d .cosa--pista{ top: calc(var(--u) * 33); left: calc(var(--u) * 0); width: calc(var(--u) * 10); font-size: calc(var(--u) * 1.8); }
+}
+
+@media (max-width: 767px){
+  .fondo-playa .ventana{ left: calc(var(--u) * 52); bottom: calc(var(--u) * 14); width: calc(var(--u) * 40); height: calc(var(--u) * 50); }
+  .fondo-playa :is(.foto--1, .foto--2){ display: none; }
+  .fondo-playa .foto--3{ left: calc(var(--u) * 100); }
+  /* en el móvil el portátil va de lado a lado: las hojas de delante lo taparían */
+  .cosa--maceta, .sombra-hojas, .hojas-delante{ display: none; }
+}
+
+@media (prefers-reduced-motion: reduce){
+  .sol, .polvo i{ animation: none; }
+  .polvo{ display: none; }
+  .palmera, .ventana__brillos, .sombra-hojas, .hojas-delante{ animation: none; }
+}

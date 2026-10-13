@@ -2,7 +2,7 @@
   "_nota": "中文界面文字。各板块的正文在 content/*.json。",
   "html.lang": "zh-Hans",
   "doc.titulo": "Gigi · 关月颖 — 品牌传播与内容创作",
-  "doc.descripcion": "关月颖（Gigi）的作品集：跨媒体传播、内容创作与市场营销，连接中国与西班牙。",
+  "doc.descripcion": "关月颖（Gigi）的作品集：跨媒体传播、内容创作与市场营销，连接中国与世界。",
   "saltar": "跳到正文",
   "marca.nombre": "关月颖",
   "marca.sello.alt": "刻着 Yueying 的名章",
@@ -22,7 +22,7 @@
   "cv.descargar": "下载简历",
   "cv.archivo": "assets/cv/CV-Gigi-EN.pdf",
   "entrada.saludo": "你好，我是 Gigi。",
-  "entrada.linea": "内容创作者与品牌传播，连接中国与西班牙。",
+  "entrada.linea": "内容创作者与品牌传播，连接中国与世界。",
   "entrada.pista": "选一个盒子，拆开看看。",
   "mesa.baja": "往下滚，从上面看这张桌子",
   "mesa.nota": "欢迎～这里可以看，也可以摸 ;)",
@@ -115,6 +115,11 @@
   "web.abrir-fuera": "在新标签页打开 ↗",
   "web.abrir": "打开网页",
   "serie.ver": "看这个系列",
+  "espejo.intro": "内容创作者，做连接中国与世界的品牌传播。",
+  "espejo.bienvenida": [
+    "欢迎光临，",
+    "这里可以看，也可以摸"
+  ],
   "pared.cinta": [
     "内容",
     "品牌传播"

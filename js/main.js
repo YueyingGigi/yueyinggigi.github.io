@@ -12,16 +12,26 @@ import { abrirCaja } from './unbox.js';
 import { iniciarBarra } from './chrome.js';
 import { iniciarMano } from './hand.js';
 import { montarEscena } from './escena.js';
+import { cualPortada, cargarEspejo } from './portada.js';
 
 async function iniciar(){
   iniciarBarra();
+
+  // la mesa de siempre o la del espejo: lo decide content/portada.json.
+  // Se pregunta a la vez que se cargan los textos, para no esperar dos veces.
+  const quePortada = cualPortada();
 
   let textos = {};
   try { textos = await iniciarIdioma(); }
   catch (e) { console.error('No se han podido cargar los textos:', e); }
 
+  const portada = await quePortada;
+  const espejo = await cargarEspejo(portada);            // null en la clásica
+
   // la mesa en 3D y el plano de entrada (docs/HOME-3D.md)
-  const escena = montarEscena(document.querySelector('.mesa'), textos);
+  const escena = montarEscena(document.querySelector('.mesa'), textos,
+    espejo ? espejo.opcionesDeEscena(portada.fondo) : {});
+  espejo?.montarEspejo(document.querySelector('.mesa'), textos);
 
   iniciarMano(document.querySelector('.mesa'));
 

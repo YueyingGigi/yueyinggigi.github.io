@@ -38,9 +38,15 @@ const CERCA = 1500;           // perspectiva de frente (px)
 /* Dónde se queda la cámara arriba. Gigi probó las dos (2026-10-06)
    y eligió DESDE ARRIBA. La oblicua se puede ver aún con ?vista=oblicua. */
 const OBLICUA = new URLSearchParams(location.search).get('vista') === 'oblicua';
-const FINAL = OBLICUA
+const FINAL_MESA = OBLICUA
   ? { rx: 38, perspectiva: 2300, pared: 1 }
   : { rx: 0,  perspectiva: 1900, pared: 0 };
+/* La portada del espejo (js/portada.js) no tiene plano de entrada: la
+   cámara está quieta, mirando la mesa en oblicuo, y la pared se ve. */
+const FIJA = { rx: 48, perspectiva: 3000, pared: 1 };
+/* En el móvil las cajas van en dos filas: más desde arriba, para que
+   la fila de delante no tape a la de detrás. */
+const FIJA_MOVIL = { rx: 27, perspectiva: 3000, pared: 1 };
 
 /* Cuánto gira la mesa siguiendo al ratón, y cuánto se mueve una caja
    al acercarse (grados / px). Desde arriba tiene que ser bastante más
@@ -96,9 +102,15 @@ function pintarCosas(cosas, textos){
   cosas.querySelector('.cosa--nota').textContent = textos['mesa.nota'] || 'Bienvenid@, aquí se mira y se toca ;)';
 }
 
-export function montarEscena(mesa, textos){
+export function montarEscena(mesa, textos, opciones = {}){
   const lista = mesa?.querySelector('.cajas');
   if (!lista) return null;
+  // fija: la cámara no la mueve nadie (ni rueda, ni dedo, ni flechas)
+  const fija = !!opciones.fija;
+  // (quien monta la mesa puede traer su propia cámara: la del espejo
+  // con foto de fondo tiene que coincidir con la de la foto)
+  const FINAL = fija ? (opciones.camara || (enMovil() ? FIJA_MOVIL : FIJA)) : FINAL_MESA;
+  const GIRO = FINAL.giro || GIRO_MESA;
 
   // ── el andamio ──
   const escena = el('div', 'escena');
@@ -117,7 +129,7 @@ export function montarEscena(mesa, textos){
   camara.append(pared, tablero, luz, rotulo, cosas, lista);
   pintarCinta(cinta, textos);
   pintarCinta(cintaMesa, textos);
-  pintarCosas(cosas, textos);
+  (opciones.cosas || pintarCosas)(cosas, textos);
 
   // la pista de abajo: «baja y asómate»
   const pista = el('button', 'asomate');
@@ -153,7 +165,8 @@ export function montarEscena(mesa, textos){
   document.addEventListener('idioma:cambiado', e => {
     pintarCinta(cinta, e.detail.textos);
     pintarCinta(cintaMesa, e.detail.textos);
-    cosas.querySelector('.cosa--nota').textContent = e.detail.textos['mesa.nota'] || '';
+    const nota = cosas.querySelector('.cosa--nota');
+    if (nota) nota.textContent = e.detail.textos['mesa.nota'] || '';
     pista.firstElementChild.textContent = e.detail.textos['mesa.baja'] || '';
   });
 
@@ -169,7 +182,7 @@ export function montarEscena(mesa, textos){
   const cambiarVista = ar => {
     arriba = ar;
     escena.dataset.lista = String(ar);
-    if (ar) apuntarSubida();
+    if (ar && !fija) apuntarSubida();
     document.dispatchEvent(new CustomEvent('escena:vista', { detail: { arriba: ar } }));
   };
 
@@ -178,8 +191,8 @@ export function montarEscena(mesa, textos){
     if (!G || enfocada) return;
     const e = paso(est.p, 0, 1);
     G.set(camara, {
-      rotationX: FRENTE + (FINAL.rx - FRENTE) * e - rat.y * GIRO_MESA.x * e,
-      rotationY: rat.x * GIRO_MESA.y * (0.22 + 0.78 * e)
+      rotationX: FRENTE + (FINAL.rx - FRENTE) * e - rat.y * GIRO.x * e,
+      rotationY: rat.x * GIRO.y * (0.22 + 0.78 * e)
     });
     G.set(escena, { perspective: CERCA + (FINAL.perspectiva - CERCA) * e });
     pared.style.opacity = String(1 + (FINAL.pared - 1) * paso(e, 0.45, 0.85));
@@ -203,6 +216,7 @@ export function montarEscena(mesa, textos){
     const ar = est.p > 0.93;
     if (ar !== arriba) cambiarVista(ar);
     if (est.p > 0.995 && alLlegar.length) alLlegar.splice(0).forEach(f => f());
+    opciones.alGirar?.(rat);
   }
 
   function ir(v, dur = 0.6){
@@ -319,17 +333,17 @@ export function montarEscena(mesa, textos){
     medirFila();
     new ResizeObserver(() => { medir(); medirFila(); aplicar(); }).observe(lista);
 
-    est.p = objetivo = yaSubio() ? 1 : 0;
+    est.p = objetivo = (fija || yaSubio()) ? 1 : 0;
     cubos.forEach(c => gsap.set(c, { rotation: parseFloat(getComputedStyle(c).getPropertyValue('--giro')) || 0 }));
     aplicar();
-    pista.hidden = false;
+    pista.hidden = fija;
 
     clearTimeout(porSiAcaso);
     escena.style.opacity = '';
     // las cajas caen sobre la mesa, una detrás de otra
     gsap.from(cubos, { z: 320, opacity: 0, duration: 0.62, ease: 'back.out(1.5)', stagger: 0.1, clearProps: 'opacity' });
 
-    mandar(gsap);
+    if (!fija) mandar(gsap);
     responder(gsap);
   }).then(hay => { if (!hay){ clearTimeout(porSiAcaso); sinMas(); } });
 
@@ -426,16 +440,16 @@ export function montarEscena(mesa, textos){
       window.addEventListener('pointermove', e => {
         ultimoGesto = performance.now();
         mx = e.clientX; my = e.clientY;
-        mover((mx / innerWidth - 0.5) * 2, (my / innerHeight - 0.5) * 2);
+        if (!fija) mover((mx / innerWidth - 0.5) * 2, (my / innerHeight - 0.5) * 2);
         if (!pendiente){ pendiente = true; requestAnimationFrame(alumbrar); }
       }, { passive: true });
       document.documentElement.addEventListener('pointerleave', () => {
-        mover(0, 0);
+        if (!fija) mover(0, 0);
         escena.dataset.sinLuz = 'true';
         sombras.forEach(s => { s.style.removeProperty('--sx'); s.style.removeProperty('--sy'); });
       });
       document.documentElement.addEventListener('pointerenter', () => { delete escena.dataset.sinLuz; });
-    } else if ('DeviceOrientationEvent' in window && typeof DeviceOrientationEvent.requestPermission !== 'function'){
+    } else if (!fija && 'DeviceOrientationEvent' in window && typeof DeviceOrientationEvent.requestPermission !== 'function'){
       window.addEventListener('deviceorientation', e => {
         if (e.gamma == null) return;
         mover(entre(e.gamma / 25, -1, 1), entre((e.beta - 45) / 25, -1, 1));
@@ -461,9 +475,64 @@ export function montarEscena(mesa, textos){
         .to(c, { z: 0, rotation: giro, duration: 0.5, ease: 'bounce.out' });
     }, 900);
 
+    /* La mesa fija (la del espejo) no se mueve sola ni sigue al ratón
+       (Gigi, 2026-10-13: «se mueve demasiado»): gira solo mientras se
+       arrastra con el botón pulsado, o con el dedo, y se queda como se
+       deja. Con doble clic vuelve a estar de frente. */
+    if (fija){
+      const suelto = e => !e.target.closest('.caja, .cosa, a, button');
+      let agarre = null;
+      mesa.addEventListener('pointerdown', e => {
+        if (enfocada || e.button > 0 || !suelto(e)) return;
+        agarre = { id: e.pointerId, x: e.clientX, y: e.clientY, rx: rat.x, ry: rat.y };
+        mesa.setPointerCapture(e.pointerId);
+        mesa.dataset.girando = 'true';
+        gsap.killTweensOf(rat);
+      });
+      mesa.addEventListener('pointermove', e => {
+        if (!agarre || e.pointerId !== agarre.id || enfocada) return;
+        rat.x = entre(agarre.rx + (e.clientX - agarre.x) / (innerWidth * 0.4), -1, 1);
+        rat.y = entre(agarre.ry + (e.clientY - agarre.y) / (innerHeight * 0.4), -1, 1);
+        aplicar();
+      });
+      const soltarMesa = e => { if (agarre && e.pointerId === agarre.id){ agarre = null; delete mesa.dataset.girando; } };
+      mesa.addEventListener('pointerup', soltarMesa);
+      mesa.addEventListener('pointercancel', soltarMesa);
+      mesa.addEventListener('dblclick', e => {
+        if (!enfocada && suelto(e)) gsap.to(rat, { x: 0, y: 0, duration: 0.6, ease: 'power2.out', overwrite: true, onUpdate: aplicar });
+      });
+    }
+
     // las cosas sueltas: el ratón las empuja y se quedan donde las dejan
     cosas.querySelectorAll('.cosa').forEach(cosa => {
       let x = 0, y = 0, g = 0;
+      /* En la mesa fija no se empujan al pasar: se cogen y se ponen
+         donde se quiera (Gigi, 2026-10-13). Lo que el ratón recorre en
+         la pantalla se pasa a la mesa: de lado, tal cual; hacia el
+         fondo, más, porque la mesa se ve tumbada. */
+      if (fija){
+        let cogida = null;
+        cosa.addEventListener('pointerdown', e => {
+          if (enfocada || e.button > 0) return;
+          e.preventDefault();
+          cogida = { id: e.pointerId, px: e.clientX, py: e.clientY, x, y };
+          cosa.setPointerCapture(e.pointerId);
+          cosa.dataset.cogida = 'true';
+        });
+        cosa.addEventListener('pointermove', e => {
+          if (!cogida || e.pointerId !== cogida.id) return;
+          const tumbada = Math.max(0.25, Math.cos(FINAL.rx * Math.PI / 180));
+          const margen = camara.offsetWidth * 0.18;
+          x = entre(cogida.x + (e.clientX - cogida.px), -cosa.offsetLeft - margen, camara.offsetWidth - cosa.offsetLeft - cosa.offsetWidth + margen);
+          y = entre(cogida.y + (e.clientY - cogida.py) / tumbada, -cosa.offsetTop, camara.offsetHeight - cosa.offsetTop - cosa.offsetHeight + margen);
+          g = entre(g + e.movementX * 0.015, -12, 12);
+          gsap.set(cosa, { x, y, rotation: g });
+        });
+        const dejar = e => { if (cogida && e.pointerId === cogida.id){ cogida = null; delete cosa.dataset.cogida; } };
+        cosa.addEventListener('pointerup', dejar);
+        cosa.addEventListener('pointercancel', dejar);
+        return;
+      }
       cosa.addEventListener('pointermove', e => {
         if (!arriba || enfocada) return;
         x = entre(x + e.movementX * 0.55, -70, 70);
