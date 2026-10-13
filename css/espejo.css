@@ -1,6 +1,5 @@
 /* ─────────────────────────────────────────────────────────────
-   espejo.css — la portada del espejo (js/espejo/montar.js). En la
-   versión clásica este archivo ni se descarga.
+   espejo.css — la portada: el escritorio del espejo (js/espejo/montar.js).
 
    Un escritorio visto en oblicuo, con la cámara quieta:
      · el portátil del espejo empañado, en el centro, lo más grande
@@ -49,6 +48,10 @@
   content: ""; position: absolute; inset: 0; z-index: 2; pointer-events: none;
   background: radial-gradient(ellipse 78% 74% at 50% 46%, transparent 52%, rgba(64, 44, 24, .26) 100%);
 }
+
+/* hasta que js/escena.js monta el 3D (un instante), las cajas planas
+   no se enseñan: se verían en fila, sin mesa */
+.con-espejo:not(.con-3d) .cajas{ visibility: hidden; }
 
 /* ── La escena ── */
 .con-espejo.con-3d .escena{

@@ -3,8 +3,8 @@
    con el portátil del espejo empañado en el centro, las cinco cajas
    delante y la luz de una ventana cruzando la mesa.
 
-   Solo se carga en la versión «espejo» (js/portada.js). Todo va
-   dentro de la cámara de js/escena.js, así que gira con el ratón.
+   Es la portada del sitio (js/main.js). Todo va dentro de la cámara
+   de js/escena.js, así que gira al arrastrar.
 
    · opcionesDeEscena()  lo que se le pide a js/escena.js: cámara
                     quieta, y pintarMesa() en lugar de sus tres cosas
@@ -40,7 +40,6 @@ function colgar(href){
   document.head.appendChild(l);
   return new Promise(ok => { l.onload = l.onerror = ok; });
 }
-export const estilos = colgar('css/espejo.css');
 const letras = colgar(LETRAS);
 
 const leerJson = async (url) => {

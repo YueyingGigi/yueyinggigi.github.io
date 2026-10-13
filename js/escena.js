@@ -41,7 +41,7 @@ const OBLICUA = new URLSearchParams(location.search).get('vista') === 'oblicua';
 const FINAL_MESA = OBLICUA
   ? { rx: 38, perspectiva: 2300, pared: 1 }
   : { rx: 0,  perspectiva: 1900, pared: 0 };
-/* La portada del espejo (js/portada.js) no tiene plano de entrada: la
+/* La portada del espejo (js/espejo/montar.js) no tiene plano de entrada: la
    cámara está quieta, mirando la mesa en oblicuo, y la pared se ve. */
 const FIJA = { rx: 48, perspectiva: 3000, pared: 1 };
 /* En el móvil las cajas van en dos filas: más desde arriba, para que

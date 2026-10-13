@@ -24,12 +24,31 @@
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,600;9..144,900&family=DM+Sans:wght@400;500;700&family=Caveat:wght@400;600&family=Noto+Sans+SC:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/lxgw-wenkai-webfont@1.7.0/style.css">
 
+<!-- La portada es el escritorio del espejo (js/espejo/, css/espejo.css).
+     Sus clases se ponen aquí, antes de pintar nada, para que no se vea
+     ni un instante otra cosa. Van con script y no escritas en <html>:
+     sin JavaScript no hay 3D, y entonces la mesa se queda plana y legible.
+     ?fondo=foto o ?fondo=dibujado enseñan los otros dos fondos que se
+     conservan; el de siempre es «playa». -->
+<script>
+(function(){
+  var c = document.documentElement.classList, f = new URLSearchParams(location.search).get('fondo');
+  c.add('con-espejo');
+  if (f === 'foto') c.add('fondo-foto');
+  else { c.add('fondo-dibujado'); if (f !== 'dibujado') c.add('fondo-playa'); }
+})();
+</script>
+<link rel="modulepreload" href="js/espejo/montar.js">
+<link rel="modulepreload" href="js/espejo/reproductor.js">
+<link rel="modulepreload" href="js/espejo/niebla.js">
+
 <link rel="stylesheet" href="css/tokens.css">
 <link rel="stylesheet" href="css/base.css">
 <link rel="stylesheet" href="css/caja.css">
 <link rel="stylesheet" href="css/desk.css">
 <link rel="stylesheet" href="css/reveal.css">
 <link rel="stylesheet" href="css/escena.css">
+<link rel="stylesheet" href="css/espejo.css">
 </head>
 <body>
 

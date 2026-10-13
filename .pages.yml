@@ -135,33 +135,6 @@ content:
           - { name: asunto, label: Asunto del correo, type: object, fields: *tri }
           - { name: plantilla, label: Mensaje ya escrito en la carta, type: object, fields: *tri_texto }
 
-  # Qué mesa ve quien entra: la de siempre o la del espejo empañado.
-  # Para mirar una sin cambiar nada: añadir ?portada=espejo (o
-  # ?portada=clasica) a la dirección de la portada.
-  - name: portada
-    label: Portada (qué versión se ve)
-    type: file
-    path: content/portada.json
-    format: json
-    fields:
-      - name: version
-        label: Versión de la portada
-        type: select
-        required: true
-        options:
-          values:
-            - { value: clasica, label: "Clásica · la mesa de siempre" }
-            - { value: espejo, label: "Espejo · el escritorio con el portátil empañado" }
-      - name: fondo
-        label: "Fondo (solo en la versión Espejo)"
-        type: select
-        required: true
-        options:
-          values:
-            - { value: playa, label: "Dibujado con mar · la habitación con ventanal a la playa" }
-            - { value: dibujado, label: "Dibujado · la habitación con ventana" }
-            - { value: foto, label: "Foto · la mesa de madera en la playa" }
-
   - name: textos
     label: Los otros apartados (texto, con cuidado)
     type: group
