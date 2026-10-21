@@ -1,0 +1,6 @@
+{
+  "_nota": "El CV que descarga cada idioma. Gigi lo cambia desde el panel (Pages CMS · «CV»): sube el PDF y lo elige aquí. Si un idioma se deja vacío, se usa el de i18n (assets/cv/CV-Gigi-ES.pdf / -EN.pdf). El PDF tiene que ir SIN teléfono.",
+  "es": "assets/cv/CV-Gigi-ES.pdf",
+  "en": "assets/cv/CV-Gigi-EN.pdf",
+  "zh": "assets/cv/CV-Gigi-EN.pdf"
+}

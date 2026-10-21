@@ -28,6 +28,11 @@ media:
     input: assets/marcas
     output: assets/marcas
     categories: [image]
+  - name: cv
+    label: CV (PDF, sin teléfono)
+    input: assets/cv
+    output: assets/cv
+    extensions: [pdf]
   - name: fotos
     label: Fotos (Mi vida, Sobre mí)
     input: assets/media/fotos
@@ -134,6 +139,19 @@ content:
           - { name: web3forms, label: "Clave de Web3Forms (no tocar)", type: string, readonly: true }
           - { name: asunto, label: Asunto del correo, type: object, fields: *tri }
           - { name: plantilla, label: Mensaje ya escrito en la carta, type: object, fields: *tri_texto }
+
+  # El CV que se descarga en cada idioma. Primero se sube el PDF en
+  # «Media → CV»; luego se elige aquí. Vacío = el de siempre.
+  - name: cv
+    label: CV (el que se descarga)
+    type: file
+    path: content/cv.json
+    format: json
+    fields:
+      - { name: _nota, type: text, hidden: true }
+      - { name: es, label: "CV en español (PDF SIN teléfono)", type: file, options: { media: cv } }
+      - { name: en, label: "CV en inglés (PDF SIN teléfono)", type: file, options: { media: cv } }
+      - { name: zh, label: "CV para la versión en chino (PDF SIN teléfono; hoy, el inglés)", type: file, options: { media: cv } }
 
   - name: textos
     label: Los otros apartados (texto, con cuidado)

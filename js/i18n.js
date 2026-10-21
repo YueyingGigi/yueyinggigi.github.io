@@ -38,11 +38,20 @@ function elegirIdioma(){
   return POR_DEFECTO;
 }
 
+/* El CV de cada idioma lo elige Gigi en el panel (content/cv.json).
+   Si el archivo no se puede leer o un idioma está vacío, vale el de
+   i18n/*.json («cv.archivo»). Se lee una sola vez por visita. */
+let cvs = null;
+const leerCvs = () => cvs || (cvs = fetch('content/cv.json', { cache: 'no-cache' })
+  .then(r => (r.ok ? r.json() : {}))
+  .catch(() => ({})));
+
 async function cargar(idioma){
   if (cache[idioma]) return cache[idioma];
-  const r = await fetch(`i18n/${idioma}.json`);
+  const [r, cv] = await Promise.all([fetch(`i18n/${idioma}.json`), leerCvs()]);
   if (!r.ok) throw new Error(`No se ha podido cargar i18n/${idioma}.json`);
   cache[idioma] = await r.json();
+  if (typeof cv[idioma] === 'string' && cv[idioma].trim()) cache[idioma]['cv.archivo'] = cv[idioma].trim();
   return cache[idioma];
 }
 
