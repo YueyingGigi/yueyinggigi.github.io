@@ -3,6 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Consentimiento: hasta que la visita acepte en el aviso de cookies, sin cookies de estadística -->
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+var si=null;try{si=localStorage.getItem('gigi.cookies');}catch(e){}
+gtag('consent','default',{analytics_storage:si==='si'?'granted':'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',wait_for_update:500});
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5FHXS6Q2');</script>
+<!-- End Google Tag Manager -->
 <title>Gigi · Yueying Guan — Comunicación de marca y creación de contenido</title>
 <meta name="description" content="Portfolio de Yueying Guan (Gigi): comunicación transmedia, creación de contenido y marketing entre China y el mundo.">
 
@@ -51,6 +64,10 @@
 <link rel="stylesheet" href="css/espejo.css">
 </head>
 <body>
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FHXS6Q2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <a class="saltar" href="#mesa" data-t="saltar">Saltar al contenido</a>
 
@@ -283,6 +300,7 @@
 <!-- La muñeca: una sola imagen grande, la misma que sale de la caja -->
 <img class="figura" src="" alt="" hidden>
 
+<script type="module" src="js/analitica.js"></script>
 <script type="module" src="js/main.js"></script>
 </body>
 </html>

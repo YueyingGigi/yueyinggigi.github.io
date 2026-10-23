@@ -184,3 +184,27 @@ a{ color: var(--rojo-sello-texto); text-decoration-thickness:1px; text-underline
 .sonido[aria-pressed="false"] .sonido__ondas{ display: none; }
 .sonido[aria-pressed="false"]{ color: var(--tinta-tenue); }
 @media (max-width: 900px){ .sonido{ display: none; } }
+
+/* ═══════════ Aviso de cookies (js/analitica.js) ═══════════
+   Solo aparece si hay estadísticas configuradas. Abajo, pequeño, con
+   «Aceptar» y «Rechazar» igual de visibles. */
+.cookies{
+  position: fixed; left: 50%; bottom: 16px; z-index: 70; translate: -50% 0;
+  width: min(640px, calc(100vw - 2 * var(--margen-movil)));
+  display: flex; flex-wrap: wrap; align-items: center; gap: 10px 16px;
+  padding: 14px 16px; border-radius: var(--radio-tarjeta);
+  background: var(--papel); color: var(--tinta);
+  box-shadow: var(--sombra-alta); border: 1px solid var(--gris-calido);
+  font-size: 14px; line-height: 1.45; cursor: auto;
+}
+.cookies__frase{ flex: 1 1 260px; }
+.cookies__botones{ display: flex; gap: 8px; }
+.cookies__boton{
+  font: inherit; font-weight: 600; padding: 8px 18px; border-radius: var(--radio-boton); cursor: pointer;
+  border: 1.5px solid var(--tinta); background: transparent; color: var(--tinta);
+}
+.cookies__boton:hover{ background: var(--tinta); color: var(--papel); }
+.cookies__mas{ font-size: 13px; color: var(--tinta-suave); }
+.pie-legal{ max-width: var(--ancho-max); margin: 0 auto; padding: var(--e6) var(--e6) var(--e7); font-size: 13px; }
+.pie-legal a{ color: var(--tinta-tenue); }
+@media (max-width: 767px){ .pie-legal{ padding: var(--e5) var(--margen-movil) var(--e8); } }

@@ -740,6 +740,7 @@ function pintarContacto(c, textos){
       estado.dataset.tipo = 'bien';
       estado.textContent = t('colabora.form.enviado');
       carta.reset();
+      document.dispatchEvent(new CustomEvent('formulario:enviado'));   // js/analitica.js lo cuenta
     } catch (err) {
       console.error('No se ha podido enviar el formulario:', err);
       estado.dataset.tipo = 'mal';

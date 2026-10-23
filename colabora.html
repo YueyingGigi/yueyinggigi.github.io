@@ -3,6 +3,19 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<!-- Consentimiento: hasta que la visita acepte en el aviso de cookies, sin cookies de estadística -->
+<script>
+window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}
+var si=null;try{si=localStorage.getItem('gigi.cookies');}catch(e){}
+gtag('consent','default',{analytics_storage:si==='si'?'granted':'denied',ad_storage:'denied',ad_user_data:'denied',ad_personalization:'denied',wait_for_update:500});
+</script>
+<!-- Google Tag Manager -->
+<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+})(window,document,'script','dataLayer','GTM-5FHXS6Q2');</script>
+<!-- End Google Tag Manager -->
 <title>Colabora conmigo · Gigi — Yueying Guan</title>
 <meta name="description" content="Vídeos UGC y colaboraciones con marcas. Escríbeme.">
 
@@ -32,6 +45,10 @@
 <link rel="stylesheet" href="css/colabora.css">
 </head>
 <body data-pagina="colabora">
+<!-- Google Tag Manager (noscript) -->
+<noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-5FHXS6Q2"
+height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+<!-- End Google Tag Manager (noscript) -->
 
 <a class="saltar" href="#contenido" data-t="saltar">Saltar al contenido</a>
 
@@ -174,6 +191,7 @@
 <!-- La muñeca de este apartado: grande, cambia de postura al bajar -->
 <img class="figura" src="assets/figures/colabora-frente.webp" alt="" data-sitio="derecha">
 
+<script type="module" src="js/analitica.js"></script>
 <script type="module" src="js/page.js"></script>
 </body>
 </html>
